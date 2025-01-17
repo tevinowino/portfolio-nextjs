@@ -4,6 +4,7 @@ import "./globals.css";
 import Link from "next/link";
 import { useState } from "react";
 import { Home, Info, Mail, FolderGit2, Menu, X } from "lucide-react";
+import Head from "next/head";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,19 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <Head>
+        <title>Tevin Owino - Portfolio</title>
+        <meta name="description" content="The personal portfolio of Tevin Owino, showcasing web development projects and skills." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="keywords" content="Tevin Owino, portfolio, web development, React, Next.js, JavaScript" />
+        <meta name="author" content="Tevin Owino" />
+        <meta property="og:title" content="Tevin Owino - Portfolio" />
+        <meta property="og:description" content="Explore the projects and skills of Tevin Owino, a fullstack web developer." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourwebsite.com" />
+        <meta property="og:image" content="/og-image.png" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <body className="bg-gray-900 text-gray-100">
         <nav className="fixed top-0 left-0 right-0 bg-gray-900/90 backdrop-blur-lg border-b border-blue-800/40 z-50 shadow-md">
           <div className="max-w-6xl mx-auto px-6">
@@ -53,7 +67,6 @@ export default function RootLayout({
                       className="group-hover:scale-110 transition-transform duration-200"
                     />
                     <span>{label}</span>
-                    {/* Bottom Hover Indicator */}
                     <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
                   </Link>
                 ))}
