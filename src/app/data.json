@@ -1,0 +1,54 @@
+{
+  "projects": [
+    {
+      "name": "Learnify",
+      "image": "/images/learnify.png",
+      "description": "A sleek and dynamic website built with Remix, designed to showcase Learnify's innovative web solutions for schools and educational institutions in Kenya. With a modern, responsive UI and fast, seamless navigation, the site offers an engaging experience for visitors. It highlights Learnify's services and values, making it the go-to platform for revolutionary educational technology.",
+      "technologies": ["React", "Node.js", "Remix", "TypeScript"],
+      "github": "https://github.com/tevinowino/learnify"
+    },
+
+    {
+      "name": "ShopSmart E-commerce App",
+      "image": "/images/shopsmart.png",
+      "description": "A full-featured e-commerce application built using the MERN stack and Remix, with user authentication and a seamless shopping experience.",
+      "technologies": ["MongoDB", "Express", "React", "Node.js", "Remix", "TypeScript"],
+      "github": "https://github.com/tevinowino/dash/tree/Cart-and-model-Implementation"
+    },
+    {
+      "name": "To-Do List App",
+      "image": "/images/todo.png",
+      "description": "A feature-rich to-do list app with state management, browser storage, and an intuitive UI.",
+      "technologies": ["React", "Redux", "CSS"],
+      "github": "https://github.com/tevinowino/To-Do-App-GMC"
+    },
+    {
+      "name": "Tevin's Restaurant",
+      "image": "/images/tevins.png",
+      "description": "A restaurant web app that allows users to browse menus, place orders, and leave reviews, using open-source APIs",
+      "technologies": ["Express", "Node.js","Open-Source APIs" ],
+      "github": "https://github.com/tevinowino/tevin-s"
+    },
+    {
+      "name": "Graspable Dreams",
+      "image": "/images/graspabledreams.png",
+      "description": "A platform designed to help users set and track their goals, with motivational features.",
+      "technologies": ["React", "Firebase", "Tailwind CSS"],
+      "github": "https://github.com/tevinowino/graspable-dreams"
+    },
+    {
+      "name": "MovieStream",
+      "image": "/images/moviestream.png",
+      "description": "A movie streaming application built with TMDb API, offering search, trending movies, and personalized recommendations.",
+      "technologies": ["Express", "Pug", "TMDb API"],
+      "github": "https://github.com/tevinowino/Movieflix"
+    },
+    {
+      "name": "Weather Application",
+      "image": "/images/weatherapp.png",
+      "description": "A stylish and dynamic weather app built with Remix, TypeScript, and the OpenWeather API. It provides real-time weather updates with an intuitive interface, featuring temperature, humidity, wind speed, and forecasts. The app is fully responsive, offering a seamless experience on both mobile and desktop devices.",
+      "technologies": ["Remix","TypeScript", "React", "OpenWeather API", "Tailwind CSS"],
+      "github": "https://github.com/tevinowino/Weather-App-TypeScript"
+    }
+  ]
+}

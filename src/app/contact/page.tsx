@@ -1,20 +1,46 @@
-'use client'
+'use client';
 
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import emailjs from 'emailjs-com'; // Import EmailJS SDK
+import { Mail, Phone, MapPin, Send, Github, Linkedin } from 'lucide-react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     subject: '',
     message: ''
   });
+  const [isSending, setIsSending] = useState(false); // State to track submission status
+  const [successMessage, setSuccessMessage] = useState(''); // Success message
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+    setIsSending(true); // Set sending status to true
+
+    // Call EmailJS service to send the email
+    emailjs
+      .sendForm(
+        'service_aea8657', // Replace with your service ID
+        'template_8spuzlc', // Replace with your template ID
+        e.target, // The form element
+        'TtNE8Ry0jPB-uKEtf' // Replace with your user ID
+      )
+      .then(
+        (result) => {
+          console.log('Email sent successfully:', result);
+          setSuccessMessage('Your message has been sent successfully!');
+          setFormData({ name: '', email: '', subject: '', message: '' }); // Reset form
+        },
+        (error) => {
+          console.error('Error sending email:', error);
+          setSuccessMessage('Oops! Something went wrong, please try again later.');
+        }
+      )
+      .finally(() => {
+        setIsSending(false); // Reset sending status after the request is completed
+      });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -45,9 +71,9 @@ export default function ContactPage() {
           <div className="space-y-8">
             <div className="space-y-6">
               <h2 className="text-2xl font-semibold">Contact Information</h2>
-              
+
               <div className="space-y-4">
-                <a 
+                <a
                   href="mailto:contact@example.com"
                   className="flex items-center gap-4 text-gray-300 hover:text-blue-400 transition-colors group"
                 >
@@ -60,7 +86,7 @@ export default function ContactPage() {
                   </div>
                 </a>
 
-                <a 
+                <a
                   href="tel:+1234567890"
                   className="flex items-center gap-4 text-gray-300 hover:text-blue-400 transition-colors group"
                 >
@@ -89,29 +115,21 @@ export default function ContactPage() {
             <div>
               <h2 className="text-2xl font-semibold mb-6">Follow Me</h2>
               <div className="flex gap-4">
-                <a 
-                  href="https://github.com"
+                <a
+                  href="https://github.com/tevinowino/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center text-gray-300 hover:text-blue-400 hover:bg-blue-900/50 transition-all duration-300"
                 >
                   <Github className="w-6 h-6" />
                 </a>
-                <a 
-                  href="https://linkedin.com"
+                <a
+                  href="www.linkedin.com/in/tevin-owino"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center text-gray-300 hover:text-blue-400 hover:bg-blue-900/50 transition-all duration-300"
                 >
                   <Linkedin className="w-6 h-6" />
-                </a>
-                <a 
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center text-gray-300 hover:text-blue-400 hover:bg-blue-900/50 transition-all duration-300"
-                >
-                  <Twitter className="w-6 h-6" />
                 </a>
               </div>
             </div>
@@ -120,7 +138,6 @@ export default function ContactPage() {
           {/* Contact Form */}
           <div>
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                     Name
@@ -152,6 +169,21 @@ export default function ContactPage() {
                     required
                   />
                 </div>
+
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
+                    Phone
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 bg-gray-800/50 border border-blue-900/30 rounded-lg focus:outline-none focus:border-blue-500 text-gray-100 placeholder-gray-500 transition-colors"
+                    placeholder="+254712345678"
+                    required
+                  />
 
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
@@ -189,14 +221,23 @@ export default function ContactPage() {
               <button
                 type="submit"
                 className="w-full inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] group"
+                disabled={isSending}
               >
-                <span>Send Message</span>
+                <span>{isSending ? 'Sending...' : 'Send Message'}</span>
                 <Send size={20} className="group-hover:translate-x-1 transition-transform" />
               </button>
             </form>
+
+            {/* Success/Error message */}
+            {successMessage && (
+              <div className="mt-4 text-center text-gray-300">
+                <p>{successMessage}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 }
+
