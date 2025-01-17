@@ -3,19 +3,29 @@
 import { useState } from 'react';
 import emailjs from 'emailjs-com'; // Import EmailJS SDK
 import { Mail, Phone, MapPin, Send, Github, Linkedin } from 'lucide-react';
+import { EmailJSResponseStatus } from '@emailjs/browser';
+
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+}
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     phone: '',
     subject: '',
-    message: ''
+    message: '',
   });
-  const [isSending, setIsSending] = useState(false); // State to track submission status
-  const [successMessage, setSuccessMessage] = useState(''); // Success message
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSending, setIsSending] = useState<boolean>(false); // Track submission status
+  const [successMessage, setSuccessMessage] = useState<string>(''); // Success message
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSending(true); // Set sending status to true
 
@@ -24,29 +34,29 @@ export default function ContactPage() {
       .sendForm(
         'service_aea8657', // Replace with your service ID
         'template_8spuzlc', // Replace with your template ID
-        e.target, // The form element
+        e.currentTarget, // The form element
         'TtNE8Ry0jPB-uKEtf' // Replace with your user ID
       )
       .then(
-        (result) => {
+        (result: EmailJSResponseStatus) => {
           console.log('Email sent successfully:', result);
           setSuccessMessage('Your message has been sent successfully!');
-          setFormData({ name: '', email: '', subject: '', message: '' }); // Reset form
+          setFormData({ name: '', email: '', phone: '', subject: '', message: '' }); // Reset form
         },
-        (error) => {
+        (error: any) => {
           console.error('Error sending email:', error);
           setSuccessMessage('Oops! Something went wrong, please try again later.');
         }
       )
       .finally(() => {
-        setIsSending(false); // Reset sending status after the request is completed
+        setIsSending(false); // Reset sending status after request completion
       });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -74,7 +84,7 @@ export default function ContactPage() {
 
               <div className="space-y-4">
                 <a
-                  href="mailto:contact@example.com"
+                  href="mailto:tevinowino65@gmail.com"
                   className="flex items-center gap-4 text-gray-300 hover:text-blue-400 transition-colors group"
                 >
                   <div className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center group-hover:bg-blue-900/50 transition-colors">
@@ -87,7 +97,7 @@ export default function ContactPage() {
                 </a>
 
                 <a
-                  href="tel:+1234567890"
+                  href="tel:+254794830280"
                   className="flex items-center gap-4 text-gray-300 hover:text-blue-400 transition-colors group"
                 >
                   <div className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center group-hover:bg-blue-900/50 transition-colors">
@@ -124,7 +134,7 @@ export default function ContactPage() {
                   <Github className="w-6 h-6" />
                 </a>
                 <a
-                  href="www.linkedin.com/in/tevin-owino"
+                  href="https://www.linkedin.com/in/tevin-owino"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center text-gray-300 hover:text-blue-400 hover:bg-blue-900/50 transition-all duration-300"
@@ -138,106 +148,48 @@ export default function ContactPage() {
           {/* Contact Form */}
           <div>
             <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                    Name
+              {['name', 'email', 'phone', 'subject'].map((field) => (
+                <div key={field}>
+                  <label htmlFor={field} className="block text-sm font-medium text-gray-300 mb-2">
+                    {field.charAt(0).toUpperCase() + field.slice(1)}
                   </label>
                   <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
+                    type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'}
+                    id={field}
+                    name={field}
+                    value={formData[field as keyof FormData]}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-gray-800/50 border border-blue-900/30 rounded-lg focus:outline-none focus:border-blue-500 text-gray-100 placeholder-gray-500 transition-colors"
-                    placeholder="Your name"
+                    placeholder={`Your ${field}`}
                     required
                   />
                 </div>
+              ))}
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-blue-900/30 rounded-lg focus:outline-none focus:border-blue-500 text-gray-100 placeholder-gray-500 transition-colors"
-                    placeholder="your@email.com"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-blue-900/30 rounded-lg focus:outline-none focus:border-blue-500 text-gray-100 placeholder-gray-500 transition-colors"
-                    placeholder="+254712345678"
-                    required
-                  />
-
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-blue-900/30 rounded-lg focus:outline-none focus:border-blue-500 text-gray-100 placeholder-gray-500 transition-colors"
-                    placeholder="Project discussion"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    rows={6}
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-blue-900/30 rounded-lg focus:outline-none focus:border-blue-500 text-gray-100 placeholder-gray-500 transition-colors resize-none"
-                    placeholder="Your message"
-                    required
-                  />
-                </div>
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows={6}
+                  className="w-full px-4 py-3 bg-gray-800/50 border border-blue-900/30 rounded-lg focus:outline-none focus:border-blue-500 text-gray-100 placeholder-gray-500 transition-colors resize-none"
+                  placeholder="Your message"
+                  required
+                />
               </div>
 
-              <button
-                type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] group"
-                disabled={isSending}
-              >
-                <span>{isSending ? 'Sending...' : 'Send Message'}</span>
-                <Send size={20} className="group-hover:translate-x-1 transition-transform" />
+              <button type="submit" className="btn" disabled={isSending}>
+                {isSending ? 'Sending...' : 'Send Message'} <Send size={20} />
               </button>
             </form>
-
-            {/* Success/Error message */}
-            {successMessage && (
-              <div className="mt-4 text-center text-gray-300">
-                <p>{successMessage}</p>
-              </div>
-            )}
+            {successMessage && <p className="mt-4 text-center text-gray-300">{successMessage}</p>}
           </div>
         </div>
       </div>
     </div>
   );
 }
-
