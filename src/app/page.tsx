@@ -1,9 +1,9 @@
 'use client';
 import { useState } from 'react';
-import { 
-  ArrowRight, 
-  Github, 
-  Linkedin, 
+import {
+  ArrowRight,
+  Github,
+  Linkedin,
   User,
   Code,
   Globe,
@@ -11,15 +11,14 @@ import {
   Mail
 } from 'lucide-react';
 import Link from 'next/link';
-import { 
-  SiReact, SiNodedotjs, SiJavascript, SiTypescript, SiNextdotjs, 
-  SiTailwindcss, SiDocker, SiMongodb, SiSupabase, SiExpress, 
+import {
+  SiReact, SiNodedotjs, SiJavascript, SiTypescript, SiNextdotjs,
+  SiTailwindcss, SiDocker, SiMongodb, SiSupabase, SiExpress,
   SiRedux, SiPug
 } from "react-icons/si";
 
 export default function HomePage() {
-  const [hoveredSkill, setHoveredSkill] = useState(null);
-
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const skills = [
     { name: 'React', icon: SiReact, color: '#61DAFB' },
     { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
@@ -32,31 +31,31 @@ export default function HomePage() {
     { name: 'Supabase', icon: SiSupabase, color: '#3ECF8E' },
     { name: 'Express.js', icon: SiExpress, color: '#000000' },
     { name: 'Redux', icon: SiRedux, color: '#764ABC' },
-    { name: 'Pug', icon: SiPug, color: '#A86454' }  ];
+    { name: 'Pug', icon: SiPug, color: '#A86454' }];
 
-    const aboutMeItems = [
-      {
-        icon: User,
-        title: "Who I Am",
-        content: "A passionate full-stack developer and the Founding Software Engineer at Learnify, working to revolutionize education in Kenya."
-      },
-      {
-        icon: Code,
-        title: "What I Do",
-        content: "I specialize in building scalable web applications using modern technologies like Remix, React, and MongoDB to create impactful digital solutions."
-      },
-      {
-        icon: Globe,
-        title: "Experience",
-        content: "Skilled in full-stack web development, with a strong background in JavaScript, Node.js, and database management. Completed a fullstack development bootcamp at GoMyCode."
-      },
-      {
-        icon: Coffee,
-        title: "Interests",
-        content: "Beyond coding, I enjoy playing and watching football, reading novels, listening to music, and drawing. I’m also passionate about AI, open-source contributions, and mentoring others in tech."
-      }
-    ];
-    
+  const aboutMeItems = [
+    {
+      icon: User,
+      title: "Who I Am",
+      content: "A passionate full-stack developer and the Founding Software Engineer at Learnify, working to revolutionize education in Kenya."
+    },
+    {
+      icon: Code,
+      title: "What I Do",
+      content: "I specialize in building scalable web applications using modern technologies like Remix, React, and MongoDB to create impactful digital solutions."
+    },
+    {
+      icon: Globe,
+      title: "Experience",
+      content: "Skilled in full-stack web development, with a strong background in JavaScript, Node.js, and database management. Completed a fullstack development bootcamp at GoMyCode."
+    },
+    {
+      icon: Coffee,
+      title: "Interests",
+      content: "Beyond coding, I enjoy playing and watching football, reading novels, listening to music, and drawing. I’m also passionate about AI, open-source contributions, and mentoring others in tech."
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       {/* Hero Section */}
@@ -107,22 +106,22 @@ export default function HomePage() {
             </div>
 
             <p className="text-xl text-gray-300 max-w-2xl animate-slide-up">
-              Building next-generation digital experiences with cutting-edge technology. 
+              Building next-generation digital experiences with cutting-edge technology.
               Transforming ideas into reality through code.
             </p>
 
             <div className="flex flex-wrap gap-4 animate-slide-up">
-              <Link 
-                href="/projects" 
+              <Link
+                href="/projects"
                 className="group relative inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg overflow-hidden hover:scale-105 transition-all duration-300"
               >
                 <span className="relative z-10">View Projects</span>
                 <ArrowRight className="group-hover:translate-x-1 transition-transform duration-300" />
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
               </Link>
-              
-              <Link 
-                href="/contact" 
+
+              <Link
+                href="/contact"
                 className="group relative inline-flex items-center gap-2 border border-blue-500/30 px-6 py-3 rounded-lg overflow-hidden hover:scale-105 transition-all duration-300"
               >
                 <span className="relative z-10">Contact Me</span>
@@ -148,7 +147,7 @@ export default function HomePage() {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">About Me</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {aboutMeItems.map((item) => (
-              <div 
+              <div
                 key={item.title}
                 className="group p-6 bg-gray-800/50 rounded-xl border border-blue-900/30 hover:border-blue-500/50 transition-all duration-500 transform hover:-translate-y-1"
               >
@@ -175,18 +174,18 @@ export default function HomePage() {
             {skills.map((skill) => {
               const Icon = skill.icon;
               return (
-                <div 
+                <div
                   key={skill.name}
                   className="group p-6 border border-blue-900/30 rounded-xl text-center hover:border-blue-500/50 transition-all duration-300 bg-gray-800/30 hover:bg-gray-800/50 transform hover:-translate-y-1"
                   onMouseEnter={() => setHoveredSkill(skill.name)}
                   onMouseLeave={() => setHoveredSkill(null)}
                 >
-                  <Icon 
-                    className="w-12 h-12 mx-auto mb-4 transition-all duration-300" 
-                    style={{ 
+                  <Icon
+                    className="w-12 h-12 mx-auto mb-4 transition-all duration-300"
+                    style={{
                       color: hoveredSkill === skill.name ? skill.color : '#9CA3AF',
                       transform: hoveredSkill === skill.name ? 'scale(1.1)' : 'scale(1)'
-                    }} 
+                    }}
                   />
                   <span className="text-gray-300 group-hover:text-white transition-colors font-medium">
                     {skill.name}
@@ -206,7 +205,7 @@ export default function HomePage() {
               { icon: Github, href: "https://github.com/tevinowino" },
               { icon: Linkedin, href: "www.linkedin.com/in/tevin-owino" },
             ].map((social) => (
-              <a 
+              <Link
                 key={social.href}
                 href={social.href}
                 className="text-gray-400 hover:text-white transition-all duration-300 transform hover:-translate-y-1 hover:scale-110"
@@ -214,7 +213,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
               >
                 <social.icon size={24} />
-              </a>
+              </Link>
             ))}
           </div>
         </div>
