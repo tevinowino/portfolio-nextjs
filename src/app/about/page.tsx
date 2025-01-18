@@ -1,11 +1,8 @@
 import {
   Calendar,
-  MapPin,
-  Mail,
   Download,
   ArrowRight,
   Code2,
-  Globe,
   Laptop,
   Brain,
   Server

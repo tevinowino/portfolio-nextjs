@@ -4,7 +4,6 @@ import {
   ArrowRight, 
   Github, 
   Linkedin, 
-  Twitter,
   User,
   Code,
   Globe,
@@ -15,7 +14,7 @@ import Link from 'next/link';
 import { 
   SiReact, SiNodedotjs, SiJavascript, SiTypescript, SiNextdotjs, 
   SiTailwindcss, SiDocker, SiMongodb, SiSupabase, SiExpress, 
-  SiRedux, SiPug, SiMysql 
+  SiRedux, SiPug
 } from "react-icons/si";
 
 export default function HomePage() {
@@ -101,7 +100,7 @@ export default function HomePage() {
           <div className="space-y-8">
             <div className="space-y-2">
               <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text bg-gradient-to-r from-white via-blue-400 to-white animate-gradient">
-                Hi, I'm Tevin
+                Hi, I am Tevin
                 <br />
                 <span className="text-blue-600">Full Stack Developer</span>
               </h1>
@@ -148,7 +147,7 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto relative">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">About Me</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {aboutMeItems.map((item, index) => (
+            {aboutMeItems.map((item) => (
               <div 
                 key={item.title}
                 className="group p-6 bg-gray-800/50 rounded-xl border border-blue-900/30 hover:border-blue-500/50 transition-all duration-500 transform hover:-translate-y-1"

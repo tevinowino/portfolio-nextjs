@@ -4,6 +4,7 @@ import { useState } from 'react';
 import emailjs from 'emailjs-com'; // Import EmailJS SDK
 import { Mail, Phone, MapPin, Send, Github, Linkedin } from 'lucide-react';
 import { EmailJSResponseStatus } from '@emailjs/browser';
+import Link from 'next/link';
 
 interface FormData {
   name: string;
@@ -43,7 +44,7 @@ export default function ContactPage() {
           setSuccessMessage('Your message has been sent successfully!');
           setFormData({ name: '', email: '', phone: '', subject: '', message: '' }); // Reset form
         },
-        (error: any) => {
+        (error) => {
           console.error('Error sending email:', error);
           setSuccessMessage('Oops! Something went wrong, please try again later.');
         }
@@ -71,7 +72,7 @@ export default function ContactPage() {
               Get in Touch
             </h1>
             <p className="text-xl text-gray-300 max-w-2xl">
-              Have a project in mind? Let's discuss how we can work together to bring your ideas to life.
+              Have a project in mind? We can discuss how we can work together to bring your ideas to life.
             </p>
           </div>
         </div>
@@ -125,22 +126,22 @@ export default function ContactPage() {
             <div>
               <h2 className="text-2xl font-semibold mb-6">Follow Me</h2>
               <div className="flex gap-4">
-                <a
+                <Link
                   href="https://github.com/tevinowino/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center text-gray-300 hover:text-blue-400 hover:bg-blue-900/50 transition-all duration-300"
                 >
                   <Github className="w-6 h-6" />
-                </a>
-                <a
+                </Link>
+                <Link
                   href="https://www.linkedin.com/in/tevin-owino"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center text-gray-300 hover:text-blue-400 hover:bg-blue-900/50 transition-all duration-300"
                 >
                   <Linkedin className="w-6 h-6" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
