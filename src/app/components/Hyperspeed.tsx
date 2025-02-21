@@ -1,3 +1,6 @@
+// @ts-nocheck
+
+
 import { useEffect, useRef, FC } from "react";
 import * as THREE from "three";
 import {
@@ -9,10 +12,8 @@ import {
   SMAAPreset,
 } from "postprocessing";
 
-import "./Hyperspeed.css";
-
 interface Distortion {
-  uniforms: Record<string, { value: unknown }>;
+  uniforms: Record<string, { value: any }>;
   getDistortion: string;
   getJS?: (progress: number, time: number) => THREE.Vector3;
 }
@@ -484,7 +485,9 @@ class CarLights {
     );
     const geometry = new THREE.TubeGeometry(curve, 40, 1, 8, false);
 
-    const instanced = new THREE.InstancedBufferGeometry().copy(geometry as never) as THREE.InstancedBufferGeometry;
+    const instanced = new THREE.InstancedBufferGeometry().copy(
+      geometry as any
+    ) as THREE.InstancedBufferGeometry;
     instanced.instanceCount = options.lightPairsPerRoadWay * 2;
 
     const laneWidth = options.roadWidth / options.lanesPerRoad;
@@ -657,7 +660,9 @@ class LightsSticks {
   init() {
     const options = this.options;
     const geometry = new THREE.PlaneGeometry(1, 1);
-    const instanced = new THREE.InstancedBufferGeometry().copy(geometry as never) as THREE.InstancedBufferGeometry;
+    const instanced = new THREE.InstancedBufferGeometry().copy(
+      geometry as any
+    ) as THREE.InstancedBufferGeometry;
     const totalSticks = options.totalSideLightSticks;
     instanced.instanceCount = totalSticks;
 
@@ -814,7 +819,7 @@ class Road {
       segments
     );
 
-    let uniforms: Record<string, { value: unknown }> = {
+    let uniforms: Record<string, { value: any }> = {
       uTravelLength: { value: options.length },
       uColor: {
         value: new THREE.Color(
@@ -991,13 +996,13 @@ class App {
   renderPass!: RenderPass;
   bloomPass!: EffectPass;
   clock: THREE.Clock;
-  assets: Record<string, unknown>;
+  assets: Record<string, any>;
   disposed: boolean;
   road: Road;
   leftCarLights: CarLights;
   rightCarLights: CarLights;
   leftSticks: LightsSticks;
-  fogUniforms: Record<string, { value: unknown }>;
+  fogUniforms: Record<string, { value: any }>;
   fovTarget: number;
   speedUpTarget: number;
   speedUp: number;
@@ -1096,7 +1101,7 @@ class App {
     const smaaPass = new EffectPass(
       this.camera,
       new SMAAEffect({
-        preset: SMAAPreset.MEDIUM
+        preset: SMAAPreset.MEDIUM,
       })
     );
     this.renderPass.renderToScreen = false;
@@ -1117,12 +1122,13 @@ class App {
       const areaImage = new Image();
       assets.smaa = {};
 
-      searchImage.addEventListener("load", function (this: HTMLImageElement) {
-        (assets.smaa as { search?: HTMLImageElement }).search = this;
+      searchImage.addEventListener("load", function () {
+        assets.smaa.search = this;
         manager.itemEnd("smaa-search");
       });
-      areaImage.addEventListener("load", function (this: HTMLImageElement) {
-        (assets.smaa as { area?: HTMLImageElement }).area = this;
+
+      areaImage.addEventListener("load", function () {
+        assets.smaa.area = this;
         manager.itemEnd("smaa-area");
       });
 
@@ -1267,7 +1273,13 @@ const Hyperspeed: FC<HyperspeedProps> = ({ effectOptions = {} }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <div id="lights" ref={hyperspeed}></div>;
+  return (
+    <div
+      id="lights"
+      className="w-full h-full"
+      ref={hyperspeed}
+    ></div>
+  );
 };
 
 export default Hyperspeed;
