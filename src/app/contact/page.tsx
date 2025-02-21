@@ -67,10 +67,10 @@ export default function ContactPage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,#1e40af_0%,transparent_70%)] opacity-40"></div>
           <div className="relative">
             <h1 className="text-5xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 animate-gradient">
-              Let's Connect
+              Let&apos;s Connect
             </h1>
             <p className="text-2xl text-gray-300 max-w-3xl leading-relaxed">
-              Ready to bring your vision to life? Let's collaborate and create something extraordinary together.
+              Ready to bring your vision to life? Let&apos;s collaborate and create something extraordinary together.
             </p>
           </div>
         </div>

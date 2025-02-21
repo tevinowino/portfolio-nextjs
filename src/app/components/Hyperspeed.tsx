@@ -9,8 +9,10 @@ import {
   SMAAPreset,
 } from "postprocessing";
 
+import "./Hyperspeed.css";
+
 interface Distortion {
-  uniforms: Record<string, { value: any }>;
+  uniforms: Record<string, { value: unknown }>;
   getDistortion: string;
   getJS?: (progress: number, time: number) => THREE.Vector3;
 }
@@ -482,9 +484,7 @@ class CarLights {
     );
     const geometry = new THREE.TubeGeometry(curve, 40, 1, 8, false);
 
-    const instanced = new THREE.InstancedBufferGeometry().copy(
-      geometry as unknown
-    ) as THREE.InstancedBufferGeometry;
+    const instanced = new THREE.InstancedBufferGeometry().copy(geometry as never) as THREE.InstancedBufferGeometry;
     instanced.instanceCount = options.lightPairsPerRoadWay * 2;
 
     const laneWidth = options.roadWidth / options.lanesPerRoad;
@@ -573,7 +573,7 @@ class CarLights {
       ),
     });
 
-    material.onBeforeCompile = (shader: { vertexShader: string; }) => {
+    material.onBeforeCompile = (shader) => {
       shader.vertexShader = shader.vertexShader.replace(
         "#include <getDistortion_vertex>",
         typeof this.options.distortion === "object"
@@ -657,9 +657,7 @@ class LightsSticks {
   init() {
     const options = this.options;
     const geometry = new THREE.PlaneGeometry(1, 1);
-    const instanced = new THREE.InstancedBufferGeometry().copy(
-      geometry as THREE.BufferGeometry
-    );
+    const instanced = new THREE.InstancedBufferGeometry().copy(geometry as never) as THREE.InstancedBufferGeometry;
     const totalSticks = options.totalSideLightSticks;
     instanced.instanceCount = totalSticks;
 
@@ -718,7 +716,7 @@ class LightsSticks {
       ),
     });
 
-    material.onBeforeCompile = (shader: { vertexShader: string; }) => {
+    material.onBeforeCompile = (shader) => {
       shader.vertexShader = shader.vertexShader.replace(
         "#include <getDistortion_vertex>",
         typeof this.options.distortion === "object"
@@ -731,8 +729,8 @@ class LightsSticks {
     mesh.frustumCulled = false;
     this.webgl.scene.add(mesh);
     this.mesh = mesh;
-
   }
+
   update(time: number) {
     if (this.mesh.material.uniforms.uTime) {
       this.mesh.material.uniforms.uTime.value = time;
@@ -860,7 +858,7 @@ class Road {
       ),
     });
 
-    material.onBeforeCompile = (shader: { vertexShader: string; }) => {
+    material.onBeforeCompile = (shader) => {
       shader.vertexShader = shader.vertexShader.replace(
         "#include <getDistortion_vertex>",
         typeof this.options.distortion === "object"
@@ -1098,7 +1096,7 @@ class App {
     const smaaPass = new EffectPass(
       this.camera,
       new SMAAEffect({
-        preset: SMAAPreset.MEDIUM,
+        preset: SMAAPreset.MEDIUM
       })
     );
     this.renderPass.renderToScreen = false;
@@ -1269,13 +1267,7 @@ const Hyperspeed: FC<HyperspeedProps> = ({ effectOptions = {} }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <div
-      id="lights"
-      className="w-full h-full"
-      ref={hyperspeed}
-    ></div>
-  );
+  return <div id="lights" ref={hyperspeed}></div>;
 };
 
 export default Hyperspeed;
