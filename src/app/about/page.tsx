@@ -11,6 +11,18 @@ import {
 export default function AboutPage() {
   const experiences = [
     {
+      role: "Full Stack Software Engineer",
+      company: "Finite Pay",
+      period: "2024 - Present",
+      description: "Building and maintaining financial technology solutions for digital payments and banking services.",
+      achievements: [
+        "Implemented real-time payment processing system handling 1000+ transactions daily",
+        "Reduced API response time by 40% through optimization and caching strategies",
+        "Developed automated testing suite achieving 85% code coverage",
+        "Participated in the development of a revolutionary payment gateway"
+      ]
+    },
+    {
       role: "Founding Software Engineer",
       company: "Learnify",
       period: "2024 - Present",
@@ -40,7 +52,7 @@ export default function AboutPage() {
     {
       category: "Backend Development",
       icon: Server,
-      items: ["Node.js", "MongoDB", "PostgreSQL", "Supabase", "Express.js"]
+      items: ["Node.js", "MongoDB", "PostgreSQL", "Supabase", "Express.js", "Firebase"]
     },
     {
       category: "Tools & Platforms",
@@ -50,7 +62,7 @@ export default function AboutPage() {
     {
       category: "Areas of Expertise",
       icon: Brain,
-      items: ["System Design","Problem Solving", "Performance Optimization", "CI/CD", "Agile"]
+      items: ["System Design","Problem Solving", "Performance Optimization", "CI/CD", "Agile", "SCRUM"]
     }
   ];
 
