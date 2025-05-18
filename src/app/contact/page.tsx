@@ -61,7 +61,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-gray-100 py-24 px-6">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-gray-100 py-24 px-6 mt-10">
       <div className="max-w-6xl mx-auto">
         <div className="relative mb-20 p-10 rounded-2xl bg-gradient-to-r from-gray-800/50 to-transparent backdrop-blur-lg border border-gray-700/30">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,#1e40af_0%,transparent_70%)] opacity-40"></div>
@@ -135,7 +135,7 @@ export default function ContactPage() {
                   <Github className="w-7 h-7 text-blue-400" />
                 </Link>
                 <Link
-                  href="https://www.linkedin.com/in/tevin-owino"
+                  href="https://linkedin.com/in/tevin-owino"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-14 h-14 bg-cyan-500/20 rounded-xl flex items-center justify-center hover:bg-cyan-500/30 transition-all duration-300 transform hover:scale-110"

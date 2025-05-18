@@ -67,7 +67,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 py-20 px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gray-900 text-gray-100 py-20 px-4 mt-10 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 opacity-50"></div>
       <div className="max-w-5xl mx-auto relative z-10">
         <header className="text-center mb-16">

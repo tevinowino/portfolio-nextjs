@@ -55,12 +55,73 @@ export default function HomePage() {
     }
   ];
 
+  const featuredProjects = [
+    {
+      name: "Learnify",
+      image: "/images/learnify.png",
+      description: "A sleek and dynamic website built with Remix, designed to showcase Learnify's innovative web solutions for schools and educational institutions in Kenya.",
+      technologies: ["React", "Node.js", "Remix", "TypeScript"],
+      github: "https://github.com/tevinowino/learnify",
+      liveDemo: "https://learnify-demo.vercel.app"
+    },
+    {
+      name: "ShopSmart E-commerce App",
+      image: "/images/shopsmart.png",
+      description: "A full-featured e-commerce application built using the MERN stack and Remix. It offers user authentication, product categorization, advanced search filters, cart management, secure payments, and order tracking.",
+      technologies: ["MongoDB", "Express", "React", "Node.js", "Remix", "TypeScript"],
+      github: "https://github.com/tevinowino/dash/tree/Cart-and-model-Implementation",
+      liveDemo: "https://shopsmart-demo.herokuapp.com"
+    },
+    {
+      name: "ThoughtReflex",
+      image: "/images/thoughtreflex.png",
+      description: "An AI-powered therapy journaling app that helps users process emotions, track mental health, and grow from past traumas.",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "OpenAI API"],
+      github: "https://github.com/tevinowino/To-Do-App-GMC",
+      liveDemo: "https://thoughtreflex.vercel.app"
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-[#030014] text-gray-100">
       {/* Hero Section */}
       <section>
         < Hero />
+      </section>
+
+      {/* Featured Projects Section */}
+      <section className="py-20 px-4 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/5 to-purple-900/5"></div>
+        <div className="max-w-5xl mx-auto relative">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">Featured Projects</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredProjects.map((project) => (
+              <div
+                key={project.name}
+                className="group p-6 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl border border-blue-500/20 hover:border-cyan-500/50 transition-all duration-500 transform hover:-translate-y-1 backdrop-blur-sm"
+              >
+                <div className="aspect-w-16 aspect-h-9 mb-4">
+                  <img src={project.image} alt={project.name} className="rounded-lg object-cover w-full h-48" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">{project.name}</h3>
+                <p className="text-blue-100/70 text-sm mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.technologies.map((tech) => (
+                    <span key={tech} className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300">{tech}</span>
+                  ))}
+                </div>
+                <div className="flex gap-4">
+                  <Link href={project.github} className="text-blue-400 hover:text-cyan-300 transition-colors" target="_blank" rel="noopener noreferrer">
+                    <Github size={20} />
+                  </Link>
+                  <Link href={project.liveDemo} className="text-blue-400 hover:text-cyan-300 transition-colors" target="_blank" rel="noopener noreferrer">
+                    <Globe size={20} />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* About Section */}
@@ -128,7 +189,7 @@ export default function HomePage() {
           <div className="flex justify-center gap-6">
             {[
               { icon: Github, href: "https://github.com/tevinowino" },
-              { icon: Linkedin, href: "www.linkedin.com/in/tevin-owino" },
+              { icon: Linkedin, href: "https://linkedin.com/in/tevin-owino" },
             ].map((social) => (
               <Link
                 key={social.href}
