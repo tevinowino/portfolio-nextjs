@@ -9,39 +9,45 @@ import {
 } from 'lucide-react';
 
 export default function AboutPage() {
-  const experiences = [
-    {
-      role: "Full Stack Software Engineer",
-      company: "Finite Pay",
-      period: "2024 - Present",
-      description: "Building and maintaining financial technology solutions for digital payments and banking services.",
-      achievements: [
-        "Implemented real-time payment processing system handling 1000+ transactions daily",
-        "Reduced API response time by 40% through optimization and caching strategies",
-        "Developed automated testing suite achieving 85% code coverage",
-        "Participated in the development of a revolutionary payment gateway"
-      ]
-    },
-    {
-      role: "Founding Software Engineer",
-      company: "Learnify",
-      period: "2024 - Present",
-      description: "Building scalable web solutions for schools and learning institutions in Kenya.",
-      achievements: [
-        "Developed a fully functional learnify website, that is yet to be published"
-      ]
-    },
-    {
-      role: "Full Stack Developer",
-      company: "Freelance",
-      period: "2022 - 2024",
-      description: "Worked on various client projects focusing on web and mobile applications.",
-      achievements: [
-        "Delivered successful projects",
-        "Enhanced UX through interactive UI/UX designs"
-      ]
-    }
-  ];
+const experiences = [
+  {
+    role: "Full Stack Software Engineer",
+    company: "Finite Pay",
+    period: "February 2025 – Present",
+    description: "Building and maintaining fintech solutions for digital payments and banking services, with a strong focus on performance, security, and scalability.",
+    achievements: [
+      "Contributed to building the first version of the Finite Pay application from the ground up",
+      "Implemented a real-time payment processing system handling 1,000+ daily transactions",
+      "Reduced API response time by 40% through performance optimization and caching strategies",
+      "Developed a robust automated testing suite achieving 85% code coverage",
+      "Co-developed an innovative payment gateway that streamlined transaction workflows"
+    ]
+  },
+  {
+    role: "Founding Software Engineer",
+    company: "Learnify",
+    period: "2025 – Present",
+    description: "Leading the development of scalable web platforms tailored for schools and learning institutions in Kenya, with a mission to revolutionize digital education.",
+    achievements: [
+      "Designed and developed the Learnify web application using Remix and Firebase",
+      "Built core features including course catalogs, student progress dashboards, and educator analytics",
+      "Established a modern, responsive UI aligned with brand goals and optimized for student engagement",
+      "Integrated Firebase for authentication, storage, and real-time updates"
+    ]
+  },
+  {
+    role: "Full Stack Developer",
+    company: "Freelance",
+    period: "2023 – 2024",
+    description: "Delivered tailored web and mobile applications for clients across various industries with a focus on usability and performance.",
+    achievements: [
+      "Successfully completed multiple end-to-end client projects on time and within scope",
+      "Improved user experience through interactive and accessible UI/UX designs",
+      "Built reusable component libraries to accelerate project delivery",
+      "Implemented responsive designs and optimized applications for mobile performance"
+    ]
+  }
+];
 
   const skills = [
     {
