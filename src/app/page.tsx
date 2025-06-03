@@ -70,7 +70,6 @@ export default function HomePage() {
       description: "A full-featured e-commerce application built using the MERN stack and Remix. It offers user authentication, product categorization, advanced search filters, cart management, secure payments, and order tracking.",
       technologies: ["MongoDB", "Express", "React", "Node.js", "Remix", "TypeScript"],
       github: "https://github.com/tevinowino/dash/tree/Cart-and-model-Implementation",
-      liveDemo: "https://shopsmart-demo.herokuapp.com"
     },
     {
       name: "ThoughtReflex",
@@ -114,12 +113,17 @@ export default function HomePage() {
                   <Link href={project.github} className="text-blue-400 hover:text-cyan-300 transition-colors" target="_blank" rel="noopener noreferrer">
                     <Github size={20} />
                   </Link>
-                  <Link href={project.liveDemo} className="text-blue-400 hover:text-cyan-300 transition-colors" target="_blank" rel="noopener noreferrer">
-                    <Globe size={20} />
-                  </Link>
+                  {project.liveDemo && (
+                    <Link href={project.liveDemo} className="text-blue-400 hover:text-cyan-300 transition-colors" target="_blank" rel="noopener noreferrer">
+                      <Globe size={20} />
+                    </Link>
+                  )}
                 </div>
               </div>
             ))}
+          </div>
+          <div>
+          <Link href="/projects" className="bg-blue-500/10 hover:bg-blue-500/20 px-4 py-2 rounded-full mt-16 block text-center text-blue-400 hover:text-cyan-300 transition-colors"> View All Projects</Link>
           </div>
         </div>
       </section>
