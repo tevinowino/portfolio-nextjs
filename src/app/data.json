@@ -6,15 +6,14 @@
       "description": "A sleek and dynamic website built with Remix, designed to showcase Learnify's innovative web solutions for schools and educational institutions in Kenya. With a modern, responsive UI and fast, seamless navigation, the site offers an engaging experience. It highlights Learnify's services and values, featuring interactive course catalogs, student progress tracking, and real-time analytics dashboards for educators.",
       "technologies": ["React", "Node.js", "Remix", "TypeScript"],
       "github": "https://github.com/tevinowino/learnify",
-      "liveDemo": "https://learnify-demo.vercel.app"
+      "liveDemo": "https://www.learnifykenya.co.ke/"
     },
     {
       "name": "ShopSmart E-commerce App",
       "image": "/images/shopsmart.png",
       "description": "A full-featured e-commerce application built using the MERN stack and Remix. It offers user authentication, product categorization, advanced search filters, cart management, secure payments, and order tracking. The platform supports user reviews and responsive performance for large product catalogs.",
       "technologies": ["MongoDB", "Express", "React", "Node.js", "Remix", "TypeScript"],
-      "github": "https://github.com/tevinowino/dash/tree/Cart-and-model-Implementation",
-      "liveDemo": "https://shopsmart-demo.herokuapp.com"
+      "github": "https://github.com/tevinowino/dash/tree/Cart-and-model-Implementation"
     },
     {
       "name": "ThoughtReflex",
@@ -37,8 +36,7 @@
       "image": "/images/graspabledreams.png",
       "description": "A goal-setting and tracking platform with motivational features. Users can categorize goals, track progress, celebrate milestones, and share achievements. Includes calendar integrations, habit tracking, and insightful data visualizations.",
       "technologies": ["React", "Firebase", "Tailwind CSS"],
-      "github": "https://github.com/tevinowino/graspable-dreams",
-      "liveDemo": "https://graspable-dreams.web.app"
+      "github": "https://github.com/tevinowino/graspable-dreams"
     },
     {
       "name": "MovieStream",
@@ -53,8 +51,7 @@
       "image": "/images/weatherapp.png",
       "description": "A real-time weather app powered by Remix, TypeScript, and OpenWeather API. It displays live conditions, forecasts, interactive weather maps, and alerts. Users can track multiple locations and view historical data through elegant visualizations.",
       "technologies": ["Remix", "TypeScript", "React", "OpenWeather API", "Tailwind CSS"],
-      "github": "https://github.com/tevinowino/Weather-App-TypeScript",
-      "liveDemo": "https://weather-typescript.vercel.app"
+      "github": "https://github.com/tevinowino/Weather-App-TypeScript"
     }
   ]
 }
