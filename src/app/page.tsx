@@ -62,7 +62,7 @@ export default function HomePage() {
       description: "A sleek and dynamic website built with Remix, designed to showcase Learnify's innovative web solutions for schools and educational institutions in Kenya.",
       technologies: ["React", "Node.js", "Remix", "TypeScript"],
       github: "https://github.com/tevinowino/learnify",
-      liveDemo: "https://learnify-demo.vercel.app"
+      liveDemo: "https://learnifykenya.co.ke/"
     },
     {
       name: "ShopSmart E-commerce App",
