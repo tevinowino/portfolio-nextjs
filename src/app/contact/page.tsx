@@ -5,6 +5,13 @@ import emailjs from 'emailjs-com';
 import { Mail, Phone, MapPin, Send, Github, Linkedin } from 'lucide-react';
 import { EmailJSResponseStatus } from '@emailjs/browser';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { siteConfig } from '../metadata';
+
+export const metadata: Metadata = {
+  title: `Contact Me | ${siteConfig.name}`,
+  description: 'Get in touch to discuss your project, ask a question, or just say hi. I\'m always open to connecting and exploring new opportunities.',
+}
 
 interface FormData {
   name: string;
@@ -101,20 +108,20 @@ export default function ContactPage() {
                   className="flex items-center gap-6 p-4 rounded-xl bg-card/30 hover:bg-card/50 transition-all duration-300 transform hover:scale-105"
                 >
                   <div className="w-14 h-14 bg-accent/20 rounded-xl flex items-center justify-center">
-                    <Phone className="w-7 h-7 text-accent-foreground" />
+                    <Phone className="w-7 h-7 text-accent" />
                   </div>
                   <div>
-                    <p className="font-semibold text-lg text-accent-foreground">Phone</p>
+                    <p className="font-semibold text-lg text-accent">Phone</p>
                     <p className="text-muted-foreground">+254794830280</p>
                   </div>
                 </a>
 
                 <div className="flex items-center gap-6 p-4 rounded-xl bg-card/30">
                   <div className="w-14 h-14 bg-secondary/20 rounded-xl flex items-center justify-center">
-                    <MapPin className="w-7 h-7 text-secondary-foreground" />
+                    <MapPin className="w-7 h-7 text-secondary" />
                   </div>
                   <div>
-                    <p className="font-semibold text-lg text-secondary-foreground">Location</p>
+                    <p className="font-semibold text-lg text-secondary">Location</p>
                     <p className="text-muted-foreground">Nairobi, Kenya</p>
                   </div>
                 </div>
@@ -140,7 +147,7 @@ export default function ContactPage() {
                   rel="noopener noreferrer"
                   className="w-14 h-14 bg-accent/20 rounded-xl flex items-center justify-center hover:bg-accent/30 transition-all duration-300 transform hover:scale-110"
                 >
-                  <Linkedin className="w-7 h-7 text-accent-foreground" />
+                  <Linkedin className="w-7 h-7 text-accent" />
                 </Link>
               </div>
             </div>

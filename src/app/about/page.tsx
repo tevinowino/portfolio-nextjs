@@ -7,6 +7,13 @@ import {
   Brain,
   Server
 } from 'lucide-react';
+import type { Metadata } from 'next';
+import { siteConfig } from '../metadata';
+
+export const metadata: Metadata = {
+  title: `About Me | ${siteConfig.name}`,
+  description: 'Learn more about my professional journey, skills, and expertise in full-stack web development. Discover the passion that drives me to create impactful digital solutions.',
+}
 
 export default function AboutPage() {
 const experiences = [

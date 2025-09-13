@@ -3,18 +3,19 @@ import { Github, ArrowRight, Star, Code } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import projectsData from '../data.json';
-import Head from 'next/head';
+import type { Metadata } from 'next';
+import { siteConfig } from '../metadata';
 
 const projects = projectsData.projects;
+
+export const metadata: Metadata = {
+  title: `My Projects | ${siteConfig.name}`,
+  description: 'Explore a collection of my projects, showcasing a range of technologies and creative solutions. From full-stack applications to AI-powered tools.',
+}
 
 export default function ProjectsPage() {
   return (
     <>
-      <Head>
-        <title>My Projects | Portfolio</title>
-        <meta name="description" content="Explore my latest works combining innovative technology with creative solutions." />
-      </Head>
-      
       <div className="min-h-screen bg-gradient-to-b from-background to-background text-foreground py-20 px-4">
         {/* Header with animated gradient */}
         <header className="max-w-5xl mx-auto mb-16 space-y-6">

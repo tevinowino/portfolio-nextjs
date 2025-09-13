@@ -4,7 +4,6 @@ import "./globals.css";
 import Link from "next/link";
 import { useState } from "react";
 import { Home, Info, Mail, FolderGit2, Menu, X, Download } from "lucide-react";
-import Head from "next/head";
 import Image from "next/image";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { ThemeToggle } from "./components/ThemeToggle";
@@ -33,28 +32,6 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
-      <Head>
-        <title>Tevin Owino </title>
-        <meta
-          name="description"
-          content="The personal portfolio of Tevin Owino, showcasing web development projects and skills."
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-          name="keywords"
-          content="Tevin Owino, portfolio, web development, React, Next.js, Developers,  JavaScript"
-        />
-        <meta name="author" content="Tevin Owino" />
-        <meta property="og:title" content="Tevin Owino - Portfolio" />
-        <meta
-          property="og:description"
-          content="Explore the projects and skills of Tevin Owino, a fullstack web developer."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://tevinowino.vercel.app" />
-        <meta property="og:image" content="/og-image.png" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <body className="bg-background text-foreground">
         <ThemeProvider
           attribute="class"
