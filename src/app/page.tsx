@@ -168,9 +168,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
         <Hero />
-      </Suspense>
 
       {/* Enhanced Featured Projects Section with Infinite Scroll */}
       <section id="projects" className="py-20 px-4 relative overflow-hidden">
