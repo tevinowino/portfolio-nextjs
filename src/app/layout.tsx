@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Home, Info, Mail, FolderGit2, Menu, X, Download } from "lucide-react";
 import Head from "next/head";
 import SplashCursor from "./components/SplashCursor";
+import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,15 +56,15 @@ export default function RootLayout({
       </Head>
       <body className="bg-gray-900 text-gray-100">
         <SplashCursor />
-        <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%] max-w-5xl bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl shadow-blue-500/10 z-50 transition-all duration-300 hover:shadow-blue-400/20">
-          <div className="flex items-center justify-between px-8 py-5">
+        <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%] bg-white/10 backdrop-blur-xl border border-white/20 rounded-full shadow-2xl shadow-blue-500/10 z-50 transition-all duration-300 hover:shadow-blue-400/20">
+          <div className="flex items-center justify-between px-8 py-3">
             {/* Logo */}
             <Link
               href="/"
               className="font-bold text-2xl text-white hover:text-blue-400 transition-all duration-500 relative group"
             >
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 animate-gradient-x font-extrabold">
-                Tevin Owino
+                <Image src="/images/logo.png" alt="Logo" width={50} height={50} priority></Image>
               </span>
               <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 transition-all duration-500 group-hover:w-full"></span>
               <span className="absolute -inset-2 bg-white/5 rounded-xl blur opacity-0 group-hover:opacity-100 transition-all duration-500"></span>
@@ -165,7 +166,7 @@ export default function RootLayout({
           </div>
         </nav>
 
-        <main className="">{children}</main>
+        <main className="pt-5">{children}</main>
       </body>
     </html>
   );

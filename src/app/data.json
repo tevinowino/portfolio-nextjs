@@ -3,55 +3,32 @@
     {
       "name": "Learnify",
       "image": "/images/learnify.png",
-      "description": "A sleek and dynamic website built with Remix, designed to showcase Learnify's innovative web solutions for schools and educational institutions in Kenya. With a modern, responsive UI and fast, seamless navigation, the site offers an engaging experience. It highlights Learnify's services and values, featuring interactive course catalogs, student progress tracking, and real-time analytics dashboards for educators.",
-      "technologies": ["React", "Node.js", "Remix", "TypeScript"],
+      "description": "A multi-tenant SaaS platform offering web solutions to schools and educational institutions in Kenya. Built with Next.js and Firebase, Learnify provides features like AI-powered tools, student onboarding, parent dashboards, attendance tracking, and exam management. It aims to revolutionize curriculum delivery in Kenyan schools.",
+      "technologies": ["Next.js", "Firebase", "React", "Tailwind CSS"],
       "github": "https://github.com/tevinowino/learnify",
       "liveDemo": "https://www.learnifykenya.co.ke/"
     },
     {
       "name": "ShopSmart E-commerce App",
       "image": "/images/shopsmart.png",
-      "description": "A full-featured e-commerce application built using the MERN stack and Remix. It offers user authentication, product categorization, advanced search filters, cart management, secure payments, and order tracking. The platform supports user reviews and responsive performance for large product catalogs.",
-      "technologies": ["MongoDB", "Express", "React", "Node.js", "Remix", "TypeScript"],
+      "description": "A full-featured e-commerce application built using the MERN stack and Remix. It supports user authentication, product categorization, advanced search filters, cart management, secure payments, and order tracking. The app also integrates user reviews and offers responsive performance for large product catalogs.",
+      "technologies": ["MongoDB", "Express.js", "React", "Node.js", "Remix", "TypeScript"],
       "github": "https://github.com/tevinowino/dash/tree/Cart-and-model-Implementation"
     },
     {
       "name": "ThoughtReflex",
       "image": "/images/thoughtreflex.png",
-      "description": "An AI-powered therapy journaling app that helps users process emotions, track mental health, and grow from past traumas. Features include an empathetic AI companion named Mira with three modes (Therapist, Coach, Friend), reflection journaling, and goal suggestions to guide healing.",
+      "description": "An AI-powered mental wellness app that helps users process emotions, track mental health, and grow from past traumas. It features an empathetic AI companion named Mira with three modes (Therapist, Coach, Friend), journaling, reflection tools, and personalized goal suggestions to guide healing and growth.",
       "technologies": ["Next.js", "TypeScript", "Tailwind CSS", "OpenAI API"],
       "github": "https://github.com/tevinowino/To-Do-App-GMC",
       "liveDemo": "https://thoughtreflex.vercel.app"
     },
     {
-      "name": "Tevin's Restaurant",
-      "image": "/images/tevins.png",
-      "description": "A restaurant web app allowing users to browse menus, place orders, make reservations, and leave reviews. Includes real-time order tracking, dietary filters, and an interactive admin dashboard for restaurant management and analytics.",
-      "technologies": ["Express", "Node.js", "Open-Source APIs"],
-      "github": "https://github.com/tevinowino/tevin-s",
-      "liveDemo": "https://tevins-restaurant.vercel.app"
-    },
-    {
-      "name": "Graspable Dreams",
-      "image": "/images/graspabledreams.png",
-      "description": "A goal-setting and tracking platform with motivational features. Users can categorize goals, track progress, celebrate milestones, and share achievements. Includes calendar integrations, habit tracking, and insightful data visualizations.",
-      "technologies": ["React", "Firebase", "Tailwind CSS"],
-      "github": "https://github.com/tevinowino/graspable-dreams"
-    },
-    {
-      "name": "MovieStream",
-      "image": "/images/moviestream.png",
-      "description": "A movie streaming app using the TMDb API. Features include search, trending titles, personalized recommendations, watchlists, ratings, and cast details. Users can filter by genre, release year, and language with smooth playback support.",
-      "technologies": ["Express", "Pug", "TMDb API"],
-      "github": "https://github.com/tevinowino/Movieflix",
-      "liveDemo": "https://moviestream-app.herokuapp.com"
-    },
-    {
-      "name": "Weather Application",
-      "image": "/images/weatherapp.png",
-      "description": "A real-time weather app powered by Remix, TypeScript, and OpenWeather API. It displays live conditions, forecasts, interactive weather maps, and alerts. Users can track multiple locations and view historical data through elegant visualizations.",
-      "technologies": ["Remix", "TypeScript", "React", "OpenWeather API", "Tailwind CSS"],
-      "github": "https://github.com/tevinowino/Weather-App-TypeScript"
+      "name": "Digital Moran",
+      "image": "/images/digitalmoran.png",
+      "description": "A youth-focused platform built in partnership with the Digital Moran NGO to help Kenyan youths access gigs, jobs, and mentorship opportunities in tech. The app connects learners with real-world opportunities, empowering them to grow their skills and secure meaningful work.",
+      "technologies": ["Next.js", "TypeScript", "Tailwind CSS", "Firebase"],
+      "github": "https://github.com/tevinowino/digitalmoran"
     }
   ]
 }
