@@ -39,7 +39,7 @@ export default function HomePage() {
     { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
     { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
     { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
-    { name: 'Next.js', icon: SiNextdotjs, color: '#ffffff' },
+    { name: 'Next.js', icon: SiNextdotjs, color: '#000000' },
     { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
     { name: 'Docker', icon: SiDocker, color: '#2496ED' },
     { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
@@ -132,7 +132,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#030014] text-gray-100 overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <section>
         <Suspense fallback={<div>Loading...</div>}>
           <Hero />
@@ -514,12 +514,12 @@ export default function HomePage() {
                   <Icon
                     className="w-12 h-12 mx-auto mb-4 transition-all duration-300 relative z-10"
                     style={{
-                      color: hoveredSkill === skill.name ? skill.color : '#9CA3AF',
+                      color: hoveredSkill === skill.name ? skill.color : 'hsl(var(--foreground))',
                       transform: hoveredSkill === skill.name ? 'scale(1.2) rotate(5deg)' : 'scale(1)',
                       filter: hoveredSkill === skill.name ? `drop-shadow(0 0 12px ${skill.color}50)` : 'none'
                     }}
                   />
-                  <span className="text-blue-100/80 group-hover:text-white transition-colors font-medium relative z-10">
+                  <span className="text-foreground/80 group-hover:text-foreground transition-colors font-medium relative z-10">
                     {skill.name}
                   </span>
                 </motion.div>
