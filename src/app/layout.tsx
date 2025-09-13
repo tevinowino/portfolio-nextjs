@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { Home, Info, Mail, FolderGit2, Menu, X, Download } from "lucide-react";
 import Head from "next/head";
-import SplashCursor from "./components/SplashCursor";
 import Image from "next/image";
 
 const geistSans = Geist({
@@ -55,7 +54,6 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <body className="bg-gray-900 text-gray-100">
-        <SplashCursor />
         <nav className="fixed top-2 sm:top-4 left-1/2 transform -translate-x-1/2 w-[95%] sm:w-[90%] max-w-6xl bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl sm:rounded-full shadow-2xl shadow-blue-500/10 z-50 transition-all duration-300 hover:shadow-blue-400/20">
           <div className="flex items-center justify-between px-4 sm:px-6 py-2 sm:py-3">
             {/* Logo */}

@@ -97,6 +97,18 @@ export default function ProjectsPage() {
                     <Github size={18} className="group-hover/link:rotate-12 transition-transform" />
                     <span>Source Code</span>
                   </a>
+                  {project.liveDemo && (
+                    <a 
+                      href={project.liveDemo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`View live demo of ${project.name}`}
+                      className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-all group/link"
+                    >
+                      <ArrowRight size={18} className="group-hover/link:translate-x-1 transition-transform" />
+                      <span>Live Demo</span>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

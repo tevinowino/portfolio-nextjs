@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import {
   Github,
   Linkedin,
@@ -24,7 +24,8 @@ import {
   SiTailwindcss, SiDocker, SiMongodb, SiSupabase, SiExpress,
   SiRedux, SiPug
 } from "react-icons/si";
-import Hero from './components/Hero';
+
+const Hero = lazy(() => import('./components/Hero'));
 
 export default function HomePage() {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
@@ -133,7 +134,9 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#030014] text-gray-100 overflow-x-hidden">
       <section>
-        <Hero />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Hero />
+        </Suspense>
       </section>
       {/* Enhanced Featured Projects Section with Infinite Scroll */}
       <section className="py-20 px-4 relative overflow-hidden">
@@ -183,7 +186,7 @@ export default function HomePage() {
             <div className="flex gap-6 animate-scroll-infinite">
               {duplicatedProjects.map((project, index) => (
                 <motion.div
-                  key={`${project.id}-${index}`}
+                  key={`${project.name}-${index}`}
                   className="flex-shrink-0 w-80 group"
                   onMouseEnter={() => setHoveredProject(project.name)}
                   onMouseLeave={() => setHoveredProject(null)}
@@ -239,11 +242,11 @@ export default function HomePage() {
                       <div className="absolute top-4 right-4 flex gap-2">
                         <div className="flex items-center gap-1 bg-blue-500/20 backdrop-blur-sm rounded-full px-2 py-1 text-xs">
                           <Star size={12} className="text-yellow-400" />
-                          <span className="text-blue-100">{project.stars}</span>
+                          <span className="text-blue-100">{/* project.stars */}</span>
                         </div>
                         <div className="flex items-center gap-1 bg-green-500/20 backdrop-blur-sm rounded-full px-2 py-1 text-xs">
                           <Eye size={12} className="text-green-400" />
-                          <span className="text-blue-100">{project.views}</span>
+                          <span className="text-blue-100">{/* project.views */}</span>
                         </div>
                       </div>
                     </div>
@@ -579,7 +582,7 @@ export default function HomePage() {
 
         .animate-scroll-infinite {
           animation: scroll-infinite 30s linear infinite;
-          width: calc(400px * 10); /* Adjust based on project count */
+          width: calc(344px * 8); /* (w-80 + gap-6) * duplicated project count */
         }
 
         .animate-scroll-infinite:hover {
