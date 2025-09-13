@@ -174,7 +174,7 @@ export default function RootLayout({
             </div>
           </nav>
 
-          <main className="pt-20">{children}</main>
+          <main className="">{children}</main>
         </ThemeProvider>
       </body>
     </html>
