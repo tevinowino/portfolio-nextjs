@@ -1,8 +1,5 @@
-'use server';
-
 import { genkit } from 'genkit';
 import { googleAI } from '@genkit-ai/googleai';
-import { dev } from '$app/environment';
 
 export const ai = genkit({
   plugins: [
@@ -10,6 +7,6 @@ export const ai = genkit({
       apiVersion: 'v1beta',
     }),
   ],
-  logLevel: dev ? 'debug' : 'info',
+  logLevel: process.env.NODE_ENV === 'development' ? 'debug' : 'info',
   enableTracing: true,
 });
