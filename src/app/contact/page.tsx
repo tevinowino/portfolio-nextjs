@@ -5,13 +5,6 @@ import emailjs from 'emailjs-com';
 import { Mail, Phone, MapPin, Send, Github, Linkedin } from 'lucide-react';
 import { EmailJSResponseStatus } from '@emailjs/browser';
 import Link from 'next/link';
-import type { Metadata } from 'next';
-import { siteConfig } from '../metadata';
-
-export const metadata: Metadata = {
-  title: `Contact Me | ${siteConfig.name}`,
-  description: 'Get in touch to discuss a project, ask a question, or connect. I\'m ready to collaborate and explore new opportunities.',
-}
 
 interface FormData {
   name: string;
