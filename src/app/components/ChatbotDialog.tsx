@@ -14,7 +14,7 @@ const ChatbotDialog = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [showCursor, setShowCursor] = useState(true);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
@@ -34,6 +34,7 @@ const ChatbotDialog = ({ isOpen, onClose }) => {
 
   // Update time every second
   useEffect(() => {
+    setCurrentTime(new Date()); // Set initial time on client
     const interval = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
@@ -235,7 +236,7 @@ const ChatbotDialog = ({ isOpen, onClose }) => {
                 </motion.a>
                 
                 <div className="text-xs text-green-600">
-                  {currentTime.toLocaleTimeString()}
+                  {currentTime ? currentTime.toLocaleTimeString() : '...'}
                 </div>
                 
                 <motion.button
@@ -383,3 +384,5 @@ const ChatbotDialog = ({ isOpen, onClose }) => {
 };
 
 export default ChatbotDialog;
+
+    
