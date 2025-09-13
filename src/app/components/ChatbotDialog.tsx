@@ -384,5 +384,3 @@ const ChatbotDialog = ({ isOpen, onClose }) => {
 };
 
 export default ChatbotDialog;
-
-    
