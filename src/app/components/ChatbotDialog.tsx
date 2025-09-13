@@ -46,13 +46,18 @@ const ChatbotDialog = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
   };
 
   // Booting sequence when dialog opens
-  useEffect(() => {
-    if (isOpen) {
+// helper sleep
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+useEffect(() => {
+  if (isOpen) {
+    let cancelled = false;
+
+    const runBootSequence = async () => {
       setIsBooting(true);
       setBootProgress(0);
       setMessages([]);
-      
-      // Simulate booting process
+
       const bootMessages = [
         { text: "🤖 INITIALIZING TEVIN_AI_SYSTEM...", sender: 'bot' as const },
         { text: "🖥️  LOADING SYSTEM MODULES...", sender: 'bot' as const },
@@ -60,35 +65,35 @@ const ChatbotDialog = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
         { text: "📂 LOADING PROFILE DATA...", sender: 'bot' as const },
         { text: "🚀 SYSTEM BOOT COMPLETE", sender: 'bot' as const },
       ];
-      
-      let currentIndex = 0;
-      const bootInterval = setInterval(() => {
-        if (currentIndex < bootMessages.length) {
-          setMessages(prev => [...prev, bootMessages[currentIndex]]);
-          setBootProgress(((currentIndex + 1) / bootMessages.length) * 100);
-          currentIndex++;
-          scrollToBottom();
-        } else {
-          clearInterval(bootInterval);
-          setIsBooting(false);
-          
-          // Add welcome message after boot
-          setTimeout(() => {
-            setMessages(prev => [...prev, {
-              text: "🤖 TEVIN_AI_SYSTEM initialized...\n\nHello! I'm Tevin Owino, a full-stack developer.\n\n💼 WHAT I CAN HELP YOU WITH:\n• My technical skills and experience\n• Project details and implementations\n• My problem-solving approaches\n• Career background and achievements\n\nFeel free to ask me anything! For example:\n'What is your experience with React?' or 'Tell me about your recent projects'",
-              sender: 'bot'
-            }]);
-            scrollToBottom();
-          }, 500);
-        }
-      }, 400);
-      
-      setInput('');
-      setIsLoading(false);
-      
-      return () => clearInterval(bootInterval);
-    }
-  }, [isOpen]);
+
+      for (let i = 0; i < bootMessages.length; i++) {
+        if (cancelled) return;
+        setMessages(prev => [...prev, bootMessages[i]]);
+        setBootProgress(((i + 1) / bootMessages.length) * 100);
+        scrollToBottom();
+        await sleep(400);
+      }
+
+      if (!cancelled) {
+        setIsBooting(false);
+
+        // Add welcome message
+        await sleep(500);
+        setMessages(prev => [...prev, {
+          text: "🤖 TEVIN_AI_SYSTEM initialized...\n\nHello! I'm Tevin Owino, a full-stack developer.\n\n💼 WHAT I CAN HELP YOU WITH:\n• My technical skills and experience\n• Project details and implementations\n• My problem-solving approaches\n• Career background and achievements\n\nFeel free to ask me anything! For example:\n'What is your experience with React?' or 'Tell me about your recent projects'",
+          sender: 'bot'
+        }]);
+        scrollToBottom();
+      }
+    };
+
+    runBootSequence();
+
+    return () => {
+      cancelled = true; // cleanup guard
+    };
+  }
+}, [isOpen]);
 
   useEffect(scrollToBottom, [messages]);
 
