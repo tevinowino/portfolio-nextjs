@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CornerDownLeft, Bot } from 'lucide-react';
+import { askAI } from '@/ai/flows/interview-flow';
 
 interface Message {
   text: string;
@@ -34,15 +35,21 @@ const ChatbotDialog = ({ isOpen, onClose }) => {
 
     const userMessage: Message = { text: input, sender: 'user' };
     setMessages((prev) => [...prev, userMessage]);
+    const currentInput = input;
     setInput('');
     setIsLoading(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      const botMessage: Message = { text: "I'm still under development, but soon I'll be able to answer your questions about Tevin!", sender: 'bot' };
+    try {
+      const aiResponse = await askAI({ question: currentInput });
+      const botMessage: Message = { text: aiResponse, sender: 'bot' };
       setMessages((prev) => [...prev, botMessage]);
+    } catch (error) {
+      console.error("Error asking AI:", error);
+      const errorMessage: Message = { text: "Sorry, I'm having trouble connecting to my brain right now. Please try again later.", sender: 'bot' };
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
