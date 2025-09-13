@@ -32,12 +32,34 @@ import HeroVideoDialog from "@/components/magicui/hero-video-dialog";
 
 const Hero = lazy(() => import("./components/Hero"));
 
+interface AnimatedElement {
+  id: number;
+  left: string;
+  top: string;
+  duration: number;
+  delay: number;
+}
+
 export default function HomePage() {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(true);
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [animatedElements1, setAnimatedElements1] = useState<AnimatedElement[]>([]);
+  const [animatedElements2, setAnimatedElements2] = useState<AnimatedElement[]>([]);
+
+  useEffect(() => {
+    const generateElements = (count: number) => Array.from({ length: count }, (_, i) => ({
+        id: i,
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        duration: 4 + Math.random() * 2,
+        delay: Math.random() * 2,
+    }));
+    setAnimatedElements1(generateElements(15));
+    setAnimatedElements2(generateElements(10));
+  }, []);
 
   const skills = [
     { name: "React", icon: SiReact, color: "#61DAFB" },
@@ -137,7 +159,9 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <section>
-          <Hero />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Hero />
+          </Suspense>
       </section>
       {/* Enhanced Featured Projects Section with Infinite Scroll */}
       <section className="py-20 px-4 relative overflow-hidden">
@@ -145,13 +169,13 @@ export default function HomePage() {
 
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
-          {[...Array(15)].map((_, i) => (
+          {animatedElements1.map((el) => (
             <motion.div
-              key={i}
+              key={el.id}
               className="absolute w-1 h-1 bg-cyan-400/20 rounded-full"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                left: el.left,
+                top: el.top,
               }}
               animate={{
                 y: [0, -20, 0],
@@ -159,9 +183,9 @@ export default function HomePage() {
                 scale: [1, 1.5, 1],
               }}
               transition={{
-                duration: 4 + Math.random() * 2,
+                duration: el.duration,
                 repeat: Infinity,
-                delay: Math.random() * 2,
+                delay: el.delay,
               }}
             />
           ))}
@@ -319,13 +343,13 @@ export default function HomePage() {
 
         {/* Floating Elements */}
         <div className="absolute inset-0">
-          {[...Array(10)].map((_, i) => (
+          {animatedElements2.map((el) => (
             <motion.div
-              key={i}
+              key={el.id}
               className="absolute w-2 h-2 bg-purple-400/20 rounded-full"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                left: el.left,
+                top: el.top,
               }}
               animate={{
                 x: [0, 30, 0],
@@ -333,9 +357,9 @@ export default function HomePage() {
                 opacity: [0.2, 0.6, 0.2],
               }}
               transition={{
-                duration: 6 + Math.random() * 3,
+                duration: el.duration,
                 repeat: Infinity,
-                delay: Math.random() * 2,
+                delay: el.delay,
               }}
             />
           ))}

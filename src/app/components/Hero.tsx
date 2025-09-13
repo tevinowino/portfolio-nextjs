@@ -6,10 +6,20 @@ import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-mo
 import Image from 'next/image';
 import ChatbotDialog from './ChatbotDialog';
 
+interface AnimatedElement {
+    id: number;
+    left: string;
+    top: string;
+    duration: number;
+    delay: number;
+}
+
 export default function Hero() {
     const [title, setTitle] = useState('Frontend Developer');
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isChatbotOpen, setChatbotOpen] = useState(false);
+    const [animatedElements, setAnimatedElements] = useState<AnimatedElement[]>([]);
+    const [sparkles, setSparkles] = useState<AnimatedElement[]>([]);
 
     const x = useMotionValue(0);
     const y = useMotionValue(0);
@@ -43,6 +53,27 @@ export default function Hero() {
         return () => window.removeEventListener('mousemove', handleMouseMove);
     }, [x, y]);
 
+    useEffect(() => {
+        const generateElements = (count: number) => Array.from({ length: count }, (_, i) => ({
+            id: i,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            duration: 3 + Math.random() * 2,
+            delay: Math.random() * 2,
+        }));
+        setAnimatedElements(generateElements(20));
+
+        const generateSparkles = (count: number) => Array.from({ length: count }, (_, i) => ({
+            id: i,
+            left: `${20 + Math.random() * 60}%`,
+            top: `${20 + Math.random() * 60}%`,
+            duration: 2,
+            delay: Math.random() * 3,
+        }));
+        setSparkles(generateSparkles(5));
+    }, []);
+
+
     const fadeInUp = {
         initial: { opacity: 0, y: 30, filter: 'blur(10px)' },
         animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
@@ -67,17 +98,17 @@ export default function Hero() {
         }
     };
 
-    const sparkleVariants = {
+    const sparkleVariants = (delay: number, duration: number) => ({
         animate: {
             scale: [0, 1, 0],
             opacity: [0, 1, 0],
             transition: {
-                duration: 2,
+                duration,
                 repeat: Infinity,
-                repeatDelay: Math.random() * 3
+                repeatDelay: delay,
             }
         }
-    };
+    });
 
     const getTitleGradient = (titleText: any) => {
         const gradients = {
@@ -109,23 +140,20 @@ export default function Hero() {
             >
                 {/* Animated Background Elements */}
                 <div className="absolute inset-0 overflow-hidden">
-                    {[...Array(20)].map((_, i) => (
+                    {animatedElements.map(el => (
                         <motion.div
-                            key={i}
+                            key={el.id}
                             className="absolute w-1 h-1 bg-primary/20 rounded-full"
-                            style={{
-                                left: `${Math.random() * 100}%`,
-                                top: `${Math.random() * 100}%`,
-                            }}
+                            style={{ left: el.left, top: el.top }}
                             animate={{
                                 y: [0, -30, 0],
                                 opacity: [0.3, 1, 0.3],
                                 scale: [1, 1.5, 1]
                             }}
                             transition={{
-                                duration: 3 + Math.random() * 2,
+                                duration: el.duration,
                                 repeat: Infinity,
-                                delay: Math.random() * 2
+                                delay: el.delay
                             }}
                         />
                     ))}
@@ -159,16 +187,13 @@ export default function Hero() {
                     {/* Left Content */}
                     <div className="flex-1 space-y-6 sm:space-y-8 text-center lg:text-left">
                         <motion.div variants={fadeInUp} className="space-y-4 relative">
-                            {[...Array(5)].map((_, i) => (
+                            {sparkles.map(s => (
                                 <motion.div
-                                    key={i}
-                                    variants={sparkleVariants}
+                                    key={s.id}
+                                    variants={sparkleVariants(s.delay, s.duration)}
                                     animate="animate"
                                     className="absolute text-yellow-400"
-                                    style={{
-                                        left: `${20 + Math.random() * 60}%`,
-                                        top: `${20 + Math.random() * 60}%`,
-                                    }}
+                                    style={{ left: s.left, top: s.top }}
                                 >
                                     <Sparkles size={16} />
                                 </motion.div>
