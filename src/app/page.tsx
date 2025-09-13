@@ -11,6 +11,9 @@ import {
   ArrowRight,
   Star,
   Eye,
+  Mail,
+  Bot,
+  FolderGit2,
 } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -29,6 +32,7 @@ import {
   SiPug,
 } from "react-icons/si";
 import HeroVideoDialog from "@/components/magicui/hero-video-dialog";
+import ChatbotDialog from "./components/ChatbotDialog";
 
 const Hero = lazy(() => import("./components/Hero"));
 
@@ -42,12 +46,11 @@ interface AnimatedElement {
 
 export default function HomePage() {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  const [isVideoMuted, setIsVideoMuted] = useState(true);
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [animatedElements1, setAnimatedElements1] = useState<AnimatedElement[]>([]);
   const [animatedElements2, setAnimatedElements2] = useState<AnimatedElement[]>([]);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isChatbotOpen, setChatbotOpen] = useState(false);
 
   useEffect(() => {
     const generateElements = (count: number) => Array.from({ length: count }, (_, i) => ({
@@ -59,6 +62,13 @@ export default function HomePage() {
     }));
     setAnimatedElements1(generateElements(15));
     setAnimatedElements2(generateElements(10));
+
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > window.innerHeight * 0.5);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const skills = [
@@ -158,13 +168,12 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <section>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Hero />
-          </Suspense>
-      </section>
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+        <Hero />
+      </Suspense>
+
       {/* Enhanced Featured Projects Section with Infinite Scroll */}
-      <section className="py-20 px-4 relative overflow-hidden">
+      <section id="projects" className="py-20 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-purple-900/10"></div>
 
         {/* Animated Background Elements */}
@@ -338,7 +347,7 @@ export default function HomePage() {
       </section>
 
       {/* Enhanced About Section with Video */}
-      <section className="py-20 px-4 relative overflow-hidden">
+      <section id="about" className="py-20 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 to-blue-900/10"></div>
 
         {/* Floating Elements */}
@@ -453,7 +462,7 @@ export default function HomePage() {
                   whileHover={{ scale: 1.02 }}
                   className="p-4 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl border border-border text-center"
                 >
-                  <div className="text-2xl font-bold text-purple-400">5+</div>
+                  <div className="text-2xl font-bold text-purple-400">10+</div>
                   <div className="text-sm text-muted-foreground">
                     Projects Built
                   </div>
@@ -465,7 +474,7 @@ export default function HomePage() {
       </section>
 
       {/* Enhanced Skills Section */}
-      <section className="py-20 px-4 relative overflow-hidden">
+      <section id="skills" className="py-20 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-blue-900/10 to-purple-900/10"></div>
         <div className="max-w-7xl mx-auto relative">
           <motion.div
@@ -530,7 +539,7 @@ export default function HomePage() {
       </section>
 
       {/* Enhanced Footer */}
-      <footer className="py-12 px-4 border-t border-border backdrop-blur-sm relative overflow-hidden">
+      <footer id="contact" className="py-12 px-4 border-t border-border backdrop-blur-sm relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent"></div>
         <div className="max-w-7xl mx-auto relative">
           <div className="text-center">
@@ -584,6 +593,61 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+      
+      {/* Floating Navbars */}
+      <AnimatePresence>
+        {isScrolled && (
+          <>
+            {/* Bottom Social Navbar */}
+            <motion.div
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 100, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50"
+            >
+              <div className="flex items-center gap-4 bg-background/50 backdrop-blur-xl border border-border rounded-full shadow-2xl shadow-primary/10 px-6 py-3">
+                <a href="https://github.com/tevinowino" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-muted-foreground hover:text-primary transition-colors">
+                  <Github size={20} />
+                </a>
+                <a href="https://www.linkedin.com/in/tevinowino/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-muted-foreground hover:text-primary transition-colors">
+                  <Linkedin size={20} />
+                </a>
+                <a href="mailto:tevinowino65@gmail.com" aria-label="Email" className="text-muted-foreground hover:text-primary transition-colors">
+                  <Mail size={20} />
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Left Quick Links Sidebar */}
+            <motion.div
+              initial={{ x: -100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -100, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.1 }}
+              className="fixed left-4 top-1/2 -translate-y-1/2 z-50"
+            >
+              <div className="flex flex-col items-center gap-4 bg-background/50 backdrop-blur-xl border border-border rounded-full shadow-2xl shadow-primary/10 px-3 py-6">
+                <Link href="/projects" aria-label="Projects" className="text-muted-foreground hover:text-primary transition-colors p-2 group">
+                  <FolderGit2 size={20} />
+                  <span className="absolute left-full ml-2 w-max bg-card text-card-foreground px-2 py-1 rounded-md text-xs opacity-0 group-hover:opacity-100 transition-opacity">Projects</span>
+                </Link>
+                <Link href="/contact" aria-label="Contact Me" className="text-muted-foreground hover:text-primary transition-colors p-2 group">
+                  <Mail size={20} />
+                  <span className="absolute left-full ml-2 w-max bg-card text-card-foreground px-2 py-1 rounded-md text-xs opacity-0 group-hover:opacity-100 transition-opacity">Contact</span>
+                </Link>
+                <button onClick={() => setChatbotOpen(true)} aria-label="AI Interview" className="text-muted-foreground hover:text-primary transition-colors p-2 group">
+                  <Bot size={20} />
+                  <span className="absolute left-full ml-2 w-max bg-card text-card-foreground px-2 py-1 rounded-md text-xs opacity-0 group-hover:opacity-100 transition-opacity">AI Interview</span>
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      <ChatbotDialog isOpen={isChatbotOpen} onClose={() => setChatbotOpen(false)} />
+
 
       <style jsx global>{`
         @keyframes scroll-infinite {
@@ -849,4 +913,3 @@ export default function HomePage() {
       `}</style>
     </div>
   );
-}
