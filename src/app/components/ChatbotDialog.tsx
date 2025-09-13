@@ -10,7 +10,7 @@ interface Message {
   sender: 'user' | 'bot';
 }
 
-const ChatbotDialog = ({ isOpen, onClose }) => {
+const ChatbotDialog = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -137,22 +137,20 @@ const ChatbotDialog = ({ isOpen, onClose }) => {
 
       // Typing animation: reveal character by character
       let displayed = '';
-      const botMessage: Message = { text: '', sender: 'bot' };
-      setMessages(prev => [...prev, botMessage]);
-
-      let i = 0;
+      setMessages(prev => [...prev, { text: '', sender: 'bot' }]);
+      
       const interval = setInterval(() => {
-        displayed += aiResponse[i];
-        setMessages(prev => {
-          const updated = [...prev];
-          updated[updated.length - 1] = { text: displayed, sender: 'bot' };
-          return updated;
-        });
-        i++;
-        if (i >= aiResponse.length) {
-          clearInterval(interval);
-          setIsLoading(false);
-        }
+          if (displayed.length < aiResponse.length) {
+              displayed += aiResponse[displayed.length];
+              setMessages(prev => {
+                  const updated = [...prev];
+                  updated[updated.length - 1] = { text: displayed, sender: 'bot' };
+                  return updated;
+              });
+          } else {
+              clearInterval(interval);
+              setIsLoading(false);
+          }
       }, 25);
     } catch (error) {
       console.error("Error asking AI:", error);
@@ -384,3 +382,5 @@ const ChatbotDialog = ({ isOpen, onClose }) => {
 };
 
 export default ChatbotDialog;
+
+    
