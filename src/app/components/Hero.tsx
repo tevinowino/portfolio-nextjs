@@ -192,7 +192,7 @@ export default function Hero() {
                                     transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)` 
                                 }}
                             >
-                                Hi, I'm Tevin
+                                Hello, Tevin here,
                             </motion.span>
                             <AnimatePresence mode="wait">
                                 <motion.span
@@ -303,8 +303,8 @@ export default function Hero() {
                         className="flex justify-center lg:justify-start gap-4 pt-4"
                     >
                         {[
-                            { icon: Github, href: '#', label: 'GitHub' },
-                            { icon: Linkedin, href: '#', label: 'LinkedIn' },
+                            { icon: Github, href: 'https://github.com/tevinowino', label: 'GitHub' },
+                            { icon: Linkedin, href: 'https://www.linkedin.com/in/tevinowino/', label: 'LinkedIn' },
                         ].map((social, index) => (
                             <motion.a
                                 key={index}
