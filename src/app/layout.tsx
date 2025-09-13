@@ -44,10 +44,11 @@ export default function RootLayout({
               {/* Logo */}
               <Link
                 href="/"
+                aria-label="Homepage"
                 className="font-bold text-2xl text-foreground hover:text-primary transition-all duration-500 relative group"
               >
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent animate-gradient-x font-extrabold">
-                  <Image src="/images/logo.png" alt="Logo" width={40} height={40} priority className="w-8 h-8 sm:w-10 sm:h-10"></Image>
+                  <Image src="/images/logo.png" alt="Tevin Owino Logo" width={40} height={40} priority className="w-8 h-8 sm:w-10 sm:h-10"></Image>
                 </span>
                 <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-primary via-accent to-secondary transition-all duration-500 group-hover:w-full"></span>
                 <span className="absolute -inset-2 bg-foreground/5 rounded-xl blur opacity-0 group-hover:opacity-100 transition-all duration-500"></span>
@@ -92,6 +93,7 @@ export default function RootLayout({
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-label="Toggle mobile menu"
                 className="lg:hidden text-muted-foreground hover:text-foreground transition-all duration-500 p-2 rounded-lg hover:bg-accent/50"
               >
                 {isMenuOpen ? (

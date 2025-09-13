@@ -5,7 +5,7 @@ export const siteConfig = {
     url: "https://tevinowino.vercel.app",
     ogImage: "https://tevinowino.vercel.app/og-image.png",
     description:
-        "The personal portfolio of Tevin Owino, a full-stack web developer showcasing projects and skills in modern web technologies.",
+        "Tevin Owino's portfolio. A full-stack developer showcasing projects and skills in modern web technologies.",
     links: {
         twitter: "https://x.com/tevinowino",
         github: "https://github.com/tevinowino",
@@ -14,6 +14,7 @@ export const siteConfig = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,

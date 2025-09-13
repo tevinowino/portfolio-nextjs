@@ -10,7 +10,7 @@ import { siteConfig } from '../metadata';
 
 export const metadata: Metadata = {
   title: `Contact Me | ${siteConfig.name}`,
-  description: 'Get in touch to discuss your project, ask a question, or just say hi. I\'m always open to connecting and exploring new opportunities.',
+  description: 'Get in touch to discuss a project, ask a question, or connect. I\'m ready to collaborate and explore new opportunities.',
 }
 
 interface FormData {
@@ -70,7 +70,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-card to-background text-foreground py-24 px-6 mt-10">
       <div className="max-w-6xl mx-auto">
-        <div className="relative mb-20 p-10 rounded-2xl bg-gradient-to-r from-card/50 to-transparent backdrop-blur-lg border border-border">
+        <header className="relative mb-20 p-10 rounded-2xl bg-gradient-to-r from-card/50 to-transparent backdrop-blur-lg border border-border">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,hsl(var(--primary))_0%,transparent_70%)] opacity-40"></div>
           <div className="relative">
             <h1 className="text-5xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-secondary animate-gradient">
@@ -80,11 +80,11 @@ export default function ContactPage() {
               Ready to bring your vision to life? Let&apos;s collaborate and create something extraordinary together.
             </p>
           </div>
-        </div>
+        </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           <div className="space-y-12">
-            <div className="space-y-8 backdrop-blur-lg bg-card/20 p-8 rounded-2xl border border-border">
+            <section className="space-y-8 backdrop-blur-lg bg-card/20 p-8 rounded-2xl border border-border">
               <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
                 Contact Details
               </h2>
@@ -126,9 +126,9 @@ export default function ContactPage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
 
-            <div className="backdrop-blur-lg bg-card/20 p-8 rounded-2xl border border-border">
+            <section className="backdrop-blur-lg bg-card/20 p-8 rounded-2xl border border-border">
               <h2 className="text-3xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
                 Social Links
               </h2>
@@ -137,6 +137,7 @@ export default function ContactPage() {
                   href="https://github.com/tevinowino/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="GitHub profile"
                   className="w-14 h-14 bg-primary/20 rounded-xl flex items-center justify-center hover:bg-primary/30 transition-all duration-300 transform hover:scale-110"
                 >
                   <Github className="w-7 h-7 text-primary" />
@@ -145,15 +146,16 @@ export default function ContactPage() {
                   href="https://linkedin.com/in/tevin-owino"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="LinkedIn profile"
                   className="w-14 h-14 bg-accent/20 rounded-xl flex items-center justify-center hover:bg-accent/30 transition-all duration-300 transform hover:scale-110"
                 >
                   <Linkedin className="w-7 h-7 text-accent" />
                 </Link>
               </div>
-            </div>
+            </section>
           </div>
 
-          <div className="backdrop-blur-lg bg-card/20 p-8 rounded-2xl border border-border">
+          <section className="backdrop-blur-lg bg-card/20 p-8 rounded-2xl border border-border">
             <h2 className="text-3xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
               Send a Message
             </h2>
@@ -205,7 +207,7 @@ export default function ContactPage() {
                 {successMessage}
               </div>
             )}
-          </div>
+          </section>
         </div>
       </div>
     </div>
