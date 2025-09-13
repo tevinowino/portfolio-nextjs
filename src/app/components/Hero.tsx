@@ -106,7 +106,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2 }}
-            className="relative min-h-[100vh] flex items-center justify-center py-10 sm:py-20 px-2 sm:px-4 overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900/20 to-slate-900"
+            className="relative min-h-[100vh] flex items-center justify-center py-10 sm:py-20 px-2 sm:px-4 overflow-hidden bg-gradient-to-br from-background via-blue-900/20 to-background"
         >
             {/* Animated Background Elements */}
             <div className="absolute inset-0 overflow-hidden">
@@ -134,7 +134,7 @@ export default function Hero() {
 
                 {/* Gradient Orbs */}
                 <motion.div
-                    className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full filter blur-3xl"
+                    className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full filter blur-3xl"
                     animate={{
                         x: mousePosition.x * 0.5,
                         y: mousePosition.y * 0.5,
@@ -214,7 +214,7 @@ export default function Hero() {
 
                     <motion.p
                         variants={fadeInUp}
-                        className="text-lg text-blue-100/80 max-w-2xl leading-relaxed"
+                        className="text-lg text-muted-foreground max-w-2xl leading-relaxed"
                     >
                         Crafting exceptional digital experiences with modern technologies. 
                         I transform creative visions into powerful, scalable solutions that make an impact.
@@ -236,7 +236,7 @@ export default function Hero() {
                                 whileHover={{ scale: 1.05 }}
                             >
                                 <div className="text-2xl sm:text-3xl font-bold text-cyan-400">{stat.number}</div>
-                                <div className="text-sm text-blue-100/60">{stat.label}</div>
+                                <div className="text-sm text-muted-foreground">{stat.label}</div>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -272,13 +272,13 @@ export default function Hero() {
                         >
                             <Link
                                 href="/contact"
-                                className="group relative inline-flex items-center justify-center w-full sm:w-auto gap-2 border-2 border-blue-500/30 px-8 py-4 rounded-2xl overflow-hidden bg-blue-900/10 backdrop-blur-sm font-medium hover:border-blue-400/50 transition-all duration-300"
+                                className="group relative inline-flex items-center justify-center w-full sm:w-auto gap-2 border-2 border-border px-8 py-4 rounded-2xl overflow-hidden bg-card/50 backdrop-blur-sm font-medium hover:border-primary/50 transition-all duration-300"
                             >
-                                <span className="relative z-10 flex items-center gap-2 text-blue-100">
+                                <span className="relative z-10 flex items-center gap-2 text-foreground">
                                     <Mail size={18} />
                                     Contact Me
                                 </span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+                                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
                             </Link>
                         </motion.div>
 
@@ -309,11 +309,11 @@ export default function Hero() {
                             <motion.a
                                 key={index}
                                 href={social.href}
-                                className="group p-3 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-sm hover:bg-blue-500/20 hover:border-blue-400/40 transition-all duration-300"
+                                className="group p-3 rounded-full bg-primary/10 border border-border backdrop-blur-sm hover:bg-primary/20 hover:border-primary/40 transition-all duration-300"
                                 whileHover={{ scale: 1.1, rotate: 5 }}
                                 whileTap={{ scale: 0.95 }}
                             >
-                                <social.icon size={20} className="text-blue-100 group-hover:text-blue-300 transition-colors" />
+                                <social.icon size={20} className="text-foreground group-hover:text-primary transition-colors" />
                             </motion.a>
                         ))}
                     </motion.div>
@@ -355,7 +355,7 @@ export default function Hero() {
                         ].map((item, index) => (
                             <motion.div
                                 key={index}
-                                className={`absolute ${item.position} text-2xl bg-blue-500/20 backdrop-blur-lg rounded-full p-2 border border-blue-400/30`}
+                                className={`absolute ${item.position} text-2xl bg-primary/20 backdrop-blur-lg rounded-full p-2 border border-primary/30`}
                                 animate={{
                                     y: [0, -10, 0],
                                     rotate: [0, 10, 0]
@@ -385,7 +385,7 @@ export default function Hero() {
                     transition={{ repeat: Infinity, duration: 2 }}
                     className="flex flex-col items-center gap-2 cursor-pointer group"
                 >
-                    <span className="text-xs text-blue-100/60 group-hover:text-blue-100/80 transition-colors">Scroll Down</span>
+                    <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors">Scroll Down</span>
                     <div className="w-6 h-10 border-2 border-cyan-500/50 rounded-full flex justify-center p-1 group-hover:border-cyan-400/70 transition-colors">
                         <motion.div
                             animate={{ y: [0, 12, 0] }}

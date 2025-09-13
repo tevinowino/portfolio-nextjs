@@ -173,10 +173,10 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-300 to-purple-500">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-secondary">
               Featured Projects
             </h2>
-            <p className="text-blue-100/70 max-w-2xl mx-auto">
+            <p className="text-muted-foreground max-w-2xl mx-auto">
               Discover some of my most impactful work, from educational platforms to AI-powered applications.
             </p>
           </motion.div>
@@ -193,7 +193,7 @@ export default function HomePage() {
                   whileHover={{ y: -8 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/60 to-gray-900/60 border border-blue-500/20 hover:border-cyan-500/50 transition-all duration-500 backdrop-blur-sm">
+                  <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-card/60 to-background/60 border border-border hover:border-primary/50 transition-all duration-500 backdrop-blur-sm">
                     {/* Project Image */}
                     <div className="relative overflow-hidden h-48">
                       <img 
@@ -201,7 +201,7 @@ export default function HomePage() {
                         alt={project.name} 
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent"></div>
                       
                       {/* Hover Overlay */}
                       <AnimatePresence>
@@ -210,28 +210,28 @@ export default function HomePage() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="absolute inset-0 bg-blue-600/20 backdrop-blur-sm flex items-center justify-center gap-4"
+                            className="absolute inset-0 bg-primary/20 backdrop-blur-sm flex items-center justify-center gap-4"
                           >
                             <motion.a
                               href={project.github}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="p-3 bg-blue-500/20 rounded-full border border-blue-400/30 hover:bg-blue-500/30 transition-colors"
+                              className="p-3 bg-primary/20 rounded-full border border-primary/30 hover:bg-primary/30 transition-colors"
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.9 }}
                             >
-                              <Github size={20} className="text-blue-100" />
+                              <Github size={20} className="text-foreground" />
                             </motion.a>
                             {project.liveDemo && (
                               <motion.a
                                 href={project.liveDemo}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="p-3 bg-cyan-500/20 rounded-full border border-cyan-400/30 hover:bg-cyan-500/30 transition-colors"
+                                className="p-3 bg-accent/20 rounded-full border border-accent/30 hover:bg-accent/30 transition-colors"
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                               >
-                                <ExternalLink size={20} className="text-cyan-100" />
+                                <ExternalLink size={20} className="text-accent-foreground" />
                               </motion.a>
                             )}
                           </motion.div>
@@ -240,35 +240,35 @@ export default function HomePage() {
 
                       {/* Project Stats */}
                       <div className="absolute top-4 right-4 flex gap-2">
-                        <div className="flex items-center gap-1 bg-blue-500/20 backdrop-blur-sm rounded-full px-2 py-1 text-xs">
+                        <div className="flex items-center gap-1 bg-primary/20 backdrop-blur-sm rounded-full px-2 py-1 text-xs">
                           <Star size={12} className="text-yellow-400" />
-                          <span className="text-blue-100">{/* project.stars */}</span>
+                          <span className="text-foreground">{/* project.stars */}</span>
                         </div>
                         <div className="flex items-center gap-1 bg-green-500/20 backdrop-blur-sm rounded-full px-2 py-1 text-xs">
                           <Eye size={12} className="text-green-400" />
-                          <span className="text-blue-100">{/* project.views */}</span>
+                          <span className="text-foreground">{/* project.views */}</span>
                         </div>
                       </div>
                     </div>
 
                     {/* Project Content */}
                     <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
+                      <h3 className="text-xl font-semibold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
                         {project.name}
                       </h3>
-                      <p className="text-blue-100/70 text-sm mb-4 line-clamp-3">
+                      <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
                         {project.description}
                       </p>
                       
                       {/* Technologies */}
                       <div className="flex flex-wrap gap-2 mb-4">
                         {project.technologies.slice(0, 3).map((tech) => (
-                          <span key={tech} className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                          <span key={tech} className="text-xs px-2 py-1 rounded-full bg-primary/20 text-primary-foreground border border-primary/30">
                             {tech}
                           </span>
                         ))}
                         {project.technologies.length > 3 && (
-                          <span className="text-xs px-2 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                          <span className="text-xs px-2 py-1 rounded-full bg-secondary/20 text-secondary-foreground border border-secondary/30">
                             +{project.technologies.length - 3}
                           </span>
                         )}
@@ -289,7 +289,7 @@ export default function HomePage() {
           >
             <Link 
               href="/projects" 
-              className="group inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 px-8 py-4 rounded-2xl font-medium hover:from-blue-700 hover:to-cyan-600 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
+              className="group inline-flex items-center gap-2 bg-gradient-to-r from-primary to-accent px-8 py-4 rounded-2xl font-medium text-primary-foreground hover:from-primary/90 hover:to-accent/90 transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-primary/40"
             >
               View All Projects
               <ArrowRight className="group-hover:translate-x-1 transition-transform duration-300" size={18} />
@@ -333,10 +333,10 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-400 to-accent">
               About Me
             </h2>
-            <p className="text-blue-100/70 max-w-2xl mx-auto">
+            <p className="text-muted-foreground max-w-2xl mx-auto">
               Get to know the person behind the code and the passion that drives my work.
             </p>
           </motion.div>
@@ -350,21 +350,21 @@ export default function HomePage() {
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="group p-6 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl border border-blue-500/20 hover:border-cyan-500/50 transition-all duration-500 transform hover:-translate-y-1 backdrop-blur-sm"
+                  className="group p-6 bg-gradient-to-br from-card/50 to-background/50 rounded-2xl border border-border hover:border-primary/50 transition-all duration-500 transform hover:-translate-y-1 backdrop-blur-sm"
                 >
                   <div className="flex items-start gap-4">
                     <motion.div 
                       className={`p-4 bg-gradient-to-br ${item.gradient}/20 rounded-xl group-hover:${item.gradient}/30 transition-all duration-300 relative overflow-hidden`}
                       whileHover={{ scale: 1.05, rotate: 5 }}
                     >
-                      <item.icon size={24} className="text-white relative z-10" />
+                      <item.icon size={24} className="text-foreground relative z-10" />
                       <div className={`absolute inset-0 bg-gradient-to-r ${item.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
                     </motion.div>
                     <div className="flex-1">
                       <h3 className={`text-xl font-semibold mb-3 bg-clip-text text-transparent bg-gradient-to-r ${item.gradient}`}>
                         {item.title}
                       </h3>
-                      <p className="text-blue-100/70 leading-relaxed">
+                      <p className="text-muted-foreground leading-relaxed">
                         {item.content}
                       </p>
                     </div>
@@ -382,7 +382,7 @@ export default function HomePage() {
             >
               <div className="relative group">
                 {/* Video Container */}
-                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/60 to-gray-900/60 border border-blue-500/20 hover:border-cyan-500/50 transition-all duration-500 h-full">
+                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-card/60 to-background/60 border border-border hover:border-primary/50 transition-all duration-500 h-full">
                   <video
                     ref={videoRef}
                     className="w-full h-80 object-cover"
@@ -396,21 +396,21 @@ export default function HomePage() {
                   </video>
                   
                   {/* Video Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent"></div>
                   
                   {/* Video Controls */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="flex items-center gap-4 bg-black/50 backdrop-blur-sm rounded-full px-6 py-3">
                       <motion.button
                         onClick={handleVideoToggle}
-                        className="p-2 bg-blue-500/20 rounded-full border border-blue-400/30 hover:bg-blue-500/30 transition-colors"
+                        className="p-2 bg-primary/20 rounded-full border border-primary/30 hover:bg-primary/30 transition-colors"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
                         {isVideoPlaying ? (
-                          <Pause size={20} className="text-blue-100" />
+                          <Pause size={20} className="text-foreground" />
                         ) : (
-                          <Play size={20} className="text-blue-100" />
+                          <Play size={20} className="text-foreground" />
                         )}
                       </motion.button>
                       
@@ -439,9 +439,9 @@ export default function HomePage() {
 
                   {/* Video Info Overlay */}
                   <div className="absolute bottom-4 left-4 right-4">
-                    <div className="bg-black/50 backdrop-blur-sm rounded-xl p-4 border border-blue-500/20">
-                      <h3 className="font-semibold text-white mb-1">Meet Tevin</h3>
-                      <p className="text-sm text-blue-100/70">A glimpse into my journey as a developer</p>
+                    <div className="bg-black/50 backdrop-blur-sm rounded-xl p-4 border border-border">
+                      <h3 className="font-semibold text-foreground mb-1">Meet Tevin</h3>
+                      <p className="text-sm text-muted-foreground">A glimpse into my journey as a developer</p>
                     </div>
                   </div>
                 </div>
@@ -455,17 +455,17 @@ export default function HomePage() {
               <div className="mt-8 grid grid-cols-2 gap-4">
                 <motion.div
                   whileHover={{ scale: 1.02 }}
-                  className="p-4 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-xl border border-blue-500/20 text-center"
+                  className="p-4 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl border border-border text-center"
                 >
                   <div className="text-2xl font-bold text-cyan-400">2+</div>
-                  <div className="text-sm text-blue-100/70">Years Experience</div>
+                  <div className="text-sm text-muted-foreground">Years Experience</div>
                 </motion.div>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
-                  className="p-4 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl border border-purple-500/20 text-center"
+                  className="p-4 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl border border-border text-center"
                 >
                   <div className="text-2xl font-bold text-purple-400">5+</div>
-                  <div className="text-sm text-blue-100/70">Projects Built</div>
+                  <div className="text-sm text-muted-foreground">Projects Built</div>
                 </motion.div>
               </div>
             </motion.div>
@@ -483,10 +483,10 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-green-400 to-cyan-300">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary via-green-400 to-accent">
               Skills & Technologies
             </h2>
-            <p className="text-blue-100/70 max-w-2xl mx-auto">
+            <p className="text-muted-foreground max-w-2xl mx-auto">
               The tools and technologies I use to bring ideas to life.
             </p>
           </motion.div>
@@ -500,7 +500,7 @@ export default function HomePage() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.05 }}
-                  className="group p-6 border border-blue-500/20 rounded-2xl text-center hover:border-cyan-500/50 transition-all duration-300 bg-gradient-to-br from-gray-800/30 to-gray-900/30 hover:from-gray-800/50 hover:to-gray-900/50 transform hover:-translate-y-2 backdrop-blur-sm relative overflow-hidden"
+                  className="group p-6 border border-border rounded-2xl text-center hover:border-primary/50 transition-all duration-300 bg-gradient-to-br from-card/30 to-background/30 hover:from-card/50 hover:to-background/50 transform hover:-translate-y-2 backdrop-blur-sm relative overflow-hidden"
                   onMouseEnter={() => setHoveredSkill(skill.name)}
                   onMouseLeave={() => setHoveredSkill(null)}
                   whileHover={{ scale: 1.05 }}
@@ -512,7 +512,7 @@ export default function HomePage() {
                   ></div>
                   
                   <Icon
-                    className="w-12 h-12 mx-auto mb-4 transition-all duration-300 relative z-10"
+                    className="w-12 h-12 mx-auto mb-4 transition-all duration-300 relative z-10 text-foreground"
                     style={{
                       color: hoveredSkill === skill.name ? skill.color : 'hsl(var(--foreground))',
                       transform: hoveredSkill === skill.name ? 'scale(1.2) rotate(5deg)' : 'scale(1)',
@@ -530,8 +530,8 @@ export default function HomePage() {
       </section>
 
       {/* Enhanced Footer */}
-      <footer className="py-12 px-4 border-t border-blue-500/20 backdrop-blur-sm relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/5 to-transparent"></div>
+      <footer className="py-12 px-4 border-t border-border backdrop-blur-sm relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent"></div>
         <div className="max-w-7xl mx-auto relative">
           <div className="text-center">
             <motion.div
@@ -540,10 +540,10 @@ export default function HomePage() {
               transition={{ duration: 0.6 }}
               className="mb-8"
             >
-              <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300 mb-4">
+              <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent mb-4">
                 Let's Connect
               </h3>
-              <p className="text-blue-100/70">
+              <p className="text-muted-foreground">
                 Always open to discussing new opportunities and exciting projects.
               </p>
             </motion.div>
@@ -556,7 +556,7 @@ export default function HomePage() {
                 <motion.a
                   key={social.href}
                   href={social.href}
-                  className={`group p-4 rounded-full bg-gradient-to-br ${social.color}/10 border border-blue-500/20 hover:border-cyan-500/50 transition-all duration-300 backdrop-blur-sm`}
+                  className={`group p-4 rounded-full bg-gradient-to-br ${social.color}/10 border border-border hover:border-primary/50 transition-all duration-300 backdrop-blur-sm`}
                   target="_blank"
                   rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 20 }}
@@ -565,7 +565,7 @@ export default function HomePage() {
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <social.icon size={24} className="text-blue-400 group-hover:text-cyan-300 transition-colors" />
+                  <social.icon size={24} className="text-primary group-hover:text-accent-foreground transition-colors" />
                 </motion.a>
               ))}
             </div>
