@@ -7,11 +7,6 @@ import {
   Code,
   Globe,
   Coffee,
-  Play,
-  Pause,
-  Volume2,
-  VolumeX,
-  Maximize,
   ExternalLink,
   ArrowRight,
   Star,
@@ -139,30 +134,10 @@ export default function HomePage() {
   // Duplicate projects for seamless infinite scroll
   const duplicatedProjects = [...featuredProjects, ...featuredProjects];
 
-  const handleVideoToggle = () => {
-    if (videoRef.current) {
-      if (isVideoPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsVideoPlaying(!isVideoPlaying);
-    }
-  };
-
-  const handleMuteToggle = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isVideoMuted;
-      setIsVideoMuted(!isVideoMuted);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <section>
-        <Suspense fallback={<div>Loading...</div>}>
           <Hero />
-        </Suspense>
       </section>
       {/* Enhanced Featured Projects Section with Infinite Scroll */}
       <section className="py-20 px-4 relative overflow-hidden">

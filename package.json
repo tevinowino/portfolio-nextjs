@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
-    "@genkit-ai/googleai": "^1.2.6",
+    "@genkit-ai/googleai": "^1.19.2",
     "@mui/icons-material": "^6.2.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

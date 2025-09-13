@@ -1,5 +1,5 @@
 'use client';
-import { ArrowRight, Mail, Code, Sparkles, Download, Github, Linkedin, Bot } from 'lucide-react';
+import { Code, Sparkles, Github, Linkedin, Bot } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
@@ -29,7 +29,7 @@ export default function Hero() {
     }, []);
 
     useEffect(() => {
-        const handleMouseMove = (e) => {
+        const handleMouseMove = (e: any) => {
             const { clientX, clientY } = e;
             const { innerWidth, innerHeight } = window;
             const newX = (clientX - innerWidth / 2) / 25;
@@ -79,7 +79,7 @@ export default function Hero() {
         }
     };
 
-    const getTitleGradient = (titleText) => {
+    const getTitleGradient = (titleText: any) => {
         const gradients = {
             'Frontend Developer': 'from-green-400 via-emerald-500 to-green-600',
             'Full Stack Developer': 'from-pink-400 via-rose-500 to-pink-600',
@@ -89,7 +89,7 @@ export default function Hero() {
         return gradients[titleText] || 'from-primary to-accent';
     };
 
-    const getTitleShadow = (titleText) => {
+    const getTitleShadow = (titleText: any) => {
         const shadows = {
             'Frontend Developer': 'drop-shadow-[0_0_30px_rgba(34,197,94,0.6)]',
             'Full Stack Developer': 'drop-shadow-[0_0_30px_rgba(236,72,153,0.6)]',
@@ -223,7 +223,7 @@ export default function Hero() {
                                     className="text-center"
                                     whileHover={{ scale: 1.05 }}
                                 >
-                                    <div className="text-2xl sm:text-3xl font-bold text-primary">{stat.number}</div>
+                                    <div className="text-2xl sm:text-3xl font-bold text-purple-500">{stat.number}</div>
                                     <div className="text-sm text-muted-foreground">{stat.label}</div>
                                 </motion.div>
                             ))}
