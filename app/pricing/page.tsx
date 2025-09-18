@@ -193,7 +193,7 @@ const faqs = [
 
 export default function PricingPage() {
   return (
-    <main className="min-h-screen bg-[#0A192F]">
+    <main className="min-h-screen bg-[#0A192F] font-saira">
       <Header />
 
       {/* Hero Section */}
