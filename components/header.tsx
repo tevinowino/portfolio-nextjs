@@ -53,6 +53,7 @@ export function Header() {
           {[
             { name: "Home", href: "/" },
             { name: "Services", href: "/services" },
+            { name: "Pricing", href: "/pricing" },
             { name: "Portfolio", href: "/portfolio" },
             { name: "About", href: "#about" },
             { name: "Contact", href: "#contact" },
@@ -114,6 +115,7 @@ export function Header() {
             >
               {[
                 { name: "Services", href: "/services" },
+                { name: "Pricing", href: "/pricing" },
                 { name: "Portfolio", href: "/portfolio" },
                 { name: "About", href: "#about" },
                 { name: "Contact", href: "#contact" },
