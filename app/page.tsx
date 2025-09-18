@@ -8,6 +8,7 @@ import { AboutSection } from "@/components/about-section"
 import { FinalCTASection } from "@/components/final-cta-section"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { FAQSection } from "@/components/faq-section"
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <WhyChooseUsSection />
       <MidPageCTA />
       <AboutSection />
+      <FAQSection />
       <FinalCTASection />
       <Footer />
     </main>

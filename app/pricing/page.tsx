@@ -163,34 +163,6 @@ const serviceCategories = [
   },
 ]
 
-const faqs = [
-  {
-    question: "What's included in the project price?",
-    answer:
-      "All our projects include design, development, testing, deployment, and initial support. Specific features vary by plan and can be customized to your needs.",
-  },
-  {
-    question: "How long does a typical project take?",
-    answer:
-      "Project timelines vary based on complexity. Landing pages take 1-2 weeks, business websites 3-4 weeks, and e-commerce sites 6-8 weeks.",
-  },
-  {
-    question: "Do you provide ongoing support?",
-    answer:
-      "Yes, all projects include initial support ranging from 1-6 months depending on the plan. We also offer ongoing maintenance packages.",
-  },
-  {
-    question: "Can I customize a plan?",
-    answer:
-      "Our pricing is flexible and can be customized based on your specific requirements. Contact us for a personalized quote.",
-  },
-  {
-    question: "What payment methods do you accept?",
-    answer:
-      "We accept bank transfers, mobile money (M-Pesa), and other local payment methods. Payment terms are typically 50% upfront and 50% on completion.",
-  },
-]
-
 export default function PricingPage() {
   return (
     <main className="min-h-screen bg-[#0A192F] font-saira">
@@ -336,41 +308,6 @@ export default function PricingPage() {
                         </motion.div>
                       ))}
                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Frequently Asked Questions</h2>
-            <p className="text-xl text-gray-300">Common questions about our pricing and services</p>
-          </motion.div>
-
-          <div className="space-y-6">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="bg-white border-0">
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold text-navy mb-3">{faq.question}</h3>
-                    <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
                   </CardContent>
                 </Card>
               </motion.div>
