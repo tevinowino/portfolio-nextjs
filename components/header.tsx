@@ -1,30 +1,28 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import clsx from "clsx";
+import { Button } from "@/components/ui/button"
+import { Menu, X } from "lucide-react"
+import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import clsx from "clsx"
 
 export function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 0);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+      setScrolled(window.scrollY > 0)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   return (
     <motion.header
       className={clsx(
         "py-4 px-4 md:px-6 lg:px-8 fixed top-2 left-2 right-2 z-50 rounded-4xl border transition-all duration-300",
-        scrolled
-          ? "bg-white/80 backdrop-blur-md border-gray-200 shadow-md"
-          : "bg-transparent border-transparent"
+        scrolled ? "bg-white/80 backdrop-blur-md border-gray-200 shadow-md" : "bg-transparent border-transparent",
       )}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -52,27 +50,25 @@ export function Header() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          {["Home", "Services", "Portfolio", "About", "Contact"].map(
-            (item, index) => (
-              <motion.a
-                key={item}
-                href={
-                  item === "Home"
-                    ? "/"
-                    : item === "Portfolio"
-                    ? "/portfolio"
-                    : `#${item.toLowerCase()}`
-                }
-                className="text-navy hover:text-teal hover:underline transition-all relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-teal after:transition-all after:duration-300 hover:after:w-full"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                {item}
-              </motion.a>
-            )
-          )}
+          {[
+            { name: "Home", href: "/" },
+            { name: "Services", href: "/services" },
+            { name: "Portfolio", href: "/portfolio" },
+            { name: "About", href: "#about" },
+            { name: "Contact", href: "#contact" },
+          ].map((item, index) => (
+            <motion.a
+              key={item.name}
+              href={item.href}
+              className="text-navy hover:text-teal hover:underline transition-all relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-teal after:transition-all after:duration-300 hover:after:w-full"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              {item.name}
+            </motion.a>
+          ))}
         </motion.nav>
 
         <motion.div
@@ -82,9 +78,7 @@ export function Header() {
           transition={{ duration: 0.6, delay: 0.5 }}
         >
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button className="hidden md:flex bg-teal hover:bg-teal/90 text-white">
-              Book Consultation
-            </Button>
+            <Button className="hidden md:flex bg-teal hover:bg-teal/90 text-white">Book Consultation</Button>
           </motion.div>
 
           <motion.button
@@ -119,7 +113,7 @@ export function Header() {
               transition={{ duration: 0.2, delay: 0.1 }}
             >
               {[
-                { name: "Services", href: "#services" },
+                { name: "Services", href: "/services" },
                 { name: "Portfolio", href: "/portfolio" },
                 { name: "About", href: "#about" },
                 { name: "Contact", href: "#contact" },
@@ -155,5 +149,5 @@ export function Header() {
         )}
       </AnimatePresence>
     </motion.header>
-  );
+  )
 }
