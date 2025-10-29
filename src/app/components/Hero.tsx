@@ -290,7 +290,7 @@ export default function Hero() {
                         >
                             {[
                                 { icon: Github, href: 'https://github.com/tevinowino', label: 'GitHub' },
-                                { icon: Linkedin, href: 'https://www.linkedin.com/in/tevinowino/', label: 'LinkedIn' },
+                                { icon: Linkedin, href: 'www.linkedin.com/in/tevin-owino', label: 'LinkedIn' },
                             ].map((social, index) => (
                                 <motion.a
                                     key={index}
