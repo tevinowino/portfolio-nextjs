@@ -32,7 +32,7 @@ export function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="what-we-do" className="section-padding bg-bg-primary relative overflow-hidden" ref={ref}>
+    <section id="what-we-do" className="section-padding bg-bg-primary relative overflow-hidden pt-[300px] sm:pt-0" ref={ref}>
       {/* Background Ambience */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-cyan/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent-purple/5 rounded-full blur-3xl pointer-events-none" />
@@ -51,7 +51,7 @@ export function AboutSection() {
             </span>
             
             <h2 className="text-display mb-8">
-              We Don't Just Write Code, We <GradientText variant="blue">Solve Life</GradientText>.
+              We Don't Just Write Code, We <GradientText variant="blue">Solve Your Headaches</GradientText>.
             </h2>
             
             <p className="text-body-lg mb-8">

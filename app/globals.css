@@ -44,7 +44,7 @@
   --font-mono: "Space Mono", ui-monospace, monospace;
 
   /* Spacing Scale */
-  --section-padding-y: clamp(4rem, 10vw, 8rem);
+  --section-padding-y: clamp(6rem, 10vw, 12rem);
   --section-padding-x: clamp(1rem, 5vw, 2rem);
 
   /* Border Radius */

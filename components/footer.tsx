@@ -37,9 +37,9 @@ export function Footer() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <motion.img
-                src="/full-logo-no-bg.png"
+                src="/logo-symbol-white-no-bg.png"
                 alt="Velion Consulting Logo"
-                className="h-10 w-auto"
+                className="h-28 w-auto "
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               />
