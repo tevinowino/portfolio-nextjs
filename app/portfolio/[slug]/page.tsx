@@ -118,7 +118,7 @@ const projectsData = {
 
     testimonial: {
       quote:
-        "The platform Velion Labs built has made a huge difference. Our youth can now access gigs and mentorship more easily, which is exactly what our mission needed.",
+        "The platform Velion Consulting built has made a huge difference. Our youth can now access gigs and mentorship more easily, which is exactly what our mission needed.",
       author: "Stephen Siloma",
       position: "Founder, Digital Moran",
       avatar: "/placeholder.svg?height=80&width=80",

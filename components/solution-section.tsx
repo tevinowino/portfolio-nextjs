@@ -1,142 +1,150 @@
 "use client"
 
-import { ChevronDown } from "lucide-react"
-import { useState, useRef } from "react"
-import { motion, AnimatePresence, useInView } from "framer-motion"
+import { useRef } from "react"
+import { motion, useInView } from "framer-motion"
+import { GraduationCap, Factory, ShoppingCart, Building2, ArrowUpRight, ArrowRight } from "lucide-react"
+import { GradientText } from "@/components/ui/gradient-text"
+import Link from "next/link"
+
+const solutions = [
+  {
+    id: "education",
+    icon: GraduationCap,
+    title: "Educational Harmony",
+    shortTitle: "Schools",
+    description: "We build digital ecosystems that manage exams, students, and parents seamlessly. Stop the paperwork chase.",
+    image: "https://plus.unsplash.com/premium_photo-1680807869780-e0876a6f3cd5?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    colSpan: "md:col-span-2",
+  },
+  {
+    id: "manufacturing",
+    icon: Factory,
+    title: "Operational Flow",
+    shortTitle: "Manufacturing",
+    description: "Manage stock, production, and sales in one unified system.",
+    image: "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&auto=format&fit=crop&q=80",
+    colSpan: "md:col-span-1",
+  },
+  {
+    id: "retail",
+    icon: ShoppingCart,
+    title: "Effortless Transactions",
+    shortTitle: "Retail",
+    description: "Optimized checkout and secure payments for growth.",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&auto=format&fit=crop&q=80",
+    colSpan: "md:col-span-1",
+  },
+  {
+    id: "corporate",
+    icon: Building2,
+    title: "Authority Presence",
+    shortTitle: "Corporate",
+    description: "Sleek, professional websites that position you as an industry leader.",
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80",
+    colSpan: "md:col-span-2",
+  },
+]
 
 export function SolutionSection() {
-  const [openAccordion, setOpenAccordion] = useState<number | null>(0)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
-  const solutions = [
-    {
-      title: "Customized Strategy Development",
-      description:
-        "Tailor-made strategies to address your unique business challenges and opportunities, ensuring sustainable growth and competitive advantage.",
-    },
-    {
-      title: "Operational Efficiency Optimization",
-      description:
-        "Streamline your processes and improve efficiency with our expert guidance, technologies and best practices to maximize your operational performance.",
-    },
-    {
-      title: "Market Analysis and Insights",
-      description:
-        "Gain valuable market insights and stay ahead of the competition with our comprehensive analysis and data-driven recommendations.",
-    },
-    {
-      title: "Leadership and Team Building",
-      description:
-        "Enhance your leadership capabilities and foster a high-performing team through our specialized coaching and development programs.",
-    },
-  ]
-
   return (
-    <section className="py-20 px-4 md:px-6 lg:px-8 bg-gradient-to-br from-[#dae6ff] to-[#ffffff]" ref={ref}>
-      <div className="max-w-7xl mx-auto">
+    <section className="section-padding bg-bg-primary" ref={ref}>
+      <div className="container-custom">
+        {/* Header */}
         <motion.div
-          className=" rounded-3xl p-8 md:p-12 lg:p-16"
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center max-w-3xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6 }}
         >
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          >
-            <h2 className="text-4xl sm:text-6xl font-saira mb-6">
-              <span className="text-gray-400">WHAT WE CAN DO</span> <span className="text-[#2563EB]">FOR YOU?</span>
-            </h2>
-          </motion.div>
+          <span className="inline-block font-mono text-xs uppercase tracking-widest text-accent-cyan mb-4">
+            Our Core Solutions
+          </span>
+          <h2 className="text-headline mb-4">
+            Systems Aligned With{" "}
+            <GradientText variant="blue">Your Goals</GradientText>
+          </h2>
+          <p className="text-body">
+            We manifest our care through precision-engineered solutions designed to solve your specific frustrations.
+          </p>
+        </motion.div>
 
-          {/* Flex container for image + accordion */}
-          <div className="flex flex-col lg:flex-row gap-10 items-start">
-            {/* Left Image */}
-            <motion.div
-              className="lg:w-2/5 flex-shrink-0"
-              initial={{ opacity: 0, x: -50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              <img
-                src="/strategy.jpg"
-                alt="Solutions Illustration"
-                className="rounded-2xl w-full object-cover"
-              />
-            </motion.div>
+        {/* Bento Grid layout */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px] lg:auto-rows-[380px]">
+          {solutions.map((solution, index) => {
+            const Icon = solution.icon
 
-            {/* Accordion + CTA */}
-            <div className="lg:w-2/3 space-y-4">
-              {solutions.map((solution, index) => (
-                <motion.div
-                  key={index}
-                  className="bg-[#1a1a2e] rounded-xl overflow-hidden"
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.4 + index * 0.1,
-                    ease: "easeOut",
-                  }}
-                  whileHover={{
-                    scale: 1.02,
-                    transition: { duration: 0.2 },
-                  }}
-                >
-                  <motion.button
-                    onClick={() => setOpenAccordion(openAccordion === index ? null : index)}
-                    className="w-full p-6 text-left flex items-center justify-between text-white hover:bg-[#16213e] transition-colors"
-                    whileHover={{ backgroundColor: "#16213e" }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <h3 className="text-xl font-semibold font-saira">{solution.title}</h3>
-                    <motion.div
-                      animate={{ rotate: openAccordion === index ? 180 : 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                    >
-                      <ChevronDown className="h-5 w-5" />
-                    </motion.div>
-                  </motion.button>
-                  <AnimatePresence>
-                    {openAccordion === index && (
-                      <motion.div
-                        className="px-6 pb-6 text-gray-300"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                      >
-                        <motion.p
-                          className="leading-relaxed"
-                          initial={{ y: -10, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          exit={{ y: -10, opacity: 0 }}
-                          transition={{ duration: 0.2, delay: 0.1 }}
-                        >
-                          {solution.description}
-                        </motion.p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              ))}
-
-              {/* CTA Button */}
+            return (
               <motion.div
-                className="mt-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
+                key={solution.id}
+                initial={{ opacity: 0, y: 40 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
+                className={`${solution.colSpan}`}
               >
-                <button className="px-8 py-4 bg-[#2563EB] text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors">
-                  Get Started
-                </button>
+                <Link href="/contact" className="group relative block h-full w-full overflow-hidden rounded-3xl border border-white/10 bg-bg-secondary">
+                  {/* Background Image */}
+                  <div className="absolute inset-0">
+                    <img
+                      src={solution.image}
+                      alt={solution.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    {/* Gradient Overlay - Stronger at bottom for text */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 transition-opacity duration-300 group-hover:via-black/50" />
+                  </div>
+
+                  {/* Content Container */}
+                  <div className="absolute inset-0 flex flex-col justify-between p-6 lg:p-8">
+                    {/* Top Row: Tag & Icon */}
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-md">
+                        <Icon className="h-4 w-4 text-accent-cyan shadow-glow-cyan" />
+                        <span className="font-mono text-xs font-medium uppercase tracking-wider text-white">
+                          {solution.shortTitle}
+                        </span>
+                      </div>
+                      
+                      <div className="flex h-10 w-10 translate-y-2 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-md opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                        <ArrowUpRight className="h-5 w-5 text-white" />
+                      </div>
+                    </div>
+
+                    {/* Bottom Content */}
+                    <div className="transform transition-transform duration-300 group-hover:-translate-y-2">
+                      <h3 className="mb-3 font-heading text-2xl font-bold leading-tight text-white md:text-3xl">
+                        {solution.title}
+                      </h3>
+                      <p className="max-w-md text-sm leading-relaxed text-white/80 md:text-base">
+                        {solution.description}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
               </motion.div>
-            </div>
-          </div>
+            )
+          })}
+        </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="text-center mt-16"
+        >
+          <Link href="/contact">
+            <motion.button
+              className="btn-primary"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Discuss Your Project
+              <ArrowRight className="w-4 h-4" />
+            </motion.button>
+          </Link>
         </motion.div>
       </div>
     </section>

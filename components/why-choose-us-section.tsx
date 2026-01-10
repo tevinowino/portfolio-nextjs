@@ -1,153 +1,155 @@
-'use client'
+"use client"
 
-import { Shield, Zap, Users, Headphones, ArrowRight } from "lucide-react"
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef, useState } from "react"
+import { Shield, Zap, Users, Headphones } from "lucide-react"
+import { motion, useInView } from "framer-motion"
+import { useRef } from "react"
+import { GradientText } from "@/components/ui/gradient-text"
+import { AnimatedCounter } from "@/components/ui/animated-counter"
+import { GlowCard } from "@/components/ui/glow-card"
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
+
+const metrics = [
+  { value: "99.9", suffix: "%", label: "Uptime SLA" },
+  { value: "10", suffix: "x", label: "Performance" },
+  { value: "3", suffix: "x", label: "Avg ROI" },
+  { value: "24/7", suffix: "", label: "Support" },
+]
+
+const differentiators = [
+  {
+    icon: Shield,
+    title: "Security-First Approach",
+    description: "Every solution prioritizes data protection and compliance, giving you peace of mind.",
+  },
+  {
+    icon: Zap,
+    title: "Built for Scale",
+    description: "Our solutions grow with your business, adapting to serve 100 or 100,000 customers.",
+  },
+  {
+    icon: Users,
+    title: "Business-First Mindset",
+    description: "We solve business problems. Every decision is made with your ROI in mind.",
+  },
+  {
+    icon: Headphones,
+    title: "Ongoing Partnership",
+    description: "Continuous support, optimization, and strategic guidance long after launch.",
+  },
+]
 
 export function WhyChooseUsSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const [hoveredIndex, setHoveredIndex] = useState(null)
-
-  const differentiators = [
-    {
-      icon: Shield,
-      title: "Security-First Approach",
-      description:
-        "Every solution we build prioritizes data protection and compliance, giving you peace of mind and protecting your business reputation.",
-      metric: "99.9%",
-      metricLabel: "Uptime SLA"
-    },
-    {
-      icon: Zap,
-      title: "Built for Scale",
-      description:
-        "Our solutions grow with your business. Whether you're serving 100 or 100,000 customers, our architecture adapts to your needs.",
-      metric: "10x",
-      metricLabel: "Performance Gain"
-    },
-    {
-      icon: Users,
-      title: "Business-First Mindset",
-      description:
-        "We don't just build technology—we solve business problems. Every decision is made with your ROI and growth objectives in mind.",
-      metric: "3x",
-      metricLabel: "ROI Average"
-    },
-    {
-      icon: Headphones,
-      title: "Ongoing Partnership",
-      description:
-        "Your success is our success. We provide continuous support, optimization, and strategic guidance long after launch.",
-      metric: "24/7",
-      metricLabel: "Support Coverage"
-    },
-  ]
 
   return (
-    <section className="py-24 px-4 md:px-6 lg:px-8 bg-gray-50" ref={ref}>
-      <div className="max-w-7xl mx-auto">
+    <section className="section-padding bg-bg-primary" ref={ref}>
+      <div className="container-custom">
         {/* Header */}
         <motion.div
-          className="mb-20"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center max-w-3xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6 }}
         >
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-            <div className="lg:max-w-2xl">
-              <h2 className="text-4xl lg:text-5xl text-navy font-saira mb-6 leading-tight">
-                Why <span className="font-bold text-blue-800">Velion Labs</span>?
-              </h2>
-              <p className="text-xl text-gray-600 font-saira leading-relaxed">
-                We're not just another development agency. We're your strategic technology partner, committed to your long-term success.
-              </p>
-            </div>
-            <div className="text-right">
-              <img src="/text-logo-no-bg.png" alt="Logo" className="w-20"/>
-            </div>
-          </div>
+          <span className="inline-block font-mono text-xs uppercase tracking-widest text-accent-cyan mb-4">
+            Why Velion Consulting
+          </span>
+          <h2 className="text-headline mb-6">
+            Built <GradientText variant="blue">Different</GradientText>
+          </h2>
+          <p className="text-body">
+            We're not just another agency. We're your strategic technology partner, 
+            committed to your long-term success.
+          </p>
         </motion.div>
 
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-3 gap-8 items-start">
-          {/* Image Section */}
+        {/* Metrics Row */}
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {metrics.map((metric, index) => (
+            <motion.div
+              key={index}
+              className="text-center p-6 rounded-xl bg-bg-secondary border border-border-subtle"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+            >
+              <AnimatedCounter
+                value={metric.value}
+                suffix={metric.suffix}
+                label={metric.label}
+                duration={2}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
 
-          {/* Differentiators */}
-          <div className="lg:col-span-2 space-y-1">
-            {differentiators.map((item, index) => (
+        {/* Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-border-visible to-transparent mb-16" />
+
+        {/* Features Grid */}
+        <div className="grid md:grid-cols-2 gap-4 lg:gap-6">
+          {differentiators.map((item, index) => {
+            const Icon = item.icon
+            return (
               <motion.div
                 key={index}
-                className="group relative bg-white border-l-4 border-gray-200 hover:border-blue-800 transition-all duration-300"
-                initial={{ opacity: 0, x: 30 }}
-                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-                transition={{ duration: 0.6, delay: 0.3 + index * 0.1, ease: "easeOut" }}
-                onHoverStart={() => setHoveredIndex(index)}
-                onHoverEnd={() => setHoveredIndex(null)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
               >
-                <div className="p-8 border-b border-gray-100 hover:bg-gray-50 transition-colors duration-300">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start space-x-6 flex-1">
-                      {/* Icon */}
-                      <div className="w-12 h-12 bg-navy flex items-center justify-center flex-shrink-0">
-                        <item.icon className="h-6 w-6 text-white" />
-                      </div>
-
-                      {/* Content */}
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-xl font-semibold text-navy mb-3 group-hover:text-blue-800 transition-colors duration-300">
-                          {item.title}
-                        </h3>
-                        <p className="text-gray-600 leading-relaxed mb-4">
-                          {item.description}
-                        </p>
-                      </div>
+                <GlowCard>
+                  <div className="p-6 lg:p-8 flex items-start gap-5">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-blue to-accent-cyan flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-6 h-6 text-white" />
                     </div>
-
-                    {/* Metric */}
-                    <div className="text-right ml-6 flex-shrink-0">
-                      <div className="text-2xl font-bold text-navy">{item.metric}</div>
-                      <div className="text-xs text-gray-500 uppercase tracking-wider">
-                        {item.metricLabel}
-                      </div>
+                    <div>
+                      <h3 className="font-heading font-semibold text-text-primary mb-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-text-secondary text-sm leading-relaxed">
+                        {item.description}
+                      </p>
                     </div>
-
-                    {/* Arrow */}
-                    <motion.div
-                      className="ml-4 opacity-0 group-hover:opacity-100 flex-shrink-0"
-                      initial={{ x: -10 }}
-                      animate={{ x: hoveredIndex === index ? 0 : -10 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <ArrowRight className="h-5 w-5 text-blue-800" />
-                    </motion.div>
                   </div>
-                </div>
+                </GlowCard>
               </motion.div>
-            ))}
-          </div>
+            )
+          })}
         </div>
 
         {/* Bottom CTA */}
         <motion.div
-          className="mt-20 text-center"
+          className="mt-16"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.6, delay: 0.8 }}
         >
-          <div className="inline-flex items-center space-x-8 p-6 bg-white border border-gray-200">
-            <div className="text-left">
-              <div className="text-lg font-semibold text-navy">Ready to get started?</div>
-              <div className="text-gray-600">Let's discuss your project requirements</div>
+          <div className="bg-bg-secondary rounded-2xl border border-border-subtle p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 className="font-heading font-semibold text-xl text-text-primary mb-1">
+                Ready to get started?
+              </h3>
+              <p className="text-text-secondary">
+                Let's discuss your project requirements.
+              </p>
             </div>
-            <motion.button
-              className="px-8 py-3 bg-navy text-white font-medium hover:bg-blue-800 transition-colors duration-300"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Schedule a Call
-            </motion.button>
+            <Link href="#contact">
+              <motion.button
+                className="btn-primary whitespace-nowrap"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Schedule a Call
+                <ArrowRight className="w-4 h-4" />
+              </motion.button>
+            </Link>
           </div>
         </motion.div>
       </div>

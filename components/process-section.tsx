@@ -1,118 +1,199 @@
 "use client"
 
-import { Search, Target, Settings, Trophy } from "lucide-react"
-import { motion, useInView } from "framer-motion"
+import { Search, Target, Settings, Trophy, Rocket } from "lucide-react"
+import { motion, useInView, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
-import { Button } from "@/components/ui/button"
+import { GradientText } from "@/components/ui/gradient-text"
+import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+
+const processSteps = [
+  {
+    title: "Discovery",
+    description: "We meet to understand your business, goals, and user needs—defining the scope and vision.",
+    icon: Search,
+    step: "01",
+  },
+  {
+    title: "Design",
+    description: "Our team creates wireframes, prototypes, and a clear roadmap for development.",
+    icon: Target,
+    step: "02",
+  },
+  {
+    title: "Develop",
+    description: "We build with clean, scalable code, integrating features while testing rigorously.",
+    icon: Settings,
+    step: "03",
+  },
+  {
+    title: "Deploy",
+    description: "Your product goes live with thorough QA, optimization, and monitoring.",
+    icon: Rocket,
+    step: "04",
+  },
+  {
+    title: "Support",
+    description: "Ongoing maintenance, updates, and strategic guidance to help you grow.",
+    icon: Trophy,
+    step: "05",
+  },
+]
 
 export function ProcessSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  })
 
-  const processSteps = [
-    {
-      title: "Initial Consultation",
-      description:
-        "We meet with you to understand your business, project goals, and user needs—defining the scope and vision of your website or software.",
-      icon: Search,
-      step: "01",
-    },
-    {
-      title: "Design & Planning",
-      description:
-        "Our designers and developers create wireframes, prototypes, and a clear roadmap to ensure a smooth development process.",
-      icon: Target,
-      step: "02",
-    },
-    {
-      title: "Development & Testing",
-      description:
-        "We build your website or software with clean, scalable code, integrating features while testing for performance and usability.",
-      icon: Settings,
-      step: "03",
-    },
-    {
-      title: "Launch & Support",
-      description:
-        "We deliver your fully functional product, provide training, and offer ongoing support to ensure your solution grows with your business.",
-      icon: Trophy,
-      step: "04",
-    },
-  ]
+  const lineWidth = useTransform(scrollYProgress, [0.2, 0.8], ["0%", "100%"])
 
   return (
     <section
-      className="bg-gradient-to-br from-[#0A192F] to-[#1a365d] text-white py-20 px-4 md:px-6 lg:px-8"
+      className="section-padding bg-bg-secondary overflow-hidden"
       ref={ref}
       id="process"
     >
-      <div className="max-w-6xl mx-auto">
-        {/* Section header */}
+      <div className="container-custom">
+        {/* Header */}
         <motion.div
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center max-w-3xl mx-auto mb-16 lg:mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold leading-tight text-balance font-saira mb-6">
-            Our <span className="text-[#2563EB]">Proven Process</span> for Success
+          <span className="inline-block font-mono text-xs uppercase tracking-widest text-accent-cyan mb-4">
+            How We Work
+          </span>
+          <h2 className="text-headline mb-6">
+            Our <GradientText variant="blue">Proven Process</GradientText>
           </h2>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed text-pretty font-saira">
-            From the first consultation to delivering your fully functional product, we guide you through every step to
-            ensure success.
+          <p className="text-body">
+            From concept to launch and beyond, we guide you through every step 
+            with transparency and expertise.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          {processSteps.map((step, index) => (
+        {/* Desktop Timeline */}
+        <div className="hidden lg:block relative">
+          {/* Progress Line */}
+          <div className="absolute top-[60px] left-0 right-0 h-[2px] bg-border-subtle">
             <motion.div
-              key={index}
-              className="relative group"
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-            >
-              {index < processSteps.length - 1 && (
-                <div className="hidden lg:block absolute top-16 left-full w-full h-0.5 bg-gradient-to-r from-[#2563EB] to-transparent z-0" />
-              )}
+              className="h-full bg-gradient-to-r from-accent-blue via-accent-cyan to-accent-purple"
+              style={{ width: lineWidth }}
+            />
+          </div>
 
-              <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 h-full hover:bg-white/10 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
-                {/* Step number */}
-                <div className="absolute -top-4 -left-4 w-12 h-12 bg-[#2563EB] rounded-full flex items-center justify-center text-white font-bold font-saira text-lg shadow-lg">
-                  {step.step}
-                </div>
+          {/* Steps */}
+          <div className="grid grid-cols-5 gap-6">
+            {processSteps.map((step, index) => {
+              const Icon = step.icon
+              return (
+                <motion.div
+                  key={index}
+                  className="relative"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                >
+                  {/* Step Number Badge */}
+                  <div className="relative z-10 w-[120px] h-[120px] mx-auto mb-6">
+                    <motion.div
+                      className="absolute inset-0 rounded-full bg-bg-primary border-2 border-border-visible flex items-center justify-center"
+                      whileHover={{ 
+                        scale: 1.1,
+                        borderColor: "var(--accent-cyan)",
+                      }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <div className="text-center">
+                        <span className="font-mono text-xs text-accent-cyan tracking-wider">STEP</span>
+                        <div className="font-mono text-3xl font-bold text-text-primary">{step.step}</div>
+                      </div>
+                    </motion.div>
+                    
+                    {/* Glow on hover */}
+                    <div className="absolute inset-0 rounded-full bg-accent-cyan/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
 
-                {/* Icon */}
-                <div className="mb-6 p-4 bg-[#2563EB]/20 rounded-xl w-fit group-hover:bg-[#2563EB]/30 transition-colors duration-300">
-                  <step.icon className="w-8 h-8 text-[#2563EB]" />
-                </div>
-
-                {/* Content */}
-                <h3 className="text-xl font-bold mb-4 font-saira text-white group-hover:text-[#2563EB] transition-colors duration-300">
-                  {step.title}
-                </h3>
-                <p className="text-gray-300 leading-relaxed font-saira">{step.description}</p>
-              </div>
-            </motion.div>
-          ))}
+                  {/* Content */}
+                  <div className="text-center">
+                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-bg-tertiary mb-3">
+                      <Icon className="w-5 h-5 text-accent-cyan" />
+                    </div>
+                    <h3 className="font-heading font-semibold text-text-primary mb-2">
+                      {step.title}
+                    </h3>
+                    <p className="text-text-muted text-sm leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </motion.div>
+              )
+            })}
+          </div>
         </div>
 
+        {/* Mobile Timeline */}
+        <div className="lg:hidden space-y-6">
+          {processSteps.map((step, index) => {
+            const Icon = step.icon
+            return (
+              <motion.div
+                key={index}
+                className="relative flex gap-4"
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
+              >
+                {/* Left - Step Number & Line */}
+                <div className="flex flex-col items-center">
+                  <div className="w-14 h-14 rounded-full bg-bg-primary border-2 border-accent-cyan flex items-center justify-center flex-shrink-0">
+                    <span className="font-mono text-lg font-bold text-accent-cyan">{step.step}</span>
+                  </div>
+                  {index < processSteps.length - 1 && (
+                    <div className="w-[2px] flex-1 bg-gradient-to-b from-accent-cyan to-transparent my-2" />
+                  )}
+                </div>
+
+                {/* Right - Content */}
+                <div className="flex-1 pb-6">
+                  <div className="bg-bg-tertiary rounded-xl p-5 border border-border-subtle">
+                    <div className="flex items-center gap-3 mb-2">
+                      <Icon className="w-5 h-5 text-accent-cyan" />
+                      <h3 className="font-heading font-semibold text-text-primary">
+                        {step.title}
+                      </h3>
+                    </div>
+                    <p className="text-text-secondary text-sm leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
+
+        {/* CTA */}
         <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          className="text-center mt-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
         >
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button
-              size="lg"
-              className="bg-[#2563EB] hover:bg-[#2563EB]/90 text-white px-8 py-4 rounded-full transition-all duration-300 font-saira text-lg"
+          <Link href="#contact">
+            <motion.button
+              className="btn-primary"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              Start Your Project Today
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </motion.div>
+              Start Your Project
+              <ArrowRight className="w-4 h-4" />
+            </motion.button>
+          </Link>
         </motion.div>
       </div>
     </section>

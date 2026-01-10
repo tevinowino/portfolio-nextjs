@@ -1,216 +1,326 @@
 "use client"
 
-import { motion, AnimatePresence } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef, useState } from "react"
-import { Globe, Zap, Code, TrendingUp, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion"
+import { useRef, useEffect, useState } from "react"
+import { ArrowRight } from "lucide-react"
+import { GradientText } from "@/components/ui/gradient-text"
+import Link from "next/link"
+import Image from "next/image"
+
+// Progress bar data - capabilities that solve client problems
+const capabilities = [
+  {
+    label: "Website & Business Growth",
+    percentage: 95,
+    description: "Websites that convert visitors into customers",
+  },
+  {
+    label: "Creativity & Innovation",
+    percentage: 88,
+    description: "Fresh designs that stand out from competition",
+  },
+  {
+    label: "Technical Excellence",
+    percentage: 92,
+    description: "Reliable, scalable solutions built to last",
+  },
+  {
+    label: "Client Satisfaction",
+    percentage: 97,
+    description: "Results that exceed expectations",
+  },
+]
+
+// Stats data
+const stats = [
+  { value: 50, suffix: "+", label: "Projects Delivered" },
+  { value: 200, suffix: "+", label: "Hours Saved" },
+  { value: 100, suffix: "%", label: "Client Satisfaction" },
+  { value: 3, suffix: "+", label: "Years Experience" },
+]
+
+// Animated counter hook
+function useCounter(end: number, duration: number = 2000, shouldStart: boolean = false) {
+  const [count, setCount] = useState(0)
+  
+  useEffect(() => {
+    if (!shouldStart) return
+    
+    let startTime: number | null = null
+    let animationFrame: number
+    
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp
+      const progress = Math.min((timestamp - startTime) / duration, 1)
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4)
+      setCount(Math.floor(easeOutQuart * end))
+      
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate)
+      }
+    }
+    
+    animationFrame = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(animationFrame)
+  }, [end, duration, shouldStart])
+  
+  return count
+}
+
+// Progress Bar Component
+function ProgressBar({ 
+  capability, 
+  index, 
+  isInView 
+}: { 
+  capability: typeof capabilities[0]
+  index: number
+  isInView: boolean
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 30 }}
+      animate={isInView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+      className="group"
+    >
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-text-primary font-medium text-sm">
+          {capability.label}
+        </span>
+        <span className="font-mono text-accent-cyan text-sm font-semibold">
+          {capability.percentage}%
+        </span>
+      </div>
+      <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+        <motion.div
+          className="h-full rounded-full bg-gradient-to-r from-accent-cyan to-accent-blue"
+          initial={{ width: 0 }}
+          animate={isInView ? { width: `${capability.percentage}%` } : {}}
+          transition={{ 
+            duration: 1.2, 
+            delay: 0.4 + index * 0.15,
+            ease: [0.25, 0.46, 0.45, 0.94] 
+          }}
+        />
+      </div>
+    </motion.div>
+  )
+}
+
+// Stat Card Component
+function StatCard({ 
+  stat, 
+  index, 
+  isInView 
+}: { 
+  stat: typeof stats[0]
+  index: number
+  isInView: boolean
+}) {
+  const count = useCounter(stat.value, 2000, isInView)
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+      className="text-center"
+    >
+      <div className="font-mono text-4xl lg:text-5xl font-bold text-white mb-1">
+        {count}{stat.suffix}
+      </div>
+      <div className="text-text-muted text-sm uppercase tracking-wider">
+        {stat.label}
+      </div>
+    </motion.div>
+  )
+}
 
 export function ProblemSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const statsRef = useRef<HTMLDivElement>(null)
+  
+  const isContentInView = useInView(contentRef, { once: true, margin: "-100px" })
+  const isStatsInView = useInView(statsRef, { once: true, margin: "-50px" })
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  })
 
-  const problems = [
-    {
-      title: "Website or App Not Driving Results?",
-      description: "Many businesses have online platforms that fail to engage visitors or convert them into customers.",
-      solution:
-        "We design and develop websites and apps that attract, engage, and convert users, turning your online presence into a growth engine.",
-      impact: "Average 150% increase in conversion rates and 80% improvement in user engagement within 3 months.",
-      icon: Globe,
-      color: "from-blue-500/10 to-blue-600/5",
-      iconBg: "bg-blue-50",
-      iconColor: "text-blue-600",
-    },
-    {
-      title: "Operational Inefficiencies?",
-      description:
-        "Manual processes and slow workflows can drain time and resources, slowing down your business growth.",
-      solution:
-        "We optimize workflows, automate repetitive tasks, and integrate technology to make your operations faster, smarter, and more cost-effective.",
-      impact: "Reduce operational costs by 40% and increase team productivity by 200% through smart automation.",
-      icon: Zap,
-      color: "from-amber-500/10 to-amber-600/5",
-      iconBg: "bg-amber-50",
-      iconColor: "text-amber-600",
-    },
-    {
-      title: "Complex Technology Needs?",
-      description:
-        "Upgrading systems or building custom solutions can feel overwhelming and risky for growing businesses.",
-      solution:
-        "We create reliable, scalable web apps and custom SaaS platforms tailored to your business, ensuring technology supports your growth rather than hindering it.",
-      impact: "Launch custom solutions 60% faster with 99.9% uptime and seamless scalability for future growth.",
-      icon: Code,
-      color: "from-purple-500/10 to-purple-600/5",
-      iconBg: "bg-purple-50",
-      iconColor: "text-purple-600",
-    },
-    {
-      title: "Difficulty Staying Competitive?",
-      description: "Market shifts and competition can make it hard to know where to focus your efforts for growth.",
-      solution:
-        "We provide data-driven insights, market research, and strategic guidance to help you make informed decisions and stay ahead of the competition.",
-      impact:
-        "Achieve 3x faster market response time and 120% revenue growth through strategic digital transformation.",
-      icon: TrendingUp,
-      color: "from-emerald-500/10 to-emerald-600/5",
-      iconBg: "bg-emerald-50",
-      iconColor: "text-emerald-600",
-    },
-  ]
+  // Subtle parallax for images
+  const imageY1 = useTransform(scrollYProgress, [0, 1], [40, -40])
+  const imageY2 = useTransform(scrollYProgress, [0, 1], [60, -60])
+  const springY1 = useSpring(imageY1, { stiffness: 100, damping: 30 })
+  const springY2 = useSpring(imageY2, { stiffness: 100, damping: 30 })
+
+  // Content fade and slide
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1])
+  const contentY = useTransform(scrollYProgress, [0, 0.3], [60, 0])
+  const springContentY = useSpring(contentY, { stiffness: 100, damping: 30 })
 
   return (
-    <section className="py-20 px-4 md:px-6 lg:px-8 bg-[#0A192F]" ref={ref}>
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          className="bg-white rounded-3xl p-8 md:p-12 lg:p-16 overflow-hidden"
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-navy mb-6 text-balance font-saira">
-              Are You Running Into These Problems?
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed font-saira">
-              We understand the challenges growing businesses face. Here's how we help solve them.
-            </p>
-          </motion.div>
+    <section 
+      className="section-padding bg-bg-primary relative overflow-hidden" 
+      ref={containerRef}
+    >
+      {/* Background gradient orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent-cyan/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent-blue/5 rounded-full blur-3xl" />
+      </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {problems.map((problem, index) => {
-              const IconComponent = problem.icon
-              const isHovered = hoveredIndex === index
-
-              return (
-                <motion.div
-                  key={index}
-                  className="relative overflow-hidden rounded-2xl cursor-pointer group bg-white border border-gray-100"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.4 + index * 0.1,
-                    ease: "easeOut",
-                  }}
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-                    transition: { duration: 0.3 },
-                  }}
-                  onHoverStart={() => setHoveredIndex(index)}
-                  onHoverEnd={() => setHoveredIndex(null)}
-                  layout
-                >
-                  <motion.div
-                    className={`absolute inset-0 bg-gradient-to-br ${problem.color}`}
-                    initial={{ opacity: 0.5 }}
-                    animate={{ opacity: isHovered ? 0.8 : 0.5 }}
-                    transition={{ duration: 0.3 }}
+      <div className="container-custom relative z-10">
+        {/* Main Content Grid */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
+          
+          {/* Left Side - Images */}
+          <div className="relative order-2 lg:order-1">
+            <div className="grid grid-cols-2 gap-4">
+              {/* First Image */}
+              <motion.div 
+                style={{ y: springY1 }}
+                className="relative"
+              >
+                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden">
+                  <Image
+                    src="/about.png"
+                    alt="Team collaboration"
+                    fill
+                    className="object-cover transition-all duration-700"
                   />
-
-                  {/* Content */}
-                  <div className="relative z-10 p-6 h-full flex flex-col">
-                    {/* Icon */}
-                    <motion.div
-                      className="flex justify-center mb-4"
-                      whileHover={{
-                        scale: 1.1,
-                        transition: { duration: 0.2 },
-                      }}
-                    >
-                      <motion.div
-                        className={`w-12 h-12 ${problem.iconBg} rounded-full flex items-center justify-center`}
-                        whileHover={{
-                          rotate: 360,
-                          transition: { duration: 0.3 },
-                        }}
-                      >
-                        <IconComponent className={`w-6 h-6 ${problem.iconColor}`} />
-                      </motion.div>
-                    </motion.div>
-
-                    {/* Title */}
-                    <h3 className="text-xl font-semibold text-navy text-center mb-3 font-saira">{problem.title}</h3>
-
-                    {/* Problem Description */}
-                    <p className="text-gray-600 leading-relaxed text-center text-sm mb-4 font-saira">
-                      {problem.description}
-                    </p>
-
-                    {/* Expanded Content */}
-                    <AnimatePresence>
-                      {isHovered && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0, y: 20 }}
-                          animate={{ opacity: 1, height: "auto", y: 0 }}
-                          exit={{ opacity: 0, height: 0, y: 20 }}
-                          transition={{ duration: 0.3, ease: "easeOut" }}
-                          className="mt-auto"
-                        >
-                          <div className="border-t border-gray-200 pt-4 space-y-4">
-                            {/* Solution */}
-                            <div>
-                              <h4 className="text-sm font-semibold text-navy mb-2 font-saira">Our Solution:</h4>
-                              <p className="text-xs text-gray-600 leading-relaxed font-saira">{problem.solution}</p>
-                            </div>
-
-                            {/* Impact */}
-                            <div>
-                              <h4 className="text-sm font-semibold text-navy mb-2 font-saira">Expected Impact:</h4>
-                              <p className="text-xs text-emerald-700 font-medium leading-relaxed font-saira">
-                                {problem.impact}
-                              </p>
-                            </div>
-
-                            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                              <Button className="w-full bg-teal hover:bg-teal/90 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-2 mt-4 font-saira group">
-                                Get Started
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                              </Button>
-                            </motion.div>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-teal/5 to-blue/5 opacity-0 group-hover:opacity-100"
-                    transition={{ duration: 0.3 }}
+                  <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/60 to-transparent" />
+                </div>
+              </motion.div>
+              
+              {/* Second Image - offset */}
+              <motion.div 
+                style={{ y: springY2 }}
+                className="relative mt-8"
+              >
+                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden">
+                  <Image
+                    src="/strategy.jpg"
+                    alt="Strategic planning"
+                    fill
+                    className="object-cover transition-all duration-700"
                   />
-                </motion.div>
-              )
-            })}
+                  <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/60 to-transparent" />
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Decorative badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="absolute -bottom-6 left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:-right-6"
+            >
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-accent-cyan to-accent-blue flex items-center justify-center shadow-lg shadow-accent-cyan/20">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-white">3+</div>
+                  <div className="text-[10px] uppercase tracking-wider text-white/80">Years</div>
+                </div>
+              </div>
+            </motion.div>
           </div>
 
-          <motion.div
-            className="text-center mt-12 pt-8 border-t border-gray-200"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+          {/* Right Side - Content */}
+          <motion.div 
+            ref={contentRef}
+            style={{ opacity: contentOpacity, y: springContentY }}
+            className="order-1 lg:order-2"
           >
-            <p className="text-lg text-gray-600 mb-6 font-saira">
-              Ready to solve these challenges and accelerate your business growth?
-            </p>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                size="lg"
-                className="bg-[#03102b] hover:bg-[#03102b]/90 text-white px-8 py-4 rounded-full font-saira group"
-              >
-                Book a Free Consultation
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
+            {/* Badge */}
+            <motion.span 
+              initial={{ opacity: 0, y: 20 }}
+              animate={isContentInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+              className="inline-block font-mono text-xs uppercase tracking-widest text-accent-cyan mb-4 px-3 py-1 rounded-full border border-accent-cyan/30 bg-accent-cyan/5"
+            >
+              Challenges We Solve
+            </motion.span>
+
+            {/* Headline */}
+            <motion.h2 
+              initial={{ opacity: 0, y: 30 }}
+              animate={isContentInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-headline mb-6"
+            >
+              Turning Digital Challenges Into{" "}
+              <GradientText variant="blue">Business Growth</GradientText>
+            </motion.h2>
+
+            {/* Description */}
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              animate={isContentInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="text-body mb-8"
+            >
+              We understand the frustrations of outdated websites, slow systems, and missed opportunities. 
+              Our team transforms these pain points into competitive advantages—delivering solutions that 
+              attract customers, save time, and drive real results.
+            </motion.p>
+
+            {/* Progress Bars */}
+            <div className="space-y-5 mb-8">
+              {capabilities.map((capability, index) => (
+                <ProgressBar 
+                  key={capability.label}
+                  capability={capability}
+                  index={index}
+                  isInView={isContentInView}
+                />
+              ))}
+            </div>
+
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isContentInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              <Link href="/contact">
+                <motion.button
+                  className="btn-primary"
+                  whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(34, 211, 238, 0.3)" }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Let's Solve Your Challenges
+                  <ArrowRight className="w-4 h-4" />
+                </motion.button>
+              </Link>
             </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
+
+        {/* Stats Row */}
+        <div 
+          ref={statsRef}
+          className="relative"
+        >
+          {/* Divider */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-border-visible to-transparent mb-12" />
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+            {stats.map((stat, index) => (
+              <StatCard 
+                key={stat.label}
+                stat={stat}
+                index={index}
+                isInView={isStatsInView}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )

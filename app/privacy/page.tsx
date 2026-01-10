@@ -3,171 +3,162 @@
 import { motion } from "framer-motion"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { GradientText } from "@/components/ui/gradient-text"
+import { Shield, Lock, Eye, Database, UserCheck, Cookie } from "lucide-react"
 
 const sections = [
   {
+    icon: Database,
     title: "Information We Collect",
-    content: `
-      <p>We collect information you provide directly to us, such as when you:</p>
-      <ul>
-        <li>Fill out contact forms or request quotes</li>
-        <li>Subscribe to our newsletter</li>
-        <li>Communicate with us via email or phone</li>
-        <li>Use our website and services</li>
-      </ul>
-      <p>This may include your name, email address, phone number, company information, and project details.</p>
-    `,
+    items: [
+      "Contact details when you fill out forms or request quotes",
+      "Subscription information for newsletters",
+      "Communication records via email or phone",
+      "Usage data from our website and services",
+    ],
   },
   {
+    icon: Eye,
     title: "How We Use Your Information",
-    content: `
-      <p>We use the information we collect to:</p>
-      <ul>
-        <li>Provide, maintain, and improve our services</li>
-        <li>Respond to your inquiries and provide customer support</li>
-        <li>Send you technical notices, updates, and marketing communications</li>
-        <li>Analyze usage patterns and improve our website</li>
-        <li>Comply with legal obligations</li>
-      </ul>
-    `,
+    items: [
+      "Provide, maintain, and improve our services",
+      "Respond to inquiries and provide support",
+      "Send technical notices and marketing updates",
+      "Analyze usage patterns to improve our website",
+    ],
   },
   {
+    icon: Shield,
     title: "Information Sharing",
-    content: `
-      <p>We do not sell, trade, or otherwise transfer your personal information to third parties except:</p>
-      <ul>
-        <li>With your explicit consent</li>
-        <li>To trusted service providers who assist in operating our website and conducting business</li>
-        <li>When required by law or to protect our rights</li>
-        <li>In connection with a business transfer or acquisition</li>
-      </ul>
-    `,
+    items: [
+      "Only with your explicit consent",
+      "With trusted service providers under strict agreements",
+      "When required by law or to protect our rights",
+      "In connection with business transfers",
+    ],
   },
   {
+    icon: Lock,
     title: "Data Security",
-    content: `
-      <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. These measures include:</p>
-      <ul>
-        <li>Encryption of sensitive data</li>
-        <li>Regular security assessments</li>
-        <li>Access controls and authentication</li>
-        <li>Secure data storage and transmission</li>
-      </ul>
-    `,
+    items: [
+      "Encryption of sensitive data in transit and at rest",
+      "Regular security assessments and audits",
+      "Strict access controls and authentication",
+      "Secure data storage on trusted platforms",
+    ],
   },
   {
+    icon: UserCheck,
     title: "Your Rights",
-    content: `
-      <p>You have the right to:</p>
-      <ul>
-        <li>Access, update, or delete your personal information</li>
-        <li>Opt-out of marketing communications</li>
-        <li>Request data portability</li>
-        <li>Lodge a complaint with supervisory authorities</li>
-      </ul>
-      <p>To exercise these rights, please contact us at privacy@velionlabs.com.</p>
-    `,
+    items: [
+      "Access, update, or delete your personal information",
+      "Opt-out of marketing communications anytime",
+      "Request data portability in standard formats",
+      "Lodge complaints with supervisory authorities",
+    ],
   },
   {
+    icon: Cookie,
     title: "Cookies and Tracking",
-    content: `
-      <p>We use cookies and similar tracking technologies to:</p>
-      <ul>
-        <li>Remember your preferences</li>
-        <li>Analyze website traffic and usage</li>
-        <li>Improve user experience</li>
-        <li>Provide personalized content</li>
-      </ul>
-      <p>You can control cookie settings through your browser preferences.</p>
-    `,
+    items: [
+      "Remember your preferences across sessions",
+      "Analyze website traffic and usage patterns",
+      "Improve user experience based on behavior",
+      "Provide personalized content recommendations",
+    ],
   },
 ]
 
 export default function PrivacyPage() {
   return (
-    <main className="min-h-screen bg-[#0A192F]">
+    <main className="min-h-screen bg-bg-primary">
+      <div className="noise-overlay" />
       <Header />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4">
-        <div className="max-w-4xl mx-auto">
+      {/* Hero */}
+      <section className="pt-32 pb-16 section-padding relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-blue/10 rounded-full blur-3xl" />
+        </div>
+
+        <div className="container-custom relative z-10 max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
+            className="text-center"
           >
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              Privacy <span className="text-teal">Policy</span>
+            <span className="inline-block font-mono text-xs uppercase tracking-widest text-accent-cyan mb-4">
+              Legal
+            </span>
+            <h1 className="text-display mb-6">
+              Privacy <GradientText variant="blue">Policy</GradientText>
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Your privacy is important to us. This policy explains how we collect, use, and protect your personal
-              information.
+            <p className="text-body-lg mb-4">
+              Your privacy is important to us. This policy explains how we collect, use, and protect your personal information.
             </p>
-            <p className="text-sm text-gray-400 mt-4">Last updated: January 15, 2024</p>
+            <p className="font-mono text-sm text-text-muted">Last updated: January 2024</p>
           </motion.div>
         </div>
       </section>
 
-      {/* Content Sections */}
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="space-y-8">
-            {sections.map((section, index) => (
-              <motion.div
-                key={section.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="bg-white border-0 shadow-lg">
-                  <CardHeader>
-                    <CardTitle className="text-2xl text-navy">{section.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div
-                      className="prose prose-gray max-w-none"
-                      dangerouslySetInnerHTML={{ __html: section.content }}
-                      style={{
-                        color: "#6b7280",
-                        lineHeight: "1.7",
-                      }}
-                    />
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+      {/* Content */}
+      <section className="section-padding bg-bg-secondary">
+        <div className="container-custom max-w-3xl">
+          <div className="space-y-6">
+            {sections.map((section, index) => {
+              const Icon = section.icon
+              return (
+                <motion.div
+                  key={section.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }}
+                  viewport={{ once: true }}
+                  className="bg-bg-primary rounded-xl border border-border-subtle p-6"
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-lg bg-accent-cyan/10 flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-accent-cyan" />
+                    </div>
+                    <h2 className="font-heading font-semibold text-xl text-text-primary">
+                      {section.title}
+                    </h2>
+                  </div>
+                  <ul className="space-y-2">
+                    {section.items.map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-3 text-text-secondary text-sm">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2 flex-shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto">
+      {/* Contact */}
+      <section className="section-padding bg-bg-primary">
+        <div className="container-custom max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="bg-white rounded-3xl p-8 md:p-12 text-center"
+            className="bg-bg-secondary rounded-2xl border border-border-subtle p-8 text-center"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-navy mb-6">Questions About Privacy?</h2>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              If you have any questions about this Privacy Policy or our data practices, please contact us.
+            <h2 className="font-heading font-semibold text-xl text-text-primary mb-4">
+              Questions About Privacy?
+            </h2>
+            <p className="text-text-secondary mb-6">
+              Contact us at{" "}
+              <a href="mailto:velionlabs@gmail.com" className="text-accent-cyan hover:underline">
+                velionlabs@gmail.com
+              </a>
             </p>
-            <div className="space-y-2 text-gray-600">
-              <p>
-                <strong>Email:</strong> privacy@velionlabs.com
-              </p>
-              <p>
-                <strong>Phone:</strong> +1 (555) 123-4567
-              </p>
-              <p>
-                <strong>Address:</strong> 123 Innovation Drive, Tech District, CA 94105
-              </p>
-            </div>
           </motion.div>
         </div>
       </section>

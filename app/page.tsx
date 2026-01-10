@@ -1,29 +1,33 @@
 import { HeroSection } from "@/components/hero-section"
-import { ProblemSection } from "@/components/problem-section"
 import { SolutionSection } from "@/components/solution-section"
+import { ServicesSection } from "@/components/services-section"
 import { ProcessSection } from "@/components/process-section"
 import { WhyChooseUsSection } from "@/components/why-choose-us-section"
-import { MidPageCTA } from "@/components/mid-page-cta"
-import { AboutSection } from "@/components/about-section"
+import { TestimonialsSection } from "@/components/testimonials-section"
 import { FinalCTASection } from "@/components/final-cta-section"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { FAQSection } from "@/components/faq-section"
+import { AboutSection } from "@/components/about-section"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-400 to-blue-950">
+    <main className="min-h-screen bg-bg-primary">
+      {/* Noise Overlay for texture */}
+      <div className="noise-overlay" />
+      
       <Header />
       <HeroSection />
-      <ProblemSection />
       <SolutionSection />
+      <ServicesSection />
       <ProcessSection />
       <WhyChooseUsSection />
-      <MidPageCTA />
       <AboutSection />
+      {/* <TestimonialsSection /> */}
       <FAQSection />
       <FinalCTASection />
       <Footer />
     </main>
   )
 }
+
