@@ -1,150 +1,118 @@
-"use client"
+'use client'
 
 import Link from "next/link"
+import { Mail, Phone } from "lucide-react"
 import { motion } from "framer-motion"
-import { ArrowRight, ArrowUpRight } from "lucide-react"
 
-const socialLinks = [
-  { name: "X", href: "https://x.com/velionlabs", icon: "𝕏" },
-  { name: "LinkedIn", href: "https://linkedin.com/company/velionlabs", icon: "in" },
-  { name: "GitHub", href: "https://github.com/velionlabs", icon: "GH" },
+const services = [
+  { name: "Website Development", href: "/services" },
+  { name: "Custom Software", href: "/services" },
+  { name: "School Systems", href: "/services" },
+  { name: "Maintenance", href: "/pricing" },
 ]
 
-const footerLinks = [
-  {
-    title: "Jump To",
-    links: [
-      { name: "Home", href: "/" },
-      { name: "Web Design", href: "/pricing" },
-      { name: "Maintenance", href: "/pricing" },
-      { name: "Portfolio", href: "/portfolio" },
-      { name: "Contact", href: "/contact" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { name: "Privacy Policy", href: "/privacy" },
-      { name: "Terms & Conditions", href: "/terms" },
-    ],
-  },
+const company = [
+  { name: "About Us", href: "/about" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Pricing", href: "/pricing" },
+  { name: "Contact", href: "/contact" },
+]
+
+const legal = [
+  { name: "Privacy Policy", href: "/privacy" },
+  { name: "Terms of Service", href: "/terms" },
 ]
 
 export function Footer() {
   return (
-    <>
-      {/* Contact CTA Banner */}
-      <section className="bg-bg-secondary border-t border-border-subtle">
-        <div className="container-custom py-16 md:py-24">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-            {/* Left */}
-            <div className="flex items-center gap-8 md:gap-16">
-              <span className="font-mono text-xs uppercase tracking-widest text-text-muted">
-                Heard<br />enough? →
-              </span>
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-text-primary">
-                Contact us
-              </h2>
-            </div>
-
-            {/* Right - CTA Button */}
-            <Link href="/contact">
-              <motion.div
-                className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-r from-accent-cyan to-accent-blue flex items-center justify-center cursor-pointer shadow-lg shadow-accent-cyan/20"
-                whileHover={{ scale: 1.1, rotate: 45 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
-              >
-                <ArrowRight className="w-6 h-6 md:w-8 md:h-8 text-white" />
-              </motion.div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Footer */}
-      <footer className="bg-bg-primary border-t border-border-subtle">
-        <div className="container-custom py-12 md:py-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12">
-            {/* Brand */}
-            <div className="col-span-2 md:col-span-1 lg:col-span-2">
-              <Link href="/" className="inline-block mb-6">
-                <img 
-                  src="/full-logo-no-bg.png" 
-                  alt="Velion Consulting" 
-                  className="h-8 w-auto brightness-0 invert"
-                />
-              </Link>
-              <p className="text-sm text-text-muted leading-relaxed max-w-xs">
-                Building digital solutions that make business feel effortless.
-              </p>
-            </div>
-
-            {/* Contact Info */}
-            <div className="col-span-1">
-              <h4 className="font-mono text-xs uppercase tracking-widest text-text-muted mb-4">
-                Contact
-              </h4>
-              <div className="space-y-3 text-sm">
-                <a 
-                  href="mailto:velionlabs@gmail.com"
-                  className="block text-text-secondary hover:text-accent-cyan transition-colors"
-                >
-                  velionlabs@gmail.com
-                </a>
-                <a 
-                  href="tel:+254794830280"
-                  className="block text-text-secondary hover:text-accent-cyan transition-colors"
-                >
-                  +254 794 830 280
-                </a>
-                <p className="text-text-muted text-xs mt-4">
-                  Mon-Fri: 9AM - 6PM EAT
-                </p>
-              </div>
-            </div>
-
-            {/* Links Columns */}
-            {footerLinks.map((column) => (
-              <div key={column.title} className="col-span-1">
-                <h4 className="font-mono text-xs uppercase tracking-widest text-text-muted mb-4">
-                  {column.title}
-                </h4>
-                <ul className="space-y-2">
-                  {column.links.map((link) => (
-                    <li key={link.name}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-text-secondary hover:text-accent-cyan transition-colors"
-                      >
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-
-            {/* Social */}
-            <div className="col-span-2 md:col-span-4 lg:col-span-1">
-              <h4 className="font-mono text-xs uppercase tracking-widest text-text-muted mb-4">
-                Follow Us
-              </h4>
-            </div>
-          </div>
-
-          {/* Bottom Bar */}
-          <div className="mt-12 pt-8 border-t border-border-subtle flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-text-muted">
-              © {new Date().getFullYear()} Velion Consulting Limited. All rights reserved.
+    <footer className="bg-charcoal text-white py-12 px-4 md:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-4 gap-8">
+          {/* Brand & Contact */}
+          <div className="md:col-span-2">
+            <motion.div
+              className="flex items-center space-x-3 mb-4"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <motion.img
+                src="/full-logo-no-bg.png"
+                alt="Velion Consulting Logo"
+                className="h-10 w-auto"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              />
+            </motion.div>
+            <p className="text-gray-400 mb-6 leading-relaxed max-w-sm">
+              Kenya's leading software agency. We build stunning websites and custom systems 
+              that give business owners their time back.
             </p>
-            <div className="flex items-center gap-6 text-xs text-text-muted">
-              <Link href="/privacy" className="hover:text-accent-cyan transition-colors">Privacy</Link>
-              <Link href="/terms" className="hover:text-accent-cyan transition-colors">Terms</Link>
+            <div className="space-y-2">
+              <a 
+                href="mailto:velionlabs@gmail.com" 
+                className="flex items-center space-x-3 hover:text-teal transition-colors"
+              >
+                <Mail className="h-4 w-4 text-teal" />
+                <span className="text-gray-400 hover:text-white transition-colors">velionlabs@gmail.com</span>
+              </a>
+              <a 
+                href="tel:+254794830280" 
+                className="flex items-center space-x-3 hover:text-teal transition-colors"
+              >
+                <Phone className="h-4 w-4 text-teal" />
+                <span className="text-gray-400 hover:text-white transition-colors">+254 794 830 280</span>
+              </a>
             </div>
           </div>
+
+          {/* Services */}
+          <div>
+            <h3 className="font-semibold mb-4">Services</h3>
+            <ul className="space-y-2 text-gray-400">
+              {services.map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="hover:text-teal transition-colors">
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h3 className="font-semibold mb-4">Company</h3>
+            <ul className="space-y-2 text-gray-400">
+              {company.map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="hover:text-teal transition-colors">
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </footer>
-    </>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-gray-700 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-gray-400 text-sm">
+            &copy; 2025 Velion Consulting. All rights reserved.
+          </p>
+          <div className="flex items-center gap-6 text-sm text-gray-400">
+            {legal.map((item) => (
+              <Link 
+                key={item.name} 
+                href={item.href} 
+                className="hover:text-teal transition-colors"
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
   )
 }
