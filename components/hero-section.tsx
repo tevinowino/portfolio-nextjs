@@ -32,7 +32,7 @@ export function HeroSection() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
             >
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-bg-secondary border border-border-subtle text-sm text-text-secondary">
                 <span className="w-2 h-2 rounded-full bg-accent-green animate-pulse" />
@@ -43,11 +43,8 @@ export function HeroSection() {
             </motion.div>
 
             {/* Headline */}
-            <motion.h1
+            <h1
               className="text-display"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
             >
               We Build{" "}
               <GradientText variant="animated">
@@ -55,14 +52,14 @@ export function HeroSection() {
               </GradientText>
               <br className="hidden sm:block" />
               Digital Systems
-            </motion.h1>
+            </h1>
 
             {/* Subheadline */}
             <motion.p
               className="text-body-lg max-w-xl mx-auto lg:mx-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
             >
               Stunning Websites. Custom Software. Guaranteed Growth. 
               From lead-generating sites to bespoke software platforms, we build tools that scale your business. 
@@ -75,7 +72,7 @@ export function HeroSection() {
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
+              transition={{ duration: 0.4, delay: 0.25 }}
             >
               <Link href="/contact">
                 <motion.button

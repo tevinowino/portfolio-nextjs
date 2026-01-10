@@ -6,27 +6,28 @@ import { Suspense } from "react"
 import { FloatingWhatsApp } from "@/components/floating-whatsapp"
 import "./globals.css"
 
-// Primary heading font - sophisticated, geometric, modern
+// Primary heading font - only load weights we use
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-heading",
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["500", "600", "700"],
 })
 
-// Body font - ultimate tech font, designed for screens
+// Body font - only load weights we use
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
+  weight: ["400", "500"],
 })
 
-// Accent/mono font - for labels, metrics, code-like elements
+// Accent/mono font - minimal weights
 const spaceMono = Space_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
-  weight: ["400", "700"],
+  weight: ["400"],
 })
 
 

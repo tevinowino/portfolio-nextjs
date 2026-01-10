@@ -1,14 +1,38 @@
+import dynamic from 'next/dynamic'
+
+// Critical components - loaded instantly
 import { HeroSection } from "@/components/hero-section"
 import { SolutionSection } from "@/components/solution-section"
 import { ServicesSection } from "@/components/services-section"
-import { ProcessSection } from "@/components/process-section"
-import { WhyChooseUsSection } from "@/components/why-choose-us-section"
-import { TestimonialsSection } from "@/components/testimonials-section"
-import { FinalCTASection } from "@/components/final-cta-section"
+// Process section is lazy loaded below
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { FAQSection } from "@/components/faq-section"
-import { AboutSection } from "@/components/about-section"
+
+// Lazy loaded components - loaded when needed
+const ProcessSection = dynamic(
+  () => import("@/components/process-section").then(mod => mod.ProcessSection),
+  { ssr: true }
+)
+
+const WhyChooseUsSection = dynamic(
+  () => import("@/components/why-choose-us-section").then(mod => mod.WhyChooseUsSection),
+  { ssr: true }
+)
+
+const AboutSection = dynamic(
+  () => import("@/components/about-section").then(mod => mod.AboutSection),
+  { ssr: true }
+)
+
+const FAQSection = dynamic(
+  () => import("@/components/faq-section").then(mod => mod.FAQSection),
+  { ssr: true }
+)
+
+const FinalCTASection = dynamic(
+  () => import("@/components/final-cta-section").then(mod => mod.FinalCTASection),
+  { ssr: true }
+)
 
 export default function Home() {
   return (

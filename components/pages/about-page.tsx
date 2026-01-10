@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer"
 import { GradientText } from "@/components/ui/gradient-text"
 import { CheckCircle2, Heart, Sparkles, Shield, Code2, ArrowRight, Zap, Target } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 // Stats for the Hero
 const heroStats = [
@@ -127,10 +128,12 @@ export default function AboutPageContent() {
                 viewport={{ once: true }}
                 className="relative h-[500px] w-full rounded-[2.5rem] overflow-hidden order-2 lg:order-1"
               >
-                 <img 
-                   src="https://images.unsplash.com/photo-1573164574230-db1d5e960238?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dr"
+                 <Image 
+                   src="https://images.unsplash.com/photo-1573164574230-db1d5e960238?q=80&w=2069&auto=format&fit=crop"
                    alt="Team Collaboration"
-                   className="absolute inset-0 w-full h-full object-cover"
+                   fill
+                   sizes="(max-width: 1024px) 100vw, 50vw"
+                   className="object-cover"
                  />
                  <div className="absolute inset-0 bg-accent-blue/10 mix-blend-overlay" />
               </motion.div>

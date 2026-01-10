@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion"
 import { GraduationCap, Factory, ShoppingCart, Building2, ArrowUpRight, ArrowRight } from "lucide-react"
 import { GradientText } from "@/components/ui/gradient-text"
 import Link from "next/link"
+import Image from "next/image"
 
 const solutions = [
   {
@@ -57,7 +58,7 @@ export function SolutionSection() {
           className="text-center max-w-3xl mx-auto mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.4 }}
         >
           <span className="inline-block font-mono text-xs uppercase tracking-widest text-accent-cyan mb-4">
             Our Core Solutions
@@ -81,16 +82,19 @@ export function SolutionSection() {
                 key={solution.id}
                 initial={{ opacity: 0, y: 40 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-                transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
                 className={`${solution.colSpan}`}
               >
                 <Link href="/contact" className="group relative block h-full w-full overflow-hidden rounded-3xl border border-white/10 bg-bg-secondary">
                   {/* Background Image */}
                   <div className="absolute inset-0">
-                    <img
+                    <Image
                       src={solution.image}
                       alt={solution.title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      priority={index < 2}
                     />
                     {/* Gradient Overlay - Stronger at bottom for text */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 transition-opacity duration-300 group-hover:via-black/50" />
