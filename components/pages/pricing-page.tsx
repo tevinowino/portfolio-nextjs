@@ -3,119 +3,116 @@
 import { motion } from "framer-motion"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { Check, X, ArrowRight, Globe, Code, Settings, Wrench, HelpCircle, ChevronDown } from "lucide-react"
+import { Check, X, ArrowRight, Globe, Code, Settings, Wrench, HelpCircle, ChevronDown, Rocket } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
 
-const pricingPlans = [
+const USD_RATE = 100;
+
+type PriceOptions = {
+  price: number;
+  maxPrice?: number;
+  isFrom?: boolean;
+  suffix?: string;
+}
+
+const formatPrice = (opts: PriceOptions, currency: 'KES' | 'USD') => {
+  const convert = (val: number) => currency === 'USD' ? Math.round(val / USD_RATE) : val;
+  const symbol = currency === 'USD' ? '$' : 'KSh ';
+  
+  if (opts.maxPrice) {
+    return `${symbol}${convert(opts.price).toLocaleString()} - ${convert(opts.maxPrice).toLocaleString()}${opts.suffix || ''}`;
+  }
+  
+  return `${opts.isFrom ? 'From ' : ''}${symbol}${convert(opts.price).toLocaleString()}${opts.suffix || ''}`;
+}
+
+const corePackages = [
   {
-    name: "The Foundation",
-    price: "KSh 25K",
-    period: "/project",
-    description: "Perfect for small businesses and startups getting their first website",
+    name: "The Presence",
+    priceOpts: { price: 40000 },
+    period: "",
+    description: "Perfect for small businesses, consultants, or corporate portfolios",
     features: [
-      { text: "Single landing page", included: true },
-      { text: "Mobile responsive design", included: true },
+      { text: "Up to 5 pages", included: true },
+      { text: "Mobile-responsive design", included: true },
       { text: "Basic SEO setup", included: true },
       { text: "Contact form integration", included: true },
-      { text: "Social media links", included: true },
-      { text: "1 month support", included: true },
-      { text: "2 revision rounds", included: true },
-      { text: "Custom domain setup", included: true },
-      { text: "Multi-page website", included: false },
-      { text: "CMS integration", included: false },
+      { text: "Instant credibility", included: true },
+      { text: "Content Management System", included: false },
       { text: "E-commerce features", included: false },
-      { text: "Custom functionality", included: false },
     ],
     highlighted: false,
-    cta: "Get Started",
-    delivery: "1-2 weeks",
+    cta: "Build Presence",
   },
   {
-    name: "The Engine",
-    price: "KSh 75K",
-    period: "/project",
-    description: "Ideal for growing businesses that need a professional multi-page presence",
+    name: "The Autonomy",
+    priceOpts: { price: 55000 },
+    period: "",
+    description: "For businesses that need to update content, blogs, or portfolios frequently",
     features: [
-      { text: "Up to 8 custom pages", included: true },
-      { text: "Advanced responsive design", included: true },
-      { text: "Full SEO optimization", included: true },
-      { text: "Contact & lead forms", included: true },
-      { text: "Blog/CMS integration", included: true },
-      { text: "3 months support", included: true },
-      { text: "Unlimited revisions", included: true },
-      { text: "Google Analytics setup", included: true },
-      { text: "Performance optimization", included: true },
-      { text: "Social media integration", included: true },
-      { text: "Email marketing setup", included: true },
-      { text: "Custom animations", included: true },
+      { text: "Everything in Presence", included: true },
+      { text: "Admin dashboard (CMS)", included: true },
+      { text: "Content management training", included: true },
+      { text: "Custom dynamic sections", included: true },
+      { text: "Complete digital control", included: true },
+      { text: "Payment/Order tracking", included: false },
     ],
     highlighted: true,
-    cta: "Get Started",
     popular: true,
-    delivery: "2-4 weeks",
+    cta: "Gain Autonomy",
   },
   {
-    name: "The Transformation",
-    price: "KSh 150K+",
-    period: "/project",
-    description: "For businesses requiring complex functionality and custom solutions",
+    name: "The Transaction",
+    priceOpts: { price: 80000, isFrom: true },
+    period: "",
+    description: "Automated e-commerce for handling payments, inventory, and online sales",
     features: [
-      { text: "Unlimited pages", included: true },
-      { text: "E-commerce platform", included: true },
-      { text: "User authentication", included: true },
-      { text: "Database integration", included: true },
-      { text: "Payment gateway setup", included: true },
-      { text: "Admin dashboard", included: true },
-      { text: "6 months support", included: true },
-      { text: "API integrations", included: true },
-      { text: "Custom functionality", included: true },
-      { text: "Dedicated project manager", included: true },
-      { text: "Priority support", included: true },
-      { text: "SLA guarantee", included: true },
+      { text: "Full Product catalog", included: true },
+      { text: "M-Pesa & Card integration", included: true },
+      { text: "Order management dashboard", included: true },
+      { text: "Automated receipts", included: true },
+      { text: "Inventory tracking", included: true },
+      { text: "24/7 automated salesperson", included: true },
     ],
     highlighted: false,
-    cta: "Contact Us",
-    delivery: "4-8 weeks",
+    cta: "Start Selling",
   },
 ]
 
 const serviceCategories = [
   {
-    title: "Website Development",
+    title: "Core Web Solutions",
     icon: Globe,
     services: [
-      { name: "Landing Pages", price: "KSh 15,000 - 35,000", description: "Single page website with all essentials" },
-      { name: "Business Websites", price: "KSh 40,000 - 80,000", description: "Multi-page site with CMS" },
-      { name: "E-commerce Sites", price: "KSh 80,000 - 200,000", description: "Full online store with payments" },
-      { name: "Portfolio Sites", price: "KSh 25,000 - 50,000", description: "Showcase your work beautifully" },
+      { name: "The Presence Package", priceOpts: { price: 40000 }, description: "Basic Static Website. Up to 5 pages, mobile-responsive, basic SEO, contact form." },
+      { name: "The Autonomy Package", priceOpts: { price: 55000 }, description: "Website + CMS. Admin dashboard, custom dynamic sections, content training." },
+      { name: "The Media Package", priceOpts: { price: 55000 }, description: "Blog/Magazine Sites. Category management, social sharing, newsletters." },
+      { name: "The Transaction Package", priceOpts: { price: 80000, isFrom: true }, description: "E-commerce. Product catalog, M-Pesa/Card integration, order dashboard." },
     ],
   },
   {
-    title: "SaaS Development",
+    title: "Advanced Systems & Apps",
     icon: Code,
     services: [
-      { name: "MVP Development", price: "KSh 200,000 - 500,000", description: "Minimum viable product to test your idea" },
-      { name: "Full Platform", price: "KSh 500,000 - 1,500,000", description: "Complete SaaS with all features" },
-      { name: "API Development", price: "KSh 100,000 - 300,000", description: "Custom API endpoints" },
+      { name: "Custom Web Applications", priceOpts: { price: 80000, isFrom: true }, description: "Internal POS, school management, specialized portals for data automation." },
+      { name: "Cross-Platform Ecosystem", priceOpts: { price: 140000, isFrom: true }, description: "Web + Mobile app with seamless user engagement via a unified backend." },
     ],
   },
   {
-    title: "Internal Systems",
-    icon: Settings,
+    title: "Startup Specialized Packages",
+    icon: Rocket,
     services: [
-      { name: "CRM Systems", price: "KSh 150,000 - 400,000", description: "Customer relationship management" },
-      { name: "Inventory Management", price: "KSh 100,000 - 300,000", description: "Stock and order tracking" },
-      { name: "HR Management", price: "KSh 120,000 - 350,000", description: "Employee and payroll systems" },
+      { name: "Startup Launchpad", priceOpts: { price: 130000, isFrom: true }, description: "Functional MVP & scalable technical foundation for rapid market entry." },
+      { name: "Full Identity & Tech", priceOpts: { price: 170000, isFrom: true }, description: "World-class visual identity (logo, brand guide) + complete app development." },
     ],
   },
   {
-    title: "Maintenance Plans",
+    title: "Maintenance & Growth",
     icon: Wrench,
     services: [
-      { name: "Basic", price: "KSh 5,000/month", description: "Security updates & backups" },
-      { name: "Standard", price: "KSh 10,000/month", description: "Content updates & monitoring" },
-      { name: "Premium", price: "KSh 20,000/month", description: "24/7 support & feature updates" },
+      { name: "Standard Maintenance", priceOpts: { price: 5000, maxPrice: 10000, suffix: " / month" }, description: "Hosting, security audits, and minor system updates." },
+      { name: "Growth Partner", priceOpts: { price: 25000, suffix: " / month" }, description: "Dedicated development hours for new features & performance optimization." },
     ],
   },
 ]
@@ -127,24 +124,25 @@ const faqs = [
   },
   {
     q: "How do payments work?",
-    a: "We typically require 50% deposit to start, with the remaining 50% due upon project completion. For larger projects, we can arrange milestone-based payments.",
+    a: "We typically require a 50% deposit to start, with the remaining 50% due upon project completion. For larger projects, we can arrange milestone-based payments.",
   },
   {
     q: "What if I need changes after the project is done?",
-    a: "All plans include a support period for bug fixes and minor tweaks. After that, you can purchase a maintenance plan or request changes at our hourly rate.",
+    a: "All plans include a post-launch support period for bug fixes. After that, you can subscribe to our Maintenance or Growth packages for continuous updates.",
   },
   {
     q: "Do you provide hosting?",
-    a: "We help you set up hosting on platforms like Vercel, Netlify, or your preferred provider. Hosting costs are separate and typically range from free to KSh 2,000/month.",
+    a: "Yes, our maintenance packages cover high-performance hosting, SSL certificates, and regular security updates.",
   },
   {
-    q: "Can I upgrade my plan later?",
-    a: "Absolutely! You can always add features or upgrade your site. We'll quote the additional work based on your requirements.",
+    q: "Can I upgrade my package later?",
+    a: "Absolutely! You can always start with the Presence package and scale up to the Autonomy or Transaction packages as your business grows.",
   },
 ]
 
 export default function PricingPageContent() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [currency, setCurrency] = useState<'KES' | 'USD'>('KES')
 
   return (
     <main className="min-h-screen bg-bg-primary">
@@ -173,18 +171,41 @@ export default function PricingPageContent() {
                 Peace of Mind
               </span>
             </h1>
-            <p className="text-text-secondary text-lg max-w-xl mx-auto">
+            <p className="text-text-secondary text-lg max-w-xl mx-auto mb-10">
               Transparent, outcome-focused pricing. We don't charge for "features"—we charge for the value of a smoother business.
             </p>
+
           </motion.div>
         </div>
       </section>
 
+      {/* Sticky Currency Toggle */}
+      <div className="sticky top-28 z-50 flex justify-center -mt-8 mb-12 pointer-events-none px-4">
+        <div className="inline-flex items-center p-1.5 rounded-full bg-[#0d1117]/80 backdrop-blur-md border border-white/10 pointer-events-auto shadow-2xl">
+          <button
+            onClick={() => setCurrency('KES')}
+            className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
+              currency === 'KES' ? 'bg-white text-black shadow-sm' : 'text-text-muted hover:text-white'
+            }`}
+          >
+            KES
+          </button>
+          <button
+            onClick={() => setCurrency('USD')}
+            className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
+              currency === 'USD' ? 'bg-white text-black shadow-sm' : 'text-text-muted hover:text-white'
+            }`}
+          >
+            USD
+          </button>
+        </div>
+      </div>
+
       {/* Pricing Cards */}
-      <section className="section-padding pt-12">
+      <section className="section-padding pt-0">
         <div className="container-custom max-w-6xl">
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {pricingPlans.map((plan, index) => (
+            {corePackages.map((plan, index) => (
               <motion.div
                 key={plan.name}
                 initial={{ opacity: 0, y: 40 }}
@@ -223,18 +244,14 @@ export default function PricingPageContent() {
 
                     <div className="mb-1">
                       <span className="text-4xl lg:text-5xl font-heading font-bold text-white">
-                        {plan.price}
+                        {formatPrice(plan.priceOpts, currency)}
                       </span>
                       {plan.period && (
                         <span className="text-text-muted ml-1">{plan.period}</span>
                       )}
                     </div>
 
-                    <p className="text-text-muted text-sm mb-4">{plan.description}</p>
-
-                    <div className="text-xs text-accent-cyan mb-6">
-                      Delivery: {plan.delivery}
-                    </div>
+                    <p className="text-text-muted text-sm mb-8">{plan.description}</p>
 
                     <ul className="space-y-2.5 mb-8 flex-1">
                       {plan.features.map((feature, idx) => (
@@ -286,10 +303,10 @@ export default function PricingPageContent() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl font-heading font-bold text-white mb-4">
-              Detailed Service Pricing
+              Detailed Service Catalog
             </h2>
             <p className="text-text-muted max-w-xl mx-auto">
-              Browse our complete service catalog with transparent pricing for each type of project.
+              From just code to complete business solutions. Transparent pricing for our entire ecosystem.
             </p>
           </motion.div>
 
@@ -305,7 +322,7 @@ export default function PricingPageContent() {
                   viewport={{ once: true }}
                   className="rounded-2xl p-px bg-gradient-to-b from-white/10 via-white/5 to-transparent"
                 >
-                  <div className="rounded-2xl bg-[#0d1117] p-6">
+                  <div className="rounded-2xl bg-[#0d1117] p-6 h-full flex flex-col">
                     <div className="flex items-center gap-3 mb-5">
                       <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center">
                         <Icon className="w-5 h-5 text-accent-cyan" />
@@ -313,15 +330,15 @@ export default function PricingPageContent() {
                       <h3 className="font-heading font-semibold text-white">{category.title}</h3>
                     </div>
 
-                    <div className="space-y-3">
+                    <div className="space-y-4 flex-1">
                       {category.services.map((service) => (
-                        <div key={service.name} className="flex items-center justify-between py-2 border-b border-white/5 last:border-0">
-                          <div>
-                            <div className="text-text-primary text-sm font-medium">{service.name}</div>
-                            <div className="text-text-muted text-xs">{service.description}</div>
+                        <div key={service.name} className="flex flex-col sm:flex-row sm:items-start justify-between py-3 border-b border-white/5 last:border-0 gap-2 sm:gap-4">
+                          <div className="flex-1">
+                            <div className="text-text-primary text-sm font-medium mb-1">{service.name}</div>
+                            <div className="text-text-muted text-xs leading-relaxed">{service.description}</div>
                           </div>
-                          <div className="text-accent-cyan font-mono text-sm whitespace-nowrap ml-4">
-                            {service.price}
+                          <div className="text-accent-cyan font-mono text-sm whitespace-nowrap font-medium">
+                            {formatPrice(service.priceOpts, currency)}
                           </div>
                         </div>
                       ))}
