@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     title: "Velion Consulting | Top Kenya Software Agency",
     description: "Building high-performance digital systems for schools, manufacturers, and retailers.",
     images: ["/og-image.png"],
-    creator: "@velionlabs", // Placeholder, update if real handle exists
+    creator: "@VelionConsulting", // Placeholder, update if real handle exists
   },
   robots: {
     index: true,
@@ -96,13 +96,44 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  // JSON-LD for Organization
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "LocalBusiness"],
     "name": "Velion Consulting",
+    "alternateName": "Velion Labs",
     "url": "https://velionconsulting.com",
-    "logo": "https://velionconsulting.com/full-logo-no-bg.png",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://velionconsulting.com/full-logo-no-bg.png",
+      "width": 400,
+      "height": 120
+    },
+    "image": "https://velionconsulting.com/og-image.png",
+    "description": "Kenya's leading human-centric software agency. We build high-performance websites, school management systems, SaaS platforms, and custom software for Kenyan businesses.",
+    "foundingDate": "2025",
+    "telephone": "+254794830280",
+    "email": "velionconsulting@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nairobi",
+      "addressCountry": "KE",
+      "addressRegion": "Nairobi County"
+    },
+    "areaServed": [
+      { "@type": "Country", "name": "Kenya" },
+      { "@type": "City", "name": "Nairobi" }
+    ],
+    "serviceType": [
+      "Web Design",
+      "Custom Software Development",
+      "School Management Systems",
+      "SaaS Development",
+      "Mobile App Development",
+      "SEO Services"
+    ],
+    "priceRange": "KSh 25,000 – KSh 500,000+",
+    "currenciesAccepted": "KES",
+    "paymentAccepted": "M-PESA, Bank Transfer",
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+254794830280",
@@ -111,10 +142,39 @@ export default function RootLayout({
       "availableLanguage": ["en", "sw"]
     },
     "sameAs": [
-      "https://twitter.com/velionlabs",
-      "https://linkedin.com/company/velion-consulting",
-      "https://github.com/velion-labs"
-    ]
+      "https://www.linkedin.com/company/velion-consulting-ltd",
+      "https://twitter.com/VelionConsulting"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Software Development Services Kenya",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Website Development Kenya",
+            "description": "Professional website design and development for Kenyan businesses starting from KSh 25,000."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "School Management System Kenya",
+            "description": "Custom school management systems for Kenyan schools — attendance, grades, parent portals."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Custom Software Development Nairobi",
+            "description": "Bespoke SaaS and business software built for Kenyan enterprises."
+          }
+        }
+      ]
+    }
   }
 
   return (

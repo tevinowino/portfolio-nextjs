@@ -3,46 +3,37 @@
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { GradientText } from "@/components/ui/gradient-text"
-import { ArrowRight, ExternalLink, Heart, TrendingUp } from "lucide-react"
+import { ArrowRight, ExternalLink, Heart, TrendingUp, Smartphone, BookOpen } from "lucide-react"
 import Link from "next/link"
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
 
-const projects = [
+type Project = {
+  id: string
+  title: string
+  category: string
+  theWhy: string
+  theResult: string
+  image: string
+  technologies: string[]
+  featured: boolean
+  status: string
+  link: string
+  mobileApp?: boolean
+}
+
+const projects: Project[] = [
   {
     id: "learnify",
     title: "Learnify – EdTech SaaS for Schools",
     category: "Educational Harmony",
     theWhy: "To give teachers their weekends back and end the paperwork chase.",
-    theResult: "Automated grading for 10+ schools, reducing admin work by 60%.",
+    theResult: "Built and launched a multi-tenant SaaS platform for Kenyan schools, with full student management, attendance tracking, and AI-powered tools.",
     image: "/portfolio/learnify.png",
     technologies: ["Next.js", "Firebase", "AI APIs"],
     featured: true,
-    status: "In Development",
-    link: "#",
-  },
-  {
-    id: "eca-industries",
-    title: "Sub-Saharan ECA Industries",
-    category: "Authority Presence",
-    theWhy: "To replace manufacturing chaos with sales confidence.",
-    theResult: "A 3x increase in digital leads through a streamlined inquiry system.",
-    image: "/portfolio/sseil.png",
-    technologies: ["React", "TailwindCSS", "Netlify"],
-    featured: true,
     status: "Live",
     link: "#",
-  },
-  {
-    id: "thoughtreflex",
-    title: "ThoughtReflex – Mental Wellness",
-    category: "Custom SaaS",
-    theWhy: "To make mental wellness accessible through AI companionship.",
-    theResult: "85% user engagement with AI-powered therapy and journaling.",
-    image: "/portfolio/thoughtreflex.png",
-    technologies: ["Next.js", "Firebase", "Gemini API"],
-    featured: false,
-    status: "Live",
-    link: "https://thoughtreflex.vercel.app",
   },
   {
     id: "digital-moran",
@@ -56,11 +47,76 @@ const projects = [
     status: "Live",
     link: "https://agency.digitalmoran.africa",
   },
+  {
+    id: "stti-hub",
+    title: "STTI Hub — Starehe Boys' Centre LMS",
+    category: "Educational Harmony",
+    theWhy: "To replace manual progress tracking for high-intensity coding bootcamps.",
+    theResult: "37 students onboarded with zero downtime. Each student gets a real-time dashboard for grades and attendance.",
+    image: "/portfolio/stti.png",
+    technologies: ["Next.js", "Supabase", "Tailwind CSS"],
+    featured: true,
+    status: "Live",
+    link: "#",
+  },
+  {
+    id: "intentional-studios",
+    title: "Intentional Studios — Branding Agency Website",
+    category: "Authority Presence",
+    theWhy: "To build a premium digital presence that matched their elite positioning and 16+ client portfolio.",
+    theResult: "A high-impact Next.js website that established their 'digital supremacy' brand and became their primary client acquisition channel.",
+    image: "/portfolio/intentional-studios.png",
+    technologies: ["Next.js", "TailwindCSS", "Vercel"],
+    featured: true,
+    status: "Live",
+    link: "https://www.intentionalstudioske.com",
+  },
+  {
+    id: "shambapal",
+    title: "ShambaPal – Farm Management App",
+    category: "Custom SaaS",
+    theWhy: "To give smallholder farmers in Kenya access to modern farm management tools on their phones.",
+    theResult: "Digitized farm operations for agricultural businesses across Kenya, accessible entirely from a mobile device.",
+    image: "/portfolio/shambapal.png",
+    technologies: ["React Native", "Expo", "Firebase"],
+    featured: false,
+    status: "Live",
+    link: "#",
+    mobileApp: true,
+  },
+  {
+    id: "traffic-buddy",
+    title: "Traffic Buddy – NTSA Driving Theory Platform",
+    category: "Educational Harmony",
+    theWhy: "To give Kenyan learner drivers a free, structured alternative to memorizing the Highway Code book.",
+    theResult: "Launched a bilingual platform with 100+ interactive scenarios, 20 NTSA-aligned modules, and QR-verified certificates — free to start.",
+    image: "/portfolio/traffic-buddy.png",
+    technologies: ["Next.js", "Supabase", "TailwindCSS"],
+    featured: false,
+    status: "Live",
+    link: "https://trafficbuddy.app",
+  },
+  {
+    id: "wearetell",
+    title: "We Are Tell – Climate Action Platform",
+    category: "Authority Presence",
+    theWhy: "To build a digital home for climate action communities in Kenya.",
+    theResult: "Delivered a fully functional platform for climate advocacy and community engagement.",
+    image: "/portfolio/wearetell.png",
+    technologies: ["Next.js", "Tailwind CSS"],
+    featured: false,
+    status: "Live",
+    link: "#",
+  },
 ]
 
 export default function PortfolioPageContent() {
   const featuredProjects = projects.filter((p) => p.featured)
   const otherProjects = projects.filter((p) => !p.featured)
+
+  const { scrollY } = useScroll()
+  const orb1Y = useTransform(scrollY, [0, 600], [0, -80])
+  const orb2Y = useTransform(scrollY, [0, 600], [0, -50])
 
   return (
     <main className="min-h-screen bg-bg-primary">
@@ -70,8 +126,8 @@ export default function PortfolioPageContent() {
       {/* Hero Section */}
       <section className="pt-32 pb-16 section-padding relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-blue/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-purple/10 rounded-full blur-3xl" />
+          <motion.div style={{ y: orb1Y }} className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-blue/10 rounded-full blur-3xl" />
+          <motion.div style={{ y: orb2Y }} className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-purple/10 rounded-full blur-3xl" />
         </div>
 
         <div className="container-custom relative z-10">
@@ -89,7 +145,7 @@ export default function PortfolioPageContent() {
               <GradientText variant="animated">Transformation</GradientText>
             </h1>
             <p className="text-body-lg">
-              Every project starts with a frustration and ends with relief. 
+              Every project starts with a frustration and ends with relief.
               Here's how we've helped businesses find their ease.
             </p>
           </motion.div>
@@ -130,7 +186,7 @@ export default function PortfolioPageContent() {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/80 via-transparent to-transparent" />
-                    <div className="absolute top-4 left-4 flex gap-2">
+                    <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
                       <span className="px-3 py-1 rounded-full bg-accent-cyan/90 text-white text-xs font-medium">
                         {project.category}
                       </span>
@@ -154,9 +210,7 @@ export default function PortfolioPageContent() {
                           The Why
                         </span>
                       </div>
-                      <p className="text-text-secondary">
-                        {project.theWhy}
-                      </p>
+                      <p className="text-text-secondary">{project.theWhy}</p>
                     </div>
 
                     {/* The Result */}
@@ -167,9 +221,7 @@ export default function PortfolioPageContent() {
                           The Result
                         </span>
                       </div>
-                      <p className="text-text-primary font-medium">
-                        {project.theResult}
-                      </p>
+                      <p className="text-text-primary font-medium">{project.theResult}</p>
                     </div>
 
                     {/* Technologies */}
@@ -184,18 +236,30 @@ export default function PortfolioPageContent() {
                       ))}
                     </div>
 
-                    {/* Link */}
-                    {project.link !== "#" && (
-                      <a href={project.link} target="_blank" rel="noopener noreferrer">
+                    {/* Actions */}
+                    <div className="flex items-center gap-4 flex-wrap">
+                      <Link href={`/portfolio/${project.id}`}>
                         <motion.button
-                          className="text-accent-cyan text-sm font-medium flex items-center gap-2 hover:gap-3 transition-all"
-                          whileHover={{ x: 4 }}
+                          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-sm font-medium hover:bg-accent-cyan/20 transition-colors"
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
                         >
-                          View Project
-                          <ExternalLink className="w-4 h-4" />
+                          <BookOpen className="w-4 h-4" />
+                          View Case Study
                         </motion.button>
-                      </a>
-                    )}
+                      </Link>
+                      {project.link !== "#" && (
+                        <a href={project.link} target="_blank" rel="noopener noreferrer">
+                          <motion.button
+                            className="text-text-muted text-sm font-medium flex items-center gap-2 hover:text-text-primary transition-colors"
+                            whileHover={{ x: 4 }}
+                          >
+                            Live Site
+                            <ExternalLink className="w-4 h-4" />
+                          </motion.button>
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -205,7 +269,7 @@ export default function PortfolioPageContent() {
       </section>
 
       {/* Other Projects */}
-      <section className="section-padding bg-bg-primary">
+      <section className="section-padding section-light">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -235,9 +299,20 @@ export default function PortfolioPageContent() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-bg-secondary via-transparent to-transparent" />
-                    <div className="absolute top-3 left-3">
+                    <div className="absolute top-3 left-3 flex gap-2 flex-wrap">
                       <span className="px-2 py-1 rounded-full bg-accent-cyan/90 text-white text-xs font-medium">
                         {project.category}
+                      </span>
+                      {project.mobileApp && (
+                        <span className="px-2 py-1 rounded-full bg-accent-purple/80 text-white text-xs font-medium flex items-center gap-1">
+                          <Smartphone className="w-3 h-3" />
+                          Mobile App
+                        </span>
+                      )}
+                    </div>
+                    <div className="absolute top-3 right-3">
+                      <span className="px-2 py-1 rounded-full bg-bg-secondary/90 backdrop-blur-sm text-text-primary text-xs font-medium border border-border-subtle">
+                        {project.status}
                       </span>
                     </div>
                   </div>
@@ -256,7 +331,7 @@ export default function PortfolioPageContent() {
                     </p>
 
                     {/* Technologies */}
-                    <div className="flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-1 mb-4">
                       {project.technologies.map((tech) => (
                         <span
                           key={tech}
@@ -265,6 +340,29 @@ export default function PortfolioPageContent() {
                           {tech}
                         </span>
                       ))}
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex items-center gap-3 flex-wrap pt-2 border-t border-border-subtle">
+                      <Link href={`/portfolio/${project.id}`}>
+                        <motion.span
+                          className="inline-flex items-center gap-1.5 text-accent-cyan text-xs font-medium hover:gap-2 transition-all cursor-pointer"
+                          whileHover={{ x: 2 }}
+                        >
+                          <BookOpen className="w-3.5 h-3.5" />
+                          View Case Study
+                        </motion.span>
+                      </Link>
+                      {project.link !== "#" && (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-text-muted text-xs hover:text-text-primary transition-colors"
+                        >
+                          Live Site <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>

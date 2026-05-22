@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { GradientText } from "@/components/ui/gradient-text"
-import { CheckCircle2, Heart, Sparkles, Shield, Code2, ArrowRight, Zap, Target } from "lucide-react"
+import { CheckCircle2, Heart, Sparkles, Shield, ArrowRight, Target, Code2, Globe, Smartphone, BookOpen } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -117,7 +117,7 @@ export default function AboutPageContent() {
       </section>
 
       {/* Feature Section - Image Left, Text Right */}
-      <section className="section-padding bg-bg-primary">
+      <section className="section-padding section-light">
         <div className="container-custom">
            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               
@@ -172,7 +172,7 @@ export default function AboutPageContent() {
       </section>
 
       {/* Values/Milestones Grid */}
-      <section className="section-padding bg-bg-secondary">
+      <section className="section-padding bg-bg-primary">
         <div className="container-custom">
           {/* Header */}
           <div className="grid lg:grid-cols-2 gap-8 items-end mb-16">
@@ -237,6 +237,92 @@ export default function AboutPageContent() {
              })}
           </div>
 
+        </div>
+      </section>
+
+      {/* Founder Section — E-E-A-T signal for AI search engines */}
+      <section className="section-padding section-light" id="founder">
+        <div className="container-custom">
+          <div className="max-w-4xl mx-auto">
+            <div className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 mb-8">
+              <span className="font-mono text-xs uppercase tracking-widest text-text-primary">The Person Behind the Code</span>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Left: Bio */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-4xl lg:text-5xl font-heading font-bold text-white mb-6">
+                  Hi, I'm <GradientText variant="blue">Tevin Owino</GradientText>
+                </h2>
+                <p className="text-text-secondary leading-relaxed mb-4">
+                  I'm a full-stack software engineer based in Nairobi, Kenya, and the founder of Velion Consulting. I started this agency because I kept watching talented Kenyan business owners lose time, money, and sleep to software that didn't fit their reality.
+                </p>
+                <p className="text-text-secondary leading-relaxed mb-4">
+                  I personally oversee every project from the first discovery call to the final deployment. No account managers, no hand-offs to junior developers. When you hire Velion Consulting, you get me — and my full attention on your business.
+                </p>
+                <p className="text-text-secondary leading-relaxed mb-8">
+                  I've built platforms for NGOs, schools, farmers, and agencies across Kenya. Every project has taught me that the best software is the kind you forget is there — because it just works.
+                </p>
+
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    { icon: Code2, label: "Full-Stack Engineer", detail: "Next.js, React, Firebase, Supabase" },
+                    { icon: Globe, label: "Based in Nairobi", detail: "Working with clients across Kenya" },
+                    { icon: Smartphone, label: "Mobile Developer", detail: "React Native for iOS & Android" },
+                    { icon: BookOpen, label: "Founded 2025", detail: "Built for Kenyan businesses" },
+                  ].map((item) => {
+                    const Icon = item.icon
+                    return (
+                      <div key={item.label} className="flex items-start gap-3 p-4 rounded-xl bg-bg-secondary border border-border-subtle">
+                        <Icon className="w-4 h-4 text-accent-cyan mt-0.5 flex-shrink-0" />
+                        <div>
+                          <div className="text-sm font-medium text-text-primary">{item.label}</div>
+                          <div className="text-xs text-text-muted">{item.detail}</div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </motion.div>
+
+              {/* Right: Photo placeholder + CTA */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="flex flex-col items-center gap-8"
+              >
+                <div className="relative w-64 h-64 lg:w-80 lg:h-80 rounded-3xl overflow-hidden border-2 border-accent-cyan/20">
+                  <Image
+                    src="/founder.jpeg"
+                    alt="Tevin Owino — Founder, Velion Consulting"
+                    fill
+                    sizes="320px"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/60 to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="text-text-primary font-heading font-semibold text-sm">Tevin Owino</div>
+                    <div className="text-accent-cyan text-xs font-mono">Founder & Lead Engineer</div>
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <p className="text-text-muted text-sm mb-4">Ready to build something great together?</p>
+                  <Link href="/contact">
+                    <button className="btn-primary">
+                      Book a Free Call
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </Link>
+                </div>
+              </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 

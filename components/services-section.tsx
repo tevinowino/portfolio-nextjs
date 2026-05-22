@@ -53,7 +53,7 @@ export function ServicesSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section className="section-padding bg-bg-primary relative overflow-hidden" ref={ref}>
+    <section className="section-padding section-light relative overflow-hidden" ref={ref}>
       {/* Background Decor */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent-blue/5 rounded-full blur-3xl pointer-events-none" />
       
@@ -72,7 +72,7 @@ export function ServicesSection() {
             </span>
             <h2 className="text-headline mb-6">
               Keep Your <br />
-              <span className="text-white/50">Presence Strong</span>
+              <span className="text-text-muted">Presence Strong</span>
             </h2>
             <p className="text-body mb-8">
               Beyond the core systems, we provide the essential fuel to keep your digital engine running smoothly. From robust security to pixel-perfect design.
@@ -101,7 +101,7 @@ export function ServicesSection() {
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                     transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
                   >
-                    <div className={`group h-full relative overflow-hidden rounded-2xl bg-bg-secondary border border-white/5 p-6 hover:bg-white/5 transition-colors duration-300 ${service.border}`}>
+                    <div className={`group h-full relative overflow-hidden rounded-2xl bg-bg-secondary border border-border-subtle p-6 hover:bg-bg-tertiary transition-colors duration-300 ${service.border}`}>
                       
                       {/* Hover Gradient Background */}
                       <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />

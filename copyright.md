@@ -213,7 +213,7 @@ Custom-built SaaS or internal systems for total ease.
 
 **Contact Info:**
 - Phone: +254 794 830 280 (Mon-Fri: 9AM-6PM EAT)
-- Email: velionlabs@gmail.com
+- Email:velionconsulting@gmail.com
 - Hours: Mon-Fri: 9AM - 6PM, Sat: 10AM - 4PM
 
 **Form Fields:**

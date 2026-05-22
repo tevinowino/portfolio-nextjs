@@ -3,7 +3,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================
-   VELION LABS PREMIUM DESIGN SYSTEM
+   VELION CONSULTING PREMIUM DESIGN SYSTEM
    Dark mode-first, software product aesthetic
    ============================================ */
 
@@ -443,6 +443,64 @@
     background-image: radial-gradient(circle, var(--border-visible) 1px, transparent 1px);
     background-size: 32px 32px;
   }
+}
+
+/* ============================================
+   LIGHT SECTION VARIANT
+   Applied per-section for background variety
+   ============================================ */
+
+.section-light {
+  --bg-primary: #f5f3ee;
+  --bg-secondary: #ece9e2;
+  --bg-tertiary: #e3dfd7;
+  --bg-elevated: #f0ede7;
+  --text-primary: #111111;
+  --text-secondary: #444444;
+  --text-muted: #666666;
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-visible: rgba(0, 0, 0, 0.15);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.12);
+
+  /* Darken accent-cyan so labels/links pass contrast on cream */
+  --accent-cyan: #0e7490;
+
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+
+  & h1, & h2, & h3, & h4, & h5, & h6 {
+    color: var(--text-primary);
+  }
+
+  & p {
+    color: var(--text-secondary);
+  }
+
+  /* Darken Tailwind's hardcoded light icon colors for legibility on cream */
+  & .text-rose-400   { color: #be123c; }
+  & .text-amber-400  { color: #b45309; }
+  & .text-emerald-400 { color: #047857; }
+  & .text-blue-400   { color: #1d4ed8; }
+
+  /* Shift icon chip backgrounds to match darker icon hues */
+  & .bg-rose-400\/10    { background-color: rgba(190, 18,  60,  0.10); }
+  & .bg-amber-400\/10   { background-color: rgba(180, 83,   9,  0.10); }
+  & .bg-emerald-400\/10 { background-color: rgba(  4, 120,  87, 0.10); }
+  & .bg-blue-400\/10    { background-color: rgba( 29,  78, 216, 0.10); }
+
+  /* Darken accent-green for legibility on cream */
+  & .text-accent-green { color: #047857; }
+
+  /* Convert white opacity borders/bgs to dark opacity equivalents */
+  & .border-white\/10  { border-color: rgba(0, 0, 0, 0.10); }
+  & .border-white\/5   { border-color: rgba(0, 0, 0, 0.06); }
+  & .bg-white\/5       { background-color: rgba(0, 0, 0, 0.04); }
+  & .bg-white\/10      { background-color: rgba(0, 0, 0, 0.07); }
+
+  /* Convert hardcoded white text to near-black for readability on cream */
+  & .text-white\/90 { color: rgba(17, 17, 17, 0.90); }
+  & .text-white\/80 { color: rgba(17, 17, 17, 0.80); }
 }
 
 /* ============================================

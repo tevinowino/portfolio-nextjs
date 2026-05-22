@@ -1,14 +1,12 @@
 "use client"
 
-import type React from "react"
-import { useState } from "react"
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { GradientText } from "@/components/ui/gradient-text"
 import { GlowCard } from "@/components/ui/glow-card"
-import { Phone, Mail, Clock, Send, CheckCircle, Calendar } from "lucide-react"
-import Link from "next/link"
+import { EnquiryForm } from "@/components/enquiry-form"
+import { Phone, Mail, Clock, Calendar } from "lucide-react"
 
 const contactInfo = [
   {
@@ -19,7 +17,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    details: ["velionlabs@gmail.com"],
+    details: ["velionconsulting@gmail.com"],
   },
   {
     icon: Clock,
@@ -28,25 +26,10 @@ const contactInfo = [
   },
 ]
 
-const services = [
-  "Website Development",
-  "SaaS Development",
-  "E-commerce Platform",
-  "Internal Systems",
-  "Website Maintenance",
-  "Custom Solution",
-]
-
-const budgetRanges = [
-  "Under KSh 50,000",
-  "KSh 50,000 - 100,000",
-  "KSh 100,000 - 250,000",
-  "KSh 250,000 - 500,000",
-  "Over KSh 500,000",
-]
-
 export default function ContactPageContent() {
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const { scrollY } = useScroll()
+  const orb1Y = useTransform(scrollY, [0, 600], [0, -80])
+  const orb2Y = useTransform(scrollY, [0, 600], [0, -50])
 
   return (
     <main className="min-h-screen bg-bg-primary">
@@ -56,8 +39,8 @@ export default function ContactPageContent() {
       {/* Hero Section */}
       <section className="pt-32 pb-16 section-padding relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-blue/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-purple/10 rounded-full blur-3xl" />
+          <motion.div style={{ y: orb1Y }} className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-blue/10 rounded-full blur-3xl" />
+          <motion.div style={{ y: orb2Y }} className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-purple/10 rounded-full blur-3xl" />
         </div>
 
         <div className="container-custom relative z-10">
@@ -81,11 +64,12 @@ export default function ContactPageContent() {
         </div>
       </section>
 
-      {/* Contact Form & Info */}
+      {/* Form & Info */}
       <section className="section-padding bg-bg-secondary">
         <div className="container-custom">
           <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
-            {/* Form */}
+
+            {/* Enquiry Form */}
             <div className="lg:col-span-2">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
@@ -95,139 +79,13 @@ export default function ContactPageContent() {
               >
                 <GlowCard hover={false}>
                   <div className="p-6 lg:p-8">
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 rounded-lg bg-accent-cyan/10 flex items-center justify-center">
-                        <Send className="w-5 h-5 text-accent-cyan" />
-                      </div>
-                      <div>
-                        <h2 className="font-heading font-semibold text-xl text-text-primary">Send Us a Message</h2>
-                        <p className="text-text-muted text-sm">We'll respond within 24 hours</p>
-                      </div>
-                    </div>
-
-                    {isSubmitted ? (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="text-center py-12"
-                      >
-                        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent-green/20 flex items-center justify-center">
-                          <CheckCircle className="w-8 h-8 text-accent-green" />
-                        </div>
-                        <h3 className="font-heading font-semibold text-xl text-text-primary mb-2">Message Sent!</h3>
-                        <p className="text-text-secondary">We'll get back to you within 24 hours.</p>
-                      </motion.div>
-                    ) : (
-                      <form 
-                        action="https://formspree.io/f/xgoowvvv"
-                        method="POST"
-                        className="space-y-5"
-                        onSubmit={() => {
-                          setTimeout(() => setIsSubmitted(true), 100)
-                        }}
-                      >
-                        <div className="grid md:grid-cols-2 gap-5">
-                          <div>
-                            <label className="block text-sm font-medium text-text-secondary mb-2">Full Name *</label>
-                            <input
-                              type="text"
-                              name="Name"
-                              placeholder="John Doe"
-                              required
-                              className="w-full px-4 py-3 rounded-lg bg-bg-tertiary border border-border-subtle text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-cyan transition-colors"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium text-text-secondary mb-2">Email *</label>
-                            <input
-                              type="email"
-                              name="E-Mail"
-                              placeholder="john@company.com"
-                              required
-                              className="w-full px-4 py-3 rounded-lg bg-bg-tertiary border border-border-subtle text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-cyan transition-colors"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="grid md:grid-cols-2 gap-5">
-                          <div>
-                            <label className="block text-sm font-medium text-text-secondary mb-2">Company</label>
-                            <input
-                              type="text"
-                              name="Company"
-                              placeholder="Your Company"
-                              className="w-full px-4 py-3 rounded-lg bg-bg-tertiary border border-border-subtle text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-cyan transition-colors"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium text-text-secondary mb-2">Phone</label>
-                            <input
-                              type="tel"
-                              name="Phone Number"
-                              placeholder="+254 7XX XXX XXX"
-                              className="w-full px-4 py-3 rounded-lg bg-bg-tertiary border border-border-subtle text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-cyan transition-colors"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="grid md:grid-cols-2 gap-5">
-                          <div>
-                            <label className="block text-sm font-medium text-text-secondary mb-2">Service</label>
-                            <select
-                              name="Service"
-                              className="w-full px-4 py-3 rounded-lg bg-bg-tertiary border border-border-subtle text-text-primary focus:outline-none focus:border-accent-cyan transition-colors appearance-none cursor-pointer"
-                            >
-                              <option value="">Select a service</option>
-                              {services.map((service) => (
-                                <option key={service} value={service}>{service}</option>
-                              ))}
-                            </select>
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium text-text-secondary mb-2">Budget</label>
-                            <select
-                              name="Budget"
-                              className="w-full px-4 py-3 rounded-lg bg-bg-tertiary border border-border-subtle text-text-primary focus:outline-none focus:border-accent-cyan transition-colors appearance-none cursor-pointer"
-                            >
-                              <option value="">Select budget range</option>
-                              {budgetRanges.map((range) => (
-                                <option key={range} value={range}>{range}</option>
-                              ))}
-                            </select>
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-text-secondary mb-2">What's keeping you up at night? *</label>
-                          <textarea
-                            name="Message"
-                            placeholder="Tell us about the challenges you're facing and how we can help..."
-                            rows={5}
-                            required
-                            className="w-full px-4 py-3 rounded-lg bg-bg-tertiary border border-border-subtle text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-cyan transition-colors resize-none"
-                          />
-                        </div>
-
-                        {/* Hidden field for form identification */}
-                        <input type="hidden" name="_subject" value="New Contact Form Submission - Velion Consulting" />
-
-                        <motion.button
-                          type="submit"
-                          className="btn-primary w-full"
-                          whileHover={{ scale: 1.01 }}
-                          whileTap={{ scale: 0.99 }}
-                        >
-                          Send Message
-                          <Send className="w-4 h-4" />
-                        </motion.button>
-                      </form>
-                    )}
+                    <EnquiryForm />
                   </div>
                 </GlowCard>
               </motion.div>
             </div>
 
-            {/* Contact Info */}
+            {/* Contact Info sidebar */}
             <div className="space-y-4">
               {contactInfo.map((info, index) => {
                 const Icon = info.icon
@@ -256,7 +114,7 @@ export default function ContactPageContent() {
                 )
               })}
 
-              {/* Quick CTA */}
+              {/* WhatsApp CTA */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -267,7 +125,11 @@ export default function ContactPageContent() {
                   <Calendar className="w-8 h-8 text-white mx-auto mb-3" />
                   <h3 className="font-heading font-semibold text-white mb-2">Prefer a Call?</h3>
                   <p className="text-white/80 text-sm mb-4">Schedule a free 30-minute consultation</p>
-                  <a href="https://wa.me/254794830280?text=Hi!%20I'd%20like%20to%20schedule%20a%20call%20to%20discuss%20my%20project." target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://wa.me/254794830280?text=Hi!%20I'd%20like%20to%20schedule%20a%20call%20to%20discuss%20my%20project."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <button className="w-full py-2.5 rounded-lg bg-white text-accent-blue font-medium hover:bg-white/90 transition-colors">
                       Schedule via WhatsApp
                     </button>
@@ -275,6 +137,7 @@ export default function ContactPageContent() {
                 </div>
               </motion.div>
             </div>
+
           </div>
         </div>
       </section>

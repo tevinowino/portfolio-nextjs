@@ -78,14 +78,14 @@ export function FinalCTASection() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          <Link href="/book">
+          <Link href="/contact">
             <motion.button
               className="btn-primary text-base px-8 py-4"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <Calendar className="w-5 h-5" />
-              Book Free Consultation
+              Book a Free Call
             </motion.button>
           </Link>
           
@@ -109,9 +109,7 @@ export function FinalCTASection() {
           transition={{ duration: 0.6, delay: 0.7 }}
         >
           <span className="inline-flex items-center gap-4 flex-wrap justify-center">
-            <span>Trusted by 50+ businesses</span>
-            <span className="w-1 h-1 rounded-full bg-text-muted" />
-            <span>99% client satisfaction</span>
+            <span>Delivering real systems for real businesses across Kenya</span>
             <span className="w-1 h-1 rounded-full bg-text-muted" />
             <span>Free consultation</span>
           </span>

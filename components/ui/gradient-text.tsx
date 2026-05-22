@@ -14,12 +14,12 @@ export function GradientText({
   variant = "default",
 }: GradientTextProps) {
   const variants = {
-    default:
-      "bg-gradient-to-b from-white/90 via-white/50 to-white/10",
-    blue: "bg-gradient-to-b from-white/90 via-white/50 to-white/10",
-    purple: "bg-gradient-to-b from-white/90 via-white/50 to-white/10",
-    animated:
-      "bg-gradient-to-b from-white/90 via-white/50 to-white/10",
+    // Dark-section-only: white fade for hero / dark backgrounds
+    default: "bg-gradient-to-b from-white/90 via-white/50 to-white/10",
+    animated: "bg-gradient-to-b from-white/90 via-white/50 to-white/10",
+    // Works on both dark and light — uses overrideable CSS variables
+    blue: "bg-gradient-to-r from-accent-blue to-accent-cyan",
+    purple: "bg-gradient-to-r from-accent-purple to-accent-cyan",
   }
 
   return (

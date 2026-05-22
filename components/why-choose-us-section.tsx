@@ -44,7 +44,7 @@ export function WhyChooseUsSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section className="section-padding bg-bg-primary" ref={ref}>
+    <section className="section-padding section-light" ref={ref}>
       <div className="container-custom">
         {/* Header */}
         <motion.div

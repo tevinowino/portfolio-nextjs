@@ -1,22 +1,30 @@
 "use client"
 
 import { ArrowRight, ShieldCheck } from "lucide-react"
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { GradientText } from "@/components/ui/gradient-text"
 import Link from "next/link"
 
 export function HeroSection() {
+  const { scrollY } = useScroll()
+
+  // Orbs move at different rates — deeper layers move slower
+  const orb1Y = useTransform(scrollY, [0, 800], [0, -140])
+  const orb2Y = useTransform(scrollY, [0, 800], [0, -80])
+  const orb3Y = useTransform(scrollY, [0, 800], [0, -200])
+  const gridY  = useTransform(scrollY, [0, 800], [0, -40])
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-bg-primary to-bg-bg-secondary pb-30">
-      {/* Background Effects */}
+      {/* Background Effects — parallax layers */}
       <div className="absolute inset-0">
         {/* Gradient Orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-blue/20 rounded-full blur-3xl animate-pulse-glow" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-purple/15 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: "1s" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-cyan/10 rounded-full blur-3xl" />
-        
+        <motion.div style={{ y: orb1Y }} className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-blue/20 rounded-full blur-3xl animate-pulse-glow" />
+        <motion.div style={{ y: orb2Y }} className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-purple/15 rounded-full blur-3xl animate-pulse-glow" />
+        <motion.div style={{ y: orb3Y }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-cyan/10 rounded-full blur-3xl" />
+
         {/* Grid Pattern */}
-        <div className="absolute inset-0 grid-pattern opacity-30" />
+        <motion.div style={{ y: gridY }} className="absolute inset-0 grid-pattern opacity-30" />
       </div>
 
       <div className="container-custom relative z-10 pt-24 pb-16 md:pt-32 md:pb-24">
@@ -80,7 +88,7 @@ export function HeroSection() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Get Started
+                  Book a Free Call
                   <ArrowRight className="w-5 h-5" />
                 </motion.button>
               </Link>

@@ -1,341 +1,354 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { useState } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { CheckCircle, ArrowRight, Code, Cloud, Shield, Zap, Users, BarChart3 } from "lucide-react"
+import { CheckCircle, ArrowRight, Globe, Settings, Smartphone, Rocket, GraduationCap, BarChart3 } from "lucide-react"
+import Link from "next/link"
+import { GradientText } from "@/components/ui/gradient-text"
+
+const USD_RATE = 130
+
+type Currency = "KES" | "USD"
+
+function formatPrice(kesAmount: number, currency: Currency, suffix = "") {
+  if (currency === "USD") {
+    const usd = Math.round(kesAmount / USD_RATE)
+    return `From $${usd.toLocaleString()}${suffix}`
+  }
+  return `From KSh ${kesAmount.toLocaleString()}${suffix}`
+}
 
 const services = [
   {
-    icon: Code,
-    title: "Custom Software Development",
-    description: "Tailored software solutions built to your exact specifications and business requirements.",
+    icon: Globe,
+    title: "Website Design & Development",
+    description: "Professional, fast-loading websites that turn visitors into clients. From landing pages to full business sites with CMS.",
     features: [
-      "Web Applications",
-      "Mobile Apps (iOS & Android)",
-      "Desktop Applications",
-      "API Development",
-      "Database Design",
-      "System Integration",
+      "Landing pages",
+      "Business websites with CMS",
+      "E-commerce with M-Pesa integration",
+      "Mobile-responsive design",
+      "SEO-ready structure from day one",
+      "WhatsApp & contact form integration",
     ],
-    price: "Starting at $15,000",
-    timeline: "8-16 weeks",
+    basePrice: 25000,
+    priceSuffix: "",
+    timeline: "1–4 weeks",
+    href: "/pricing",
   },
   {
-    icon: Cloud,
-    title: "Cloud Infrastructure & DevOps",
-    description: "Scalable cloud solutions and automated deployment pipelines for modern businesses.",
+    icon: GraduationCap,
+    title: "School Management Systems",
+    description: "Purpose-built systems for Kenyan schools — replacing spreadsheets and paper registers with real-time dashboards.",
     features: [
-      "AWS/Azure/GCP Setup",
-      "CI/CD Pipeline Implementation",
-      "Container Orchestration",
-      "Infrastructure as Code",
-      "Monitoring & Logging",
-      "Auto-scaling Solutions",
+      "Student records & enrollment management",
+      "Attendance tracking per session",
+      "Grade entry & performance dashboards",
+      "Parent portal for progress visibility",
+      "CBC curriculum alignment",
+      "One-click cohort reports",
     ],
-    price: "Starting at $8,000",
-    timeline: "4-8 weeks",
+    basePrice: 100000,
+    priceSuffix: "",
+    timeline: "4–8 weeks",
+    href: "/portfolio/stti-hub",
   },
   {
-    icon: Shield,
-    title: "Cybersecurity & Compliance",
-    description: "Comprehensive security audits and compliance solutions to protect your business.",
+    icon: Settings,
+    title: "Custom Software & Internal Tools",
+    description: "Bespoke business software — CRMs, inventory systems, HR tools, and operational platforms built for your exact workflow.",
     features: [
-      "Security Audits",
-      "Penetration Testing",
-      "GDPR/HIPAA Compliance",
-      "Data Encryption",
-      "Access Control Systems",
-      "Security Training",
+      "CRM & customer tracking systems",
+      "Inventory & procurement management",
+      "HR & payroll tracking tools",
+      "API development & system integrations",
+      "Admin dashboards & reporting",
+      "Role-based access control",
     ],
-    price: "Starting at $5,000",
-    timeline: "2-6 weeks",
+    basePrice: 100000,
+    priceSuffix: "",
+    timeline: "6–16 weeks",
+    href: "/pricing",
   },
   {
-    icon: Zap,
-    title: "Digital Transformation",
-    description: "End-to-end digital transformation to modernize your business processes and systems.",
+    icon: Smartphone,
+    title: "Mobile App Development",
+    description: "Cross-platform mobile apps (iOS & Android) built with React Native. Offline-first, bilingual, and optimized for Kenyan users.",
     features: [
-      "Process Automation",
-      "Legacy System Modernization",
-      "Workflow Optimization",
-      "Digital Strategy Planning",
-      "Change Management",
-      "Training & Support",
+      "React Native for iOS & Android",
+      "Offline-first architecture",
+      "Swahili & English language support",
+      "M-Pesa & payment integrations",
+      "Push notifications & real-time updates",
+      "App Store & Play Store deployment",
     ],
-    price: "Starting at $25,000",
-    timeline: "12-24 weeks",
+    basePrice: 150000,
+    priceSuffix: "",
+    timeline: "8–16 weeks",
+    href: "/portfolio/shambapal",
   },
   {
-    icon: Users,
-    title: "Technology Consulting",
-    description: "Strategic technology guidance to help you make informed decisions about your tech stack.",
+    icon: Rocket,
+    title: "SaaS & Platform Development",
+    description: "Multi-tenant SaaS products and full digital platforms for startups and scale-ups entering the Kenyan market.",
     features: [
-      "Technology Assessment",
-      "Architecture Planning",
-      "Vendor Selection",
-      "ROI Analysis",
-      "Risk Assessment",
-      "Implementation Roadmap",
+      "Multi-tenant SaaS architecture",
+      "User authentication & role management",
+      "Real-time features & notifications",
+      "AI integrations & smart matching",
+      "Subscription & payment infrastructure",
+      "Admin control panels",
     ],
-    price: "Starting at $3,000",
-    timeline: "2-4 weeks",
+    basePrice: 200000,
+    priceSuffix: "",
+    timeline: "12–24 weeks",
+    href: "/portfolio/learnify",
   },
   {
     icon: BarChart3,
-    title: "Data Analytics & AI",
-    description: "Harness the power of your data with advanced analytics and AI-driven insights.",
+    title: "SEO & Digital Growth",
+    description: "Search engine optimisation for Kenyan businesses — structured data, on-page SEO, and content strategy to drive organic traffic.",
     features: [
-      "Data Pipeline Development",
-      "Business Intelligence Dashboards",
-      "Machine Learning Models",
-      "Predictive Analytics",
-      "Data Visualization",
-      "AI Integration",
+      "Technical SEO audit & fixes",
+      "Structured data (schema markup)",
+      "Google Business Profile setup",
+      "Local SEO for Nairobi & Kenya",
+      "On-page optimisation",
+      "Monthly performance reporting",
     ],
-    price: "Starting at $12,000",
-    timeline: "6-12 weeks",
+    basePrice: 15000,
+    priceSuffix: "/mo",
+    timeline: "Ongoing",
+    href: "/contact",
   },
 ]
 
 const process = [
   {
     step: "01",
-    title: "Discovery & Analysis",
-    description:
-      "We start by understanding your business goals, current challenges, and technical requirements through detailed consultations.",
+    title: "Discovery Call",
+    description: "We meet to understand your business goals, current pain points, and what success looks like for your project.",
   },
   {
     step: "02",
-    title: "Strategy & Planning",
-    description:
-      "Our team develops a comprehensive strategy and project roadmap tailored to your specific needs and budget.",
+    title: "Proposal & Scope",
+    description: "We send a clear written proposal with timeline, deliverables, and milestone-based pricing — no surprises.",
   },
   {
     step: "03",
-    title: "Design & Development",
-    description:
-      "We bring your vision to life with cutting-edge technology, following best practices and industry standards.",
+    title: "Design & Build",
+    description: "We design, develop, and keep you updated throughout. You review at every milestone before we move forward.",
   },
   {
     step: "04",
-    title: "Testing & Deployment",
-    description:
-      "Rigorous testing ensures quality and reliability before we deploy your solution to production environments.",
+    title: "Launch & Handover",
+    description: "We deploy, test, and hand over your project with documentation and training so you're never stuck.",
   },
   {
     step: "05",
-    title: "Support & Maintenance",
-    description:
-      "Ongoing support and maintenance to ensure your solution continues to perform optimally as your business grows.",
+    title: "Ongoing Support",
+    description: "Monthly retainers available for maintenance, updates, and continued growth of your digital product.",
   },
 ]
 
-const industries = [
-  "Healthcare & Medical",
-  "Financial Services",
-  "E-commerce & Retail",
-  "Manufacturing",
-  "Education & EdTech",
-  "Real Estate",
-  "Logistics & Supply Chain",
-  "Professional Services",
-]
-
 export default function ServicesPageContent() {
+  const [currency, setCurrency] = useState<Currency>("KES")
+  const { scrollY } = useScroll()
+  const orbY = useTransform(scrollY, [0, 600], [0, -100])
+
   return (
-    <main className="min-h-screen font-saira">
+    <main className="min-h-screen bg-bg-primary">
+      <div className="noise-overlay" />
       <Header />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4">
-        <div className="max-w-6xl mx-auto">
+      {/* Hero */}
+      <section className="pt-32 pb-16 section-padding relative overflow-hidden">
+        <div className="absolute inset-0">
+          <motion.div style={{ y: orbY }} className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-accent-blue/5 rounded-full blur-3xl" />
+        </div>
+        <div className="container-custom relative z-10 max-w-3xl text-center mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
           >
-            <h1 className="text-4xl md:text-6xl font-bold text-[#0A192F] mb-6">
-              Our <span className="text-teal">Services</span>
+            <span className="inline-block font-mono text-xs uppercase tracking-widest text-accent-cyan mb-4">
+              What We Build
+            </span>
+            <h1 className="text-display mb-6">
+              Services Built for{" "}
+              <GradientText variant="blue">Kenyan Businesses</GradientText>
             </h1>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-              Comprehensive technology solutions designed to accelerate your business growth and digital transformation
-              journey.
+            <p className="text-text-secondary text-lg max-w-xl mx-auto mb-8">
+              From a KSh 25,000 landing page to a fully custom SaaS platform — we build digital products that work the way your business works.
             </p>
+            <Link href="/pricing">
+              <button className="btn-primary">
+                View Transparent Pricing
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </Link>
           </motion.div>
         </div>
       </section>
 
+      {/* Sticky Currency Toggle */}
+      <div className="sticky top-28 z-50 flex justify-center -mt-8 mb-12 pointer-events-none px-4">
+        <div className="inline-flex items-center p-1.5 rounded-full bg-[#0d1117]/80 backdrop-blur-md border border-white/10 pointer-events-auto shadow-2xl">
+          <button
+            onClick={() => setCurrency("KES")}
+            className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
+              currency === "KES" ? "bg-white text-black shadow-sm" : "text-text-muted hover:text-white"
+            }`}
+          >
+            KES
+          </button>
+          <button
+            onClick={() => setCurrency("USD")}
+            className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
+              currency === "USD" ? "bg-white text-black shadow-sm" : "text-text-muted hover:text-white"
+            }`}
+          >
+            USD
+          </button>
+        </div>
+      </div>
+
       {/* Services Grid */}
-      <section className="py-20 px-4 bg-[#0A192F] rounded-t-4xl">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.title}
-                id={service.title.toLowerCase().replace(/\s+/g, "-").replace(/&/g, "")} // Added IDs for anchor navigation
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="bg-white border-0 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                  <CardHeader className="pb-4">
-                    <div className="w-12 h-12 bg-teal/10 rounded-lg flex items-center justify-center mb-4">
-                      <service.icon className="w-6 h-6 text-teal" />
+      <section className="section-padding pt-0 section-light">
+        <div className="container-custom max-w-6xl">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service, index) => {
+              const Icon = service.icon
+              return (
+                <motion.div
+                  key={service.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  viewport={{ once: true }}
+                  className="group"
+                >
+                  <div className="h-full rounded-2xl border border-border-subtle bg-bg-primary p-6 hover:border-accent-cyan/30 transition-colors duration-200 flex flex-col">
+                    <div className="w-12 h-12 rounded-xl bg-accent-cyan/10 flex items-center justify-center mb-4 group-hover:bg-accent-cyan/20 transition-colors">
+                      <Icon className="w-6 h-6 text-accent-cyan" />
                     </div>
-                    <CardTitle className="text-xl text-navy mb-2">{service.title}</CardTitle>
-                    <p className="text-gray-600 text-sm leading-relaxed">{service.description}</p>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <div className="space-y-4">
-                      <div>
-                        <h4 className="font-semibold text-navy mb-3">What's Included:</h4>
-                        <ul className="space-y-2">
-                          {service.features.map((feature, idx) => (
-                            <li key={idx} className="flex items-center text-sm text-gray-600">
-                              <CheckCircle className="w-4 h-4 text-teal mr-2 flex-shrink-0" />
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
+                    <h2 className="font-heading font-bold text-text-primary text-lg mb-2">
+                      {service.title}
+                    </h2>
+                    <p className="text-text-secondary text-sm leading-relaxed mb-5">
+                      {service.description}
+                    </p>
+                    <ul className="space-y-2 mb-6 flex-1">
+                      {service.features.map((feature) => (
+                        <li key={feature} className="flex items-start gap-2 text-sm text-text-secondary">
+                          <CheckCircle className="w-4 h-4 text-accent-cyan mt-0.5 flex-shrink-0" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="pt-4 border-t border-border-subtle">
+                      <div className="flex justify-between items-center mb-3">
+                        <span className="text-accent-cyan font-heading font-semibold text-sm">
+                          {formatPrice(service.basePrice, currency, service.priceSuffix)}
+                        </span>
+                        <span className="text-text-muted text-xs font-mono">{service.timeline}</span>
                       </div>
-
-                      <div className="pt-4 border-t border-gray-100">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-sm text-gray-500">Starting Price:</span>
-                          <span className="font-semibold text-navy">{service.price}</span>
-                        </div>
-                        <div className="flex justify-between items-center mb-4">
-                          <span className="text-sm text-gray-500">Timeline:</span>
-                          <span className="font-semibold text-navy">{service.timeline}</span>
-                        </div>
-
-                        <Button className="w-full bg-teal hover:bg-teal/90 text-white group">
-                          Get Quote
-                          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                        </Button>
-                      </div>
+                      <Link href={service.href}>
+                        <button className="w-full py-2.5 px-4 rounded-xl border border-accent-cyan/30 text-accent-cyan text-sm font-medium hover:bg-accent-cyan/10 transition-colors flex items-center justify-center gap-2 group-hover:border-accent-cyan/60">
+                          Learn More
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
+                      </Link>
                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+                  </div>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </section>
 
-      {/* Process Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-6xl mx-auto">
+      {/* How We Work */}
+      <section className="section-padding bg-bg-primary">
+        <div className="container-custom max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Our Process</h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              A proven methodology that ensures successful project delivery
+            <span className="inline-block font-mono text-xs uppercase tracking-widest text-accent-cyan mb-4">
+              How It Works
+            </span>
+            <h2 className="text-headline mb-4">
+              How Does Velion's <GradientText variant="blue">Development Process Work?</GradientText>
+            </h2>
+            <p className="text-body">
+              A simple, transparent process that keeps you informed at every stage.
             </p>
           </motion.div>
 
-          <div className="space-y-8">
+          <div className="space-y-6">
             {process.map((step, index) => (
               <motion.div
                 key={step.step}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className={`flex flex-col md:flex-row items-center gap-8 ${
-                  index % 2 === 1 ? "md:flex-row-reverse" : ""
-                }`}
+                className="flex gap-6"
               >
-                <div className="flex-1">
-                  <Card className="bg-white border-0 p-8">
-                    <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 bg-teal text-white rounded-full flex items-center justify-center font-bold text-lg mr-4">
-                        {step.step}
-                      </div>
-                      <h3 className="text-xl font-bold text-navy">{step.title}</h3>
-                    </div>
-                    <p className="text-gray-600 leading-relaxed">{step.description}</p>
-                  </Card>
-                </div>
-
-                {index < process.length - 1 && (
-                  <div className="hidden md:block">
-                    <ArrowRight className="w-8 h-8 text-teal" />
+                <div className="flex flex-col items-center">
+                  <div className="w-12 h-12 rounded-full bg-accent-cyan/10 border border-accent-cyan/40 flex items-center justify-center font-mono text-accent-cyan font-bold text-sm flex-shrink-0">
+                    {step.step}
                   </div>
-                )}
+                  {index < process.length - 1 && (
+                    <div className="w-px flex-1 bg-border-subtle mt-2" />
+                  )}
+                </div>
+                <div className="pb-6">
+                  <h3 className="font-heading font-semibold text-text-primary mb-1">{step.title}</h3>
+                  <p className="text-text-secondary text-sm leading-relaxed">{step.description}</p>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Industries Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-6xl mx-auto">
+      {/* CTA */}
+      <section className="section-padding bg-bg-secondary pb-20">
+        <div className="container-custom max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="rounded-2xl border border-border-subtle bg-bg-primary p-8 lg:p-12 text-center"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Industries We Serve</h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Our expertise spans across multiple industries and business sectors
+            <h2 className="font-heading font-bold text-2xl text-text-primary mb-3">
+              Ready to Build Something?
+            </h2>
+            <p className="text-text-muted mb-8 max-w-md mx-auto">
+              Book a free discovery call. We'll listen first, then tell you exactly what we'd build and what it would cost.
             </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4"
-          >
-            {industries.map((industry, index) => (
-              <motion.div
-                key={industry}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Badge
-                  variant="secondary"
-                  className="w-full py-3 px-4 text-center bg-white text-navy hover:bg-teal hover:text-white transition-colors duration-300"
-                >
-                  {industry}
-                </Badge>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-3xl p-8 md:p-12 text-center"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-navy mb-6">Ready to Get Started?</h2>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">Let's discuss your project</p>
-            <Button className="bg-teal hover:bg-teal/90 text-white py-4 px-8 rounded-full">Contact Us</Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/contact">
+                <button className="btn-primary">
+                  Book a Free Call
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </Link>
+              <Link href="/pricing">
+                <button className="btn-secondary">
+                  View Pricing
+                </button>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>

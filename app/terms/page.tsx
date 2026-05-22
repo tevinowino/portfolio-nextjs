@@ -164,8 +164,8 @@ export default function TermsPage() {
             </h2>
             <p className="text-text-secondary mb-6">
               Contact us at{" "}
-              <a href="mailto:velionlabs@gmail.com" className="text-accent-cyan hover:underline">
-                velionlabs@gmail.com
+              <a href="mailto:velionconsulting@gmail.com" className="text-accent-cyan hover:underline">
+                velionconsulting@gmail.com
               </a>
             </p>
           </motion.div>
