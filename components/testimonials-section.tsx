@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { GradientText } from "@/components/ui/gradient-text"
 import { Quote } from "lucide-react"
+import { SectionTransition } from "@/components/ui/section-transition"
 
 const testimonials = [
   {
@@ -71,10 +72,10 @@ export function TestimonialsSection() {
               transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
               className="group"
             >
-              <div className="relative h-full p-px rounded-2xl bg-gradient-to-b from-white/10 via-white/5 to-transparent">
+              <div className="relative h-full p-px rounded-2xl bg-linear-to-b from-white/10 via-white/5 to-transparent">
                   <div className="h-full rounded-2xl bg-bg-primary/80 backdrop-blur-sm p-6 lg:p-8 flex flex-col">
                     {/* Large quote mark */}
-                    <Quote className="w-8 h-8 text-accent-cyan/40 mb-4 flex-shrink-0" />
+                    <Quote className="w-8 h-8 text-accent-cyan/40 mb-4 shrink-0" />
 
                     {/* Quote */}
                     <p className="text-text-secondary leading-relaxed flex-1 mb-6">
@@ -83,7 +84,7 @@ export function TestimonialsSection() {
 
                     {/* Author */}
                     <div className="flex items-center gap-3 pt-4 border-t border-border-subtle">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-cyan to-accent-blue flex items-center justify-center text-white font-heading font-semibold text-sm ring-2 ring-accent-cyan/20 flex-shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-linear-to-br from-accent-cyan to-accent-blue flex items-center justify-center text-white font-heading font-semibold text-sm ring-2 ring-accent-cyan/20 shrink-0">
                         {testimonial.avatar}
                       </div>
                       <div>
@@ -101,6 +102,9 @@ export function TestimonialsSection() {
           ))}
         </div>
       </div>
+
+      {/* Smooth transition gradient overlay to next section (Navy) */}
+      <SectionTransition fromColor="#18181b" toColor="#1B2A41" height="h-32" />
     </section>
   )
 }

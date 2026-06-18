@@ -1,6 +1,7 @@
 'use client'
 
 import Link from "next/link"
+import Image from "next/image"
 import { Mail, Phone, MapPin, Linkedin, Twitter, Github } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -58,13 +59,19 @@ export function Footer() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <motion.img
-                src="/logo-symbol-white-no-bg.png"
-                alt="Velion Consulting Logo"
-                className="h-28 w-auto"
+              <motion.div
+                className="rounded-xl px-3 py-2 overflow-hidden inline-flex"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
-              />
+              >
+                <Image
+                  src="/new-logos/full-logo-no-bg.png"
+                  alt="Velion Consulting Logo"
+                  width={112}
+                  height={112}
+                  className="h-28 w-auto"
+                />
+              </motion.div>
             </motion.div>
             <p className="text-gray-400 mb-6 leading-relaxed max-w-sm">
               Kenya's leading software agency. We build stunning websites and custom systems
@@ -76,18 +83,18 @@ export function Footer() {
                 href="mailto:velionconsulting@gmail.com"
                 className="flex items-center space-x-3 hover:text-teal transition-colors"
               >
-                <Mail className="h-4 w-4 text-teal flex-shrink-0" />
+                <Mail className="h-4 w-4 text-teal shrink-0" />
                 <span className="text-gray-400 hover:text-white transition-colors">velionconsulting@gmail.com</span>
               </a>
               <a
                 href="tel:+254794830280"
                 className="flex items-center space-x-3 hover:text-teal transition-colors"
               >
-                <Phone className="h-4 w-4 text-teal flex-shrink-0" />
+                <Phone className="h-4 w-4 text-teal shrink-0" />
                 <span className="text-gray-400 hover:text-white transition-colors">+254 794 830 280</span>
               </a>
               <div className="flex items-center space-x-3">
-                <MapPin className="h-4 w-4 text-teal flex-shrink-0" />
+                <MapPin className="h-4 w-4 text-teal shrink-0" />
                 <span className="text-gray-400">Nairobi, Kenya</span>
               </div>
             </address>

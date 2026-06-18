@@ -428,6 +428,12 @@ const projectsData = {
   },
 }
 
+export async function generateStaticParams() {
+  return Object.keys(projectsData).map((slug) => ({
+    slug,
+  }))
+}
+
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params
   const project = projectsData[params.slug as keyof typeof projectsData]
@@ -583,7 +589,7 @@ export default async function ProjectDetailPage(props: { params: Promise<{ slug:
               <div className="space-y-3">
                 {project.problem.challenges.map((challenge, i) => (
                   <div key={i} className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-purple mt-2 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent-purple mt-2 shrink-0" />
                     <p className="text-text-secondary text-sm">{challenge}</p>
                   </div>
                 ))}
@@ -599,7 +605,7 @@ export default async function ProjectDetailPage(props: { params: Promise<{ slug:
               <div className="space-y-3">
                 {project.solution.features.map((feature, i) => (
                   <div key={i} className="flex items-start gap-3">
-                    <CheckCircle className="w-4 h-4 text-accent-cyan mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="w-4 h-4 text-accent-cyan mt-0.5 shrink-0" />
                     <p className="text-text-secondary text-sm">{feature}</p>
                   </div>
                 ))}
@@ -660,7 +666,7 @@ export default async function ProjectDetailPage(props: { params: Promise<{ slug:
               "{project.testimonial.quote}"
             </blockquote>
             <div className="flex items-center gap-4 pt-6 border-t border-border-subtle">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-cyan to-accent-blue flex items-center justify-center text-white font-heading font-semibold text-sm flex-shrink-0">
+              <div className="w-10 h-10 rounded-full bg-linear-to-br from-accent-cyan to-accent-blue flex items-center justify-center text-white font-heading font-semibold text-sm shrink-0">
                 {project.testimonial.author.split(" ").map(w => w[0]).join("").slice(0, 2)}
               </div>
               <div>
@@ -686,7 +692,7 @@ export default async function ProjectDetailPage(props: { params: Promise<{ slug:
             {project.timeline.map((phase, i) => (
               <div key={i} className="flex gap-6">
                 <div className="flex flex-col items-center">
-                  <div className="w-8 h-8 rounded-full bg-accent-cyan/10 border border-accent-cyan/40 flex items-center justify-center text-accent-cyan text-xs font-bold flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-accent-cyan/10 border border-accent-cyan/40 flex items-center justify-center text-accent-cyan text-xs font-bold shrink-0">
                     {i + 1}
                   </div>
                   {i < project.timeline.length - 1 && (

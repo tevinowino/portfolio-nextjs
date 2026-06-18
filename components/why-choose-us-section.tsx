@@ -8,6 +8,7 @@ import { AnimatedCounter } from "@/components/ui/animated-counter"
 import { GlowCard } from "@/components/ui/glow-card"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { SectionTransition } from "@/components/ui/section-transition"
 
 const metrics = [
   { value: "99.9", suffix: "%", label: "Uptime SLA" },
@@ -44,7 +45,7 @@ export function WhyChooseUsSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section className="section-padding section-light" ref={ref}>
+    <section className="section-padding section-light relative" id="why" ref={ref}>
       <div className="container-custom">
         {/* Header */}
         <motion.div
@@ -91,7 +92,7 @@ export function WhyChooseUsSection() {
         </motion.div>
 
         {/* Divider */}
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-border-visible to-transparent mb-16" />
+        <div className="w-full h-px bg-linear-to-r from-transparent via-border-visible to-transparent mb-16" />
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 gap-4 lg:gap-6">
@@ -106,7 +107,7 @@ export function WhyChooseUsSection() {
               >
                 <GlowCard>
                   <div className="p-6 lg:p-8 flex items-start gap-5">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-blue to-accent-cyan flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-linear-to-br from-accent-blue to-accent-cyan flex items-center justify-center shrink-0">
                       <Icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -153,6 +154,9 @@ export function WhyChooseUsSection() {
           </div>
         </motion.div>
       </div>
+
+      {/* Smooth transition gradient overlay to next section (Navy) */}
+      <SectionTransition fromColor="#f5f3ee" toColor="#1B2A41" height="h-32" />
     </section>
   )
 }

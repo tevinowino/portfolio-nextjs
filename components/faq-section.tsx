@@ -5,6 +5,7 @@ import { Plus, Minus } from "lucide-react"
 import { useState, useRef } from "react"
 import { GradientText } from "@/components/ui/gradient-text"
 import Link from "next/link"
+import { SectionTransition } from "@/components/ui/section-transition"
 
 const faqs = [
   {
@@ -51,88 +52,103 @@ export function FAQSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section className="section-padding section-light" id="faq" ref={ref}>
-      <div className="container-custom max-w-3xl">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="inline-block font-mono text-xs uppercase tracking-widest text-accent-cyan mb-4">
-            FAQ
-          </span>
-          <h2 className="text-headline mb-4">
-            Frequently Asked <GradientText variant="blue">Questions</GradientText>
-          </h2>
-          <p className="text-body">
-            Everything you need to know about working with us.
-          </p>
-        </motion.div>
+    <section className="section-padding section-light relative overflow-hidden" id="faq" ref={ref}>
+      <div className="container-custom">
+        <div className="grid lg:grid-cols-12 gap-12 items-start relative">
+          
+          {/* Left Column: Title & Floating Crystal Decoration */}
+          <motion.div
+            className="lg:col-span-5 flex flex-col justify-start relative"
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block font-mono text-xs uppercase tracking-widest text-accent-cyan mb-4">
+              FAQ
+            </span>
+            <h2 className="text-headline mb-4">
+              Frequently Asked <br />
+              <GradientText variant="blue">Questions</GradientText>
+            </h2>
+            <p className="text-body max-w-md">
+              Everything you need to know about working with us.
+            </p>
 
-        {/* FAQ Items — answers always in DOM for crawler visibility */}
-        <div className="space-y-3">
-          {faqs.map((faq, index) => {
-            const isOpen = openIndex === index
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.5, delay: 0.1 + index * 0.05 }}
-              >
-                <div
-                  className={`bg-bg-secondary rounded-xl border transition-colors duration-200 ${
-                    isOpen ? "border-accent-cyan/30" : "border-border-subtle hover:border-border-visible"
-                  }`}
-                >
-                  <button
-                    onClick={() => setOpenIndex(isOpen ? null : index)}
-                    className="w-full p-5 text-left flex items-center justify-between gap-4"
-                    aria-expanded={isOpen}
+            {/* Decorative Floating Crystal (Large & Cut off on the left, Desktop Only) */}
+            <div className="absolute left-[-260px] top-[140px] w-[500px] h-[500px] pointer-events-none hidden lg:block select-none opacity-45 mix-blend-screen animate-float">
+              <img
+                src="/crystal.png"
+                alt="Decorative Crystal"
+                className="w-full h-full object-contain"
+              />
+            </div>
+          </motion.div>
+
+          {/* Right Column: FAQ Accordion */}
+          <div className="lg:col-span-7 relative z-10 w-full">
+            <div className="space-y-3">
+              {faqs.map((faq, index) => {
+                const isOpen = openIndex === index
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    transition={{ duration: 0.5, delay: 0.1 + index * 0.05 }}
                   >
-                    <h3 className="font-heading font-semibold text-text-primary pr-4">
-                      {faq.question}
-                    </h3>
-                    <motion.div
-                      className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
-                        isOpen ? "bg-accent-cyan text-white" : "bg-bg-tertiary text-text-muted"
+                    <div
+                      className={`bg-bg-secondary rounded-xl border transition-colors duration-200 ${
+                        isOpen ? "border-accent-cyan/30" : "border-border-subtle hover:border-border-visible"
                       }`}
-                      animate={{ rotate: isOpen ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
                     >
-                      {isOpen ? (
-                        <Minus className="w-4 h-4" />
-                      ) : (
-                        <Plus className="w-4 h-4" />
-                      )}
-                    </motion.div>
-                  </button>
+                      <button
+                        onClick={() => setOpenIndex(isOpen ? null : index)}
+                        className="w-full p-5 text-left flex items-center justify-between gap-4"
+                        aria-expanded={isOpen}
+                      >
+                        <h3 className="font-heading font-semibold text-text-primary pr-4">
+                          {faq.question}
+                        </h3>
+                        <motion.div
+                          className={`shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+                            isOpen ? "bg-accent-cyan text-white" : "bg-bg-tertiary text-text-muted"
+                          }`}
+                          animate={{ rotate: isOpen ? 180 : 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          {isOpen ? (
+                            <Minus className="w-4 h-4" />
+                          ) : (
+                            <Plus className="w-4 h-4" />
+                          )}
+                        </motion.div>
+                      </button>
 
-                  {/* Answer always in DOM — CSS controls visibility for crawler access */}
-                  <div
-                    className="overflow-hidden transition-all duration-300 ease-in-out"
-                    style={{ maxHeight: isOpen ? "500px" : "0px" }}
-                    aria-hidden={!isOpen}
-                  >
-                    <div className="px-5 pb-5">
-                      <div className="pt-2 border-t border-border-subtle">
-                        <p className="text-text-secondary leading-relaxed pt-4">
-                          {faq.answer}
-                        </p>
+                      {/* Answer always in DOM — CSS controls visibility for crawler access */}
+                      <div
+                        className="overflow-hidden transition-all duration-300 ease-in-out"
+                        style={{ maxHeight: isOpen ? "500px" : "0px" }}
+                        aria-hidden={!isOpen}
+                      >
+                        <div className="px-5 pb-5">
+                          <div className="pt-2 border-t border-border-subtle">
+                            <p className="text-text-secondary leading-relaxed pt-4">
+                              {faq.answer}
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </motion.div>
-            )
-          })}
+                  </motion.div>
+                )
+              })}
+            </div>
+          </div>
         </div>
 
         {/* Bottom CTA */}
         <motion.div
-          className="text-center mt-12"
+          className="text-center mt-16"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.5 }}
@@ -147,6 +163,9 @@ export function FAQSection() {
           </Link>
         </motion.div>
       </div>
+
+      {/* Smooth transition gradient overlay to next section (Dark Gray) */}
+      <SectionTransition fromColor="#f5f3ee" toColor="#18181b" height="h-32" />
     </section>
   )
 }

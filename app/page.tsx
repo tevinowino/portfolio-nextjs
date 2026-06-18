@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import { HeroSection } from "@/components/hero-section"
 import { SolutionSection } from "@/components/solution-section"
 import { ServicesSection } from "@/components/services-section"
+import { LatestWorkSection } from "@/components/latest-work-section"
 // Process section is lazy loaded below
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -176,6 +177,7 @@ export default function Home() {
       <HeroSection />
       <SolutionSection />
       <ServicesSection />
+      <LatestWorkSection />
       <ProcessSection />
       <WhyChooseUsSection />
       <AboutSection />

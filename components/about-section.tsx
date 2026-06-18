@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { GradientText } from "@/components/ui/gradient-text"
 import Link from "next/link"
+import { SectionTransition } from "@/components/ui/section-transition"
 
 const capabilities = [
   {
@@ -91,10 +92,10 @@ export function AboutSection() {
                   >
                     <div className="relative rounded-2xl bg-bg-secondary border border-border-subtle p-6 hover:border-accent-cyan/30 transition-colors duration-300">
                       {/* Hover Glow */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-accent-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+                      <div className="absolute inset-0 bg-linear-to-r from-accent-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
                       
                       <div className="relative flex items-start gap-5">
-                        <div className="w-12 h-12 rounded-xl bg-bg-tertiary flex items-center justify-center flex-shrink-0 group-hover:bg-accent-cyan/10 transition-colors duration-300">
+                        <div className="w-12 h-12 rounded-xl bg-bg-tertiary flex items-center justify-center shrink-0 group-hover:bg-accent-cyan/10 transition-colors duration-300">
                           <Icon className="w-6 h-6 text-text-secondary group-hover:text-accent-cyan transition-colors duration-300" />
                         </div>
                         
@@ -120,6 +121,9 @@ export function AboutSection() {
 
         </div>
       </div>
+
+      {/* Smooth transition gradient overlay to next section (Cream) */}
+      <SectionTransition fromColor="#1B2A41" toColor="#f5f3ee" height="h-32" />
     </section>
   )
 }

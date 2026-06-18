@@ -161,7 +161,7 @@ export default function AboutPageContent() {
                  <div className="grid sm:grid-cols-2 gap-4">
                     {capabilities.map((cap) => (
                       <div key={cap} className="flex items-center gap-3">
-                         <CheckCircle2 className="w-5 h-5 text-accent-cyan flex-shrink-0" />
+                         <CheckCircle2 className="w-5 h-5 text-accent-cyan shrink-0" />
                          <span className="text-sm font-medium text-white/90">{cap}</span>
                       </div>
                     ))}
@@ -278,7 +278,7 @@ export default function AboutPageContent() {
                     const Icon = item.icon
                     return (
                       <div key={item.label} className="flex items-start gap-3 p-4 rounded-xl bg-bg-secondary border border-border-subtle">
-                        <Icon className="w-4 h-4 text-accent-cyan mt-0.5 flex-shrink-0" />
+                        <Icon className="w-4 h-4 text-accent-cyan mt-0.5 shrink-0" />
                         <div>
                           <div className="text-sm font-medium text-text-primary">{item.label}</div>
                           <div className="text-xs text-text-muted">{item.detail}</div>
@@ -304,7 +304,7 @@ export default function AboutPageContent() {
                     sizes="320px"
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/60 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-bg-primary/60 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
                     <div className="text-text-primary font-heading font-semibold text-sm">Tevin Owino</div>
                     <div className="text-accent-cyan text-xs font-mono">Founder & Lead Engineer</div>

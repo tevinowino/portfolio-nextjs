@@ -9,7 +9,7 @@
 
 :root {
   /* Background Colors */
-  --bg-primary: #09090b;
+  --bg-primary: #1B2A41;
   --bg-secondary: #18181b;
   --bg-tertiary: #27272a;
   --bg-elevated: #1f1f23;
@@ -20,8 +20,8 @@
   --text-muted: #71717a;
 
   /* Accent Colors */
-  --accent-blue: #3b82f6;
-  --accent-blue-hover: #2563eb;
+  --accent-blue: #00BFA6;
+  --accent-blue-hover: #009980;
   --accent-cyan: #22d3ee;
   --accent-purple: #a855f7;
   --accent-green: #22c55e;
@@ -428,6 +428,8 @@
     pointer-events: none;
     z-index: 9999;
     opacity: 0.03;
+    /* contain: strict prevents this layer from triggering full-viewport repaints */
+    contain: strict;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   }
 
@@ -685,4 +687,199 @@
     outline: 2px solid var(--accent-blue);
     outline-offset: 2px;
   }
+}
+
+/* ============================================
+   LIQUID GLASS SYSTEM
+   CSS Approach A — backdrop-filter (all browsers)
+   Five layers: lensing · highlights · shadows · tinting · glow
+   ============================================ */
+
+/* ── Navigation pill ─────────────────────────────────────── */
+
+.glass-nav-pill {
+  /* Layer 4: dark tint tuned for dark-site glass */
+  background: rgba(9, 9, 11, 0.52);
+
+  /* Layer 1 approx: concentrate + scatter */
+  -webkit-backdrop-filter: blur(28px) saturate(165%) brightness(1.06);
+  backdrop-filter: blur(28px) saturate(165%) brightness(1.06);
+
+  /* Layer 3: inner top highlight + outer depth shadow */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 8px 32px rgba(0, 0, 0, 0.42),
+    0 2px 8px rgba(0, 0, 0, 0.22),
+    0 0 0 0.5px rgba(255, 255, 255, 0.08);
+
+  /* Specular border ring */
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  will-change: transform;
+}
+
+.glass-nav-pill-top {
+  position: relative;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  will-change: transform;
+}
+
+.glass-nav-pill-top::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  /* Layer 4: dark tint tuned for dark-site glass fading to transparent at the bottom */
+  background: linear-gradient(to bottom, rgba(9, 9, 11, 0.52) 20%, rgba(9, 9, 11, 0) 80%, transparent 100%);
+
+  /* Layer 1 approx: concentrate + scatter */
+  -webkit-backdrop-filter: blur(28px) saturate(165%) brightness(1.06);
+  backdrop-filter: blur(28px) saturate(165%) brightness(1.06);
+
+  /* Layer 3: inner top highlight + outer depth shadow */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 8px 32px rgba(0, 0, 0, 0.42),
+    0 2px 8px rgba(0, 0, 0, 0.22),
+    0 0 0 0.5px rgba(255, 255, 255, 0.08);
+
+  /* Smooth mask to fade the blur and background to avoid harsh cutoff lines */
+  -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+}
+
+
+/* Layer 2: static specular arc — top-left light source */
+.glass-nav-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.04) 38%,
+    transparent 62%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Layer 5: pointer-tracked interaction glow */
+.glass-nav-pill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glass-nav-pill:hover::after { opacity: 1; }
+
+/* ── CTA button ──────────────────────────────────────────── */
+
+.glass-cta-btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  /* Layer 4: white tint */
+  background: rgba(255, 255, 255, 0.10);
+
+  /* Layer 1 approx */
+  -webkit-backdrop-filter: blur(22px) saturate(160%) brightness(1.10);
+  backdrop-filter: blur(22px) saturate(160%) brightness(1.10);
+
+  /* Layer 3: inner highlight + outer drop shadow */
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    0 2px 14px rgba(0, 0, 0, 0.28),
+    0 1px 3px rgba(0, 0, 0, 0.14);
+
+  /* Specular border */
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  color: white;
+  will-change: transform;
+}
+
+/* Layer 2: specular arc */
+.glass-cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.06) 42%,
+    transparent 62%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Layer 5: pointer-tracked interaction glow */
+.glass-cta-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(255, 255, 255, 0.22) 0%,
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.glass-cta-btn:hover::after { opacity: 1; }
+
+/* ── Accessibility overrides ─────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-nav-pill::after,
+  .glass-cta-btn::after {
+    transition: none;
+    display: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .glass-nav-pill {
+    background: rgba(0, 0, 0, 0.92);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border: 2px solid rgba(255, 255, 255, 0.80);
+    box-shadow: none;
+  }
+  .glass-nav-pill::before,
+  .glass-nav-pill::after { display: none; }
+
+  .glass-cta-btn {
+    background: rgba(13, 141, 148, 0.9);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border: 2px solid white;
+    color: black;
+    box-shadow: none;
+  }
+  .glass-cta-btn::before,
+  .glass-cta-btn::after { display: none; }
 }

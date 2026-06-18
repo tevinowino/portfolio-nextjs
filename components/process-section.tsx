@@ -6,6 +6,7 @@ import { useRef } from "react"
 import { GradientText } from "@/components/ui/gradient-text"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { SectionTransition } from "@/components/ui/section-transition"
 
 const processSteps = [
   {
@@ -52,7 +53,7 @@ export function ProcessSection() {
 
   return (
     <section
-      className="section-padding bg-bg-secondary overflow-hidden"
+      className="section-padding bg-bg-secondary overflow-hidden relative"
       ref={ref}
       id="process"
     >
@@ -81,7 +82,7 @@ export function ProcessSection() {
           {/* Progress Line */}
           <div className="absolute top-[60px] left-0 right-0 h-[2px] bg-border-subtle">
             <motion.div
-              className="h-full bg-gradient-to-r from-accent-blue via-accent-cyan to-accent-purple"
+              className="h-full bg-linear-to-r from-accent-blue via-accent-cyan to-accent-purple"
               style={{ width: lineWidth }}
             />
           </div>
@@ -150,11 +151,11 @@ export function ProcessSection() {
               >
                 {/* Left - Step Number & Line */}
                 <div className="flex flex-col items-center">
-                  <div className="w-14 h-14 rounded-full bg-bg-primary border-2 border-accent-cyan flex items-center justify-center flex-shrink-0">
+                  <div className="w-14 h-14 rounded-full bg-bg-primary border-2 border-accent-cyan flex items-center justify-center shrink-0">
                     <span className="font-mono text-lg font-bold text-accent-cyan">{step.step}</span>
                   </div>
                   {index < processSteps.length - 1 && (
-                    <div className="w-[2px] flex-1 bg-gradient-to-b from-accent-cyan to-transparent my-2" />
+                    <div className="w-[2px] flex-1 bg-linear-to-b from-accent-cyan to-transparent my-2" />
                   )}
                 </div>
 
@@ -196,6 +197,9 @@ export function ProcessSection() {
           </Link>
         </motion.div>
       </div>
+
+      {/* Smooth transition gradient overlay to next section (Cream) */}
+      <SectionTransition fromColor="#18181b" toColor="#f5f3ee" height="h-32" />
     </section>
   )
 }

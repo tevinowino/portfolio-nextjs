@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { GradientText } from "@/components/ui/gradient-text"
 import Link from "next/link"
+import { SectionTransition } from "@/components/ui/section-transition"
 
 const benefits = [
   "Free 30-minute strategy consultation",
@@ -64,7 +65,7 @@ export function FinalCTASection() {
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
               >
-                <CheckCircle className="w-5 h-5 text-accent-green flex-shrink-0" />
+                <CheckCircle className="w-5 h-5 text-accent-green shrink-0" />
                 <span className="text-text-secondary">{benefit}</span>
               </motion.div>
             ))}
@@ -115,6 +116,9 @@ export function FinalCTASection() {
           </span>
         </motion.p>
       </div>
+
+      {/* Smooth transition gradient overlay to next section (Dark Gray / Footer) */}
+      <SectionTransition fromColor="#1B2A41" toColor="#18181b" height="h-32" />
     </section>
   )
 }

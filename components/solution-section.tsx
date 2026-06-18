@@ -6,6 +6,7 @@ import { GraduationCap, Factory, ShoppingCart, Building2, ArrowUpRight, ArrowRig
 import { GradientText } from "@/components/ui/gradient-text"
 import Link from "next/link"
 import Image from "next/image"
+import { SectionTransition } from "@/components/ui/section-transition"
 
 const solutions = [
   {
@@ -79,7 +80,7 @@ function SolutionCard({ solution, index, isInView }: {
             />
           </motion.div>
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 transition-opacity duration-300 group-hover:via-black/50" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-black/10 transition-opacity duration-300 group-hover:via-black/50" />
         </div>
 
         {/* Content Container */}
@@ -117,7 +118,7 @@ export function SolutionSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section className="section-padding bg-bg-primary" ref={ref}>
+    <section className="section-padding bg-bg-primary relative" ref={ref}>
       <div className="container-custom">
         {/* Header */}
         <motion.div
@@ -164,6 +165,9 @@ export function SolutionSection() {
           </Link>
         </motion.div>
       </div>
+
+      {/* Smooth transition gradient overlay to next section (Cream) */}
+      <SectionTransition fromColor="#1B2A41" toColor="#f5f3ee" height="h-32" />
     </section>
   )
 }

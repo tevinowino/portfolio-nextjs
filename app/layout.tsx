@@ -86,8 +86,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/logo-symbol-white-no-bg.png",
+    icon: "/favicon.png",
+    apple: "/new-logos/logo-icon-no-bg.png",
   },
 }
 
@@ -104,9 +104,9 @@ export default function RootLayout({
     "url": "https://velionconsulting.com",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://velionconsulting.com/full-logo-no-bg.png",
-      "width": 400,
-      "height": 120
+      "url": "https://velionconsulting.com/new-logos/full-logo-no-bg.png",
+      "width": 4501,
+      "height": 4501
     },
     "image": "https://velionconsulting.com/og-image.png",
     "description": "Kenya's leading human-centric software agency. We build high-performance websites, school management systems, SaaS platforms, and custom software for Kenyan businesses.",
@@ -179,6 +179,12 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="dark">
+      <head>
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="preconnect" href="https://plus.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://plus.unsplash.com" />
+      </head>
       <body
         className={`${plusJakarta.variable} ${inter.variable} ${spaceMono.variable} font-body antialiased bg-bg-primary text-text-primary`}
       >
