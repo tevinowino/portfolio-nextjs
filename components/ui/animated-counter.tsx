@@ -65,7 +65,7 @@ export function AnimatedCounter({
   }, [isInView, spring, value])
 
   useEffect(() => {
-    const unsubscribe = spring.on("change", (latest) => {
+    const unsubscribe = spring.on("change", (latest: number) => {
       setDisplayValue(Math.round(latest * 10) / 10)
     })
     return unsubscribe
