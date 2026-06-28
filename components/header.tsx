@@ -1,18 +1,17 @@
 "use client"
 
-import { Menu, X, ArrowRight, Home, DollarSign, Briefcase, Users, Mail } from "lucide-react"
+import { Menu, X, ArrowRight, Home, Briefcase, Users, Mail } from "lucide-react"
 import { useState, useEffect, useRef, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
-import Image from "next/image"
 import { usePathname } from "next/navigation"
+import Image from "next/image"
 
 const navItems = [
   { name: "Home", href: "/", icon: Home },
-  { name: "Pricing", href: "/pricing", icon: DollarSign },
-  { name: "Portfolio", href: "/portfolio", icon: Briefcase },
   { name: "About", href: "/about", icon: Users },
+  { name: "Projects", href: "/portfolio", icon: Briefcase },
   { name: "Contact", href: "/contact", icon: Mail },
 ]
 
@@ -37,7 +36,6 @@ export function Header() {
     return pathname.startsWith(href)
   }
 
-  // Layer 5: pointer tracking for the nav pill glow
   const handleNavPillGlow = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     const el = navPillRef.current
     if (!el) return
@@ -46,7 +44,6 @@ export function Header() {
     el.style.setProperty("--gy", `${((e.clientY - rect.top) / rect.height) * 100}%`)
   }, [])
 
-  // Layer 5: pointer tracking for the CTA button glow
   const handleCtaBtnGlow = useCallback((e: React.PointerEvent<HTMLButtonElement>) => {
     const el = e.currentTarget
     const rect = el.getBoundingClientRect()
@@ -62,11 +59,25 @@ export function Header() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        {/*
-          The pill div is always `relative` so ::before / ::after pseudo-elements
-          have a positioned parent. The glass-nav-pill class is applied only when
-          scrolled — before that the nav is intentionally transparent over the hero.
-        */}
+        {/* Glass gradient veil — visible when unscrolled, fades as pill appears */}
+        <motion.div
+          className="pointer-events-none absolute inset-x-0 top-0"
+          style={{ height: "140px" }}
+          animate={{ opacity: scrolled ? 0 : 1 }}
+          transition={{ duration: 0.45, ease: "easeInOut" }}
+        >
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(to bottom, rgba(9,9,11,0.80) 0%, rgba(9,9,11,0.45) 48%, transparent 100%)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 48%, transparent 100%)",
+              maskImage: "linear-gradient(to bottom, black 0%, black 48%, transparent 100%)",
+            }}
+          />
+        </motion.div>
+
         <div
           ref={navPillRef}
           onPointerMove={scrolled ? handleNavPillGlow : undefined}
@@ -74,32 +85,28 @@ export function Header() {
             "pointer-events-auto transition-all duration-500 ease-in-out relative",
             scrolled
               ? "mt-4 w-[90%] md:w-[80%] lg:w-[1200px] rounded-full glass-nav-pill py-3 px-6"
-              : "mt-0 w-full glass-nav-pill-top pt-5 pb-20 px-12 lg:px-24"
+              : "mt-0 w-full pt-5 pb-4 px-12 lg:px-24"
           )}
         >
-          {/*
-            z-10 lifts all real content above the z-0 specular (::before) and
-            z-0 glow (::after) pseudo-element layers painted by glass-nav-pill.
-          */}
           <div className="flex items-center justify-between relative z-10">
-            {/* Logo */}
+            {/* Logo — personal name mark */}
             <Link href="/" className="flex items-center gap-2 group">
               <motion.div
-                className="rounded-xl px-2.5 py-1.5 overflow-hidden transition-all duration-300"
+                className="flex items-center gap-2"
                 whileHover={{ scale: 1.05 }}
               >
                 <Image
-                  src="/new-logos/full-logo-no-bg.png"
-                  alt="Velion Consulting"
-                  width={112}
-                  height={112}
+                  src="/icon.png"
+                  alt="Tevin Owino"
+                  width={36}
+                  height={36}
+                  className="rounded-md"
                   priority
-                  className="h-18 sm:h-28 w-auto"
                 />
               </motion.div>
             </Link>
 
-            {/* Desktop Navigation — centered, no glass-on-glass per Apple spec */}
+            {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2">
               <div className={cn(
                 "flex items-center transition-all duration-500",
@@ -124,7 +131,6 @@ export function Header() {
                           transition={{ duration: 0.3 }}
                         />
                       )}
-                      {/* Hover pill — plain fill, not glass (no glass-on-glass) */}
                       <div className="absolute inset-0 rounded-full bg-white/5 opacity-0 hover:opacity-100 transition-opacity -z-10" />
                     </Link>
                   )
@@ -134,7 +140,6 @@ export function Header() {
 
             {/* Right Side Actions */}
             <div className="flex items-center gap-4">
-              {/* Desktop CTA — glass treatment for both scroll states */}
               <div className="hidden md:block">
                 <Link href="/contact">
                   <motion.button
@@ -145,16 +150,14 @@ export function Header() {
                     onPointerMove={handleCtaBtnGlow}
                     whileTap={{ scale: 0.98 }}
                   >
-                    {/* z-3 floats text above ::before (z-1) and ::after (z-2) layers */}
                     <span className="relative z-3 flex items-center gap-2">
-                      Book a Call
+                      Get in Touch
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </span>
                   </motion.button>
                 </Link>
               </div>
 
-              {/* Mobile Menu Toggle */}
               <motion.button
                 className="md:hidden relative z-50 p-2 text-white hover:text-accent-cyan transition-colors"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

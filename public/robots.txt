@@ -18,4 +18,4 @@ User-agent: Bingbot
 Allow: /
 
 # Sitemap
-Sitemap: https://velionconsulting.com/sitemap.xml
+Sitemap: https://www.tevinowino.co.ke/sitemap.xml

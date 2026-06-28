@@ -1,7 +1,7 @@
 "use client"
 
 import { Heart, Users, Briefcase, Star, ArrowRight, ShieldCheck, Zap } from "lucide-react"
-import { motion, useInView } from "framer-motion"
+import { motion, useInView, useScroll, useTransform, useReducedMotion } from "framer-motion"
 import { useRef } from "react"
 import { GradientText } from "@/components/ui/gradient-text"
 import Link from "next/link"
@@ -9,76 +9,81 @@ import { SectionTransition } from "@/components/ui/section-transition"
 
 const capabilities = [
   {
-    icon: Users,
-    title: "We Humanize Tech",
-    description: "Technology should feel natural, not alien. We build interfaces that your grandmother could use.",
-    stat: "Zero Learning Curve",
+    icon: Zap,
+    title: "Fintech Engineering",
+    description: "Engineer at Finite Pay — built real-time payment systems that scaled to 500+ users and 1,000+ daily transactions in a production fintech environment.",
+    stat: "500+ Users",
   },
   {
     icon: ShieldCheck,
-    title: "We Guard Your Peace",
-    description: "Security isn't a feature; it's a promise. We build fortress-grade systems so you can sleep soundly.",
-    stat: "100% Secure",
+    title: "Founder-Level Ownership",
+    description: "Founded Velion Consulting and delivered four client projects across EdTech, AgriTech, FinTech, and Climate — managing everything from architecture to deployment.",
+    stat: "4 Projects Shipped",
   },
   {
-    icon: Zap,
-    title: "We Accelerate Growth",
-    description: "Speed matters. Our optimized performance ensures you never lose a customer to a loading screen.",
-    stat: "< 1s Load Time",
+    icon: Users,
+    title: "Instructor & Mentor",
+    description: "Teaching full-stack development at Starehe Boys' Centre. Students have shipped real apps — a sign I communicate complex topics clearly.",
+    stat: "Active Instructor",
   },
 ]
 
 export function AboutSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const prefersReducedMotion = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
+  const orb1Y = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [40, -60])
+  const orb2Y = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [-30, 50])
+  const leftY  = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [20, -20])
+  const rightY = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [35, -35])
 
   return (
     <section id="what-we-do" className="section-padding bg-bg-primary relative overflow-hidden pt-[300px] sm:pt-0" ref={ref}>
-      {/* Background Ambience */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-cyan/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent-purple/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Parallax background orbs */}
+      <motion.div style={{ y: orb1Y }} className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-cyan/5 rounded-full blur-3xl pointer-events-none will-change-transform" />
+      <motion.div style={{ y: orb2Y }} className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent-purple/5 rounded-full blur-3xl pointer-events-none will-change-transform" />
 
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           
           {/* Left Content */}
+          <motion.div style={{ y: leftY }} className="will-change-transform">
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
             transition={{ duration: 0.6 }}
           >
             <span className="inline-block font-mono text-xs uppercase tracking-widest text-accent-cyan mb-4">
-              What We Do
+              About Me
             </span>
-            
+
             <h2 className="text-display mb-8">
-              We Don't Just Write Code, We <GradientText variant="blue">Solve Your Headaches</GradientText>.
+              Engineer. Builder. <GradientText variant="blue">Instructor.</GradientText>
             </h2>
-            
+
             <p className="text-body-lg mb-8">
-              At Velion, we believe technology should be a source of relief, not stress. 
-              We've seen brilliant headteachers buried in paperwork, manufacturers losing sleep over inventory, 
-              and retailers overwhelmed by slow sales.
+              I'm Tevin Owino — a full-stack software engineer with 3+ years shipping production software across fintech, edtech, agritech, and climate. I bring both the technical depth to build complex systems and the product instinct to know what actually matters.
             </p>
-            
+
             <p className="text-text-secondary mb-10 leading-relaxed">
-              We exist to give you back your time and your passion by making technology invisible, 
-              intuitive, and helpful. We advocate for your peace of mind in a digital world.
+              I founded Velion Consulting to deliver custom software for African startups, and I teach full-stack development at Starehe Boys' Centre. I'm now looking to bring that same execution energy to a high-impact engineering team.
             </p>
 
             <Link href="/about">
-              <motion.button 
+              <motion.button
                 className="group flex items-center gap-2 text-text-primary font-medium hover:text-accent-cyan transition-colors"
                 whileHover={{ x: 4 }}
               >
-                Read Our Story
+                Read More About Me
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
             </Link>
           </motion.div>
+          </motion.div>
 
           {/* Right Visual - Modern Cards Stack */}
-          <div className="relative">
+          <motion.div style={{ y: rightY }} className="relative will-change-transform">
             <div className="grid gap-6">
               {capabilities.map((item, index) => {
                 const Icon = item.icon
@@ -117,7 +122,7 @@ export function AboutSection() {
                 )
               })}
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </div>

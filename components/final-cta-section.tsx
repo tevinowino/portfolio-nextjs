@@ -1,29 +1,32 @@
 "use client"
 
-import { ArrowRight, CheckCircle, Calendar, Phone } from "lucide-react"
-import { motion, useInView } from "framer-motion"
+import { CheckCircle, Calendar, Phone } from "lucide-react"
+import { motion, useInView, useScroll, useTransform, useReducedMotion } from "framer-motion"
 import { useRef } from "react"
 import { GradientText } from "@/components/ui/gradient-text"
 import Link from "next/link"
 import { SectionTransition } from "@/components/ui/section-transition"
 
 const benefits = [
-  "Free 30-minute strategy consultation",
-  "Custom technology roadmap",
-  "No-obligation project estimate",
-  "Expert guidance on next steps",
+  "Full-stack engineering roles — contract or full-time",
+  "Technical partnerships and custom software builds",
+  "Developer mentorship and education initiatives",
 ]
 
 export function FinalCTASection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const prefersReducedMotion = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
+  const orb1Y = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [60, -60])
+  const orb2Y = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [-40, 70])
 
   return (
     <section id="contact" className="section-padding bg-bg-primary relative overflow-hidden" ref={ref}>
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent-blue/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-accent-purple/10 rounded-full blur-3xl" />
+      {/* Parallax background orbs */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div style={{ y: orb1Y }} className="absolute top-0 left-1/4 w-96 h-96 bg-accent-blue/10 rounded-full blur-3xl will-change-transform" />
+        <motion.div style={{ y: orb2Y }} className="absolute bottom-0 right-1/4 w-80 h-80 bg-accent-purple/10 rounded-full blur-3xl will-change-transform" />
       </div>
 
       <div className="container-custom relative z-10 max-w-4xl">
@@ -35,13 +38,11 @@ export function FinalCTASection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-headline mb-4">
-            Ready to{" "}
-            <GradientText variant="animated">Future-Proof</GradientText>
-            {" "}Your Business?
+            Let's Work{" "}
+            <GradientText variant="animated">Together</GradientText>
           </h2>
           <p className="text-body max-w-2xl mx-auto">
-            Don't let outdated technology hold you back. Let's discuss how we can transform 
-            your challenges into competitive advantages.
+            I'm actively looking for engineering roles where I can ship high-impact software. If you're building something meaningful — or hiring someone who does — I'd love to connect.
           </p>
         </motion.div>
 
@@ -53,7 +54,7 @@ export function FinalCTASection() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <h3 className="font-heading font-semibold text-lg text-text-primary mb-6 text-center">
-            What you'll get in your free consultation:
+            What I'm available for:
           </h3>
           
           <div className="grid sm:grid-cols-2 gap-4">
@@ -86,10 +87,10 @@ export function FinalCTASection() {
               whileTap={{ scale: 0.98 }}
             >
               <Calendar className="w-5 h-5" />
-              Book a Free Call
+              Get in Touch
             </motion.button>
           </Link>
-          
+
           <Link href="tel:+254794830280">
             <motion.button
               className="btn-secondary text-base px-8 py-4"
@@ -97,7 +98,7 @@ export function FinalCTASection() {
               whileTap={{ scale: 0.98 }}
             >
               <Phone className="w-5 h-5" />
-              Call Us Now
+              Call Me
             </motion.button>
           </Link>
         </motion.div>
@@ -110,9 +111,9 @@ export function FinalCTASection() {
           transition={{ duration: 0.6, delay: 0.7 }}
         >
           <span className="inline-flex items-center gap-4 flex-wrap justify-center">
-            <span>Delivering real systems for real businesses across Kenya</span>
+            <span>Building for African startups and SMEs</span>
             <span className="w-1 h-1 rounded-full bg-text-muted" />
-            <span>Free consultation</span>
+            <span>Responding within 24 hours</span>
           </span>
         </motion.p>
       </div>

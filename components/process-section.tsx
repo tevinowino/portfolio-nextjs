@@ -1,7 +1,7 @@
 "use client"
 
 import { Search, Target, Settings, Trophy, Rocket } from "lucide-react"
-import { motion, useInView, useScroll, useTransform } from "framer-motion"
+import { motion, useInView, useScroll, useTransform, useReducedMotion } from "framer-motion"
 import { useRef } from "react"
 import { GradientText } from "@/components/ui/gradient-text"
 import Link from "next/link"
@@ -10,32 +10,32 @@ import { SectionTransition } from "@/components/ui/section-transition"
 
 const processSteps = [
   {
-    title: "Discovery",
-    description: "We meet to understand your business, goals, and user needs—defining the scope and vision.",
+    title: "Understand",
+    description: "I dig into your business goals, user needs, and constraints before writing a single line of code.",
     icon: Search,
     step: "01",
   },
   {
-    title: "Design",
-    description: "Our team creates wireframes, prototypes, and a clear roadmap for development.",
+    title: "Architect",
+    description: "I design a clean, scalable system architecture — component boundaries, data models, and API contracts first.",
     icon: Target,
     step: "02",
   },
   {
-    title: "Develop",
-    description: "We build with clean, scalable code, integrating features while testing rigorously.",
+    title: "Build",
+    description: "Incremental delivery with clean code, comprehensive testing, and early feedback loops at every stage.",
     icon: Settings,
     step: "03",
   },
   {
-    title: "Deploy",
-    description: "Your product goes live with thorough QA, optimization, and monitoring.",
+    title: "Ship",
+    description: "Rigorous QA, performance optimization, and production deployment with monitoring from day one.",
     icon: Rocket,
     step: "04",
   },
   {
-    title: "Support",
-    description: "Ongoing maintenance, updates, and strategic guidance to help you grow.",
+    title: "Iterate",
+    description: "Post-launch support, feature extensions, and strategic guidance as your product evolves.",
     icon: Trophy,
     step: "05",
   },
@@ -49,7 +49,10 @@ export function ProcessSection() {
     offset: ["start end", "end start"],
   })
 
+  const reduce = useReducedMotion()
   const lineWidth = useTransform(scrollYProgress, [0.2, 0.8], ["0%", "100%"])
+  const orb1Y = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [60, -60])
+  const orb2Y = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [-40, 50])
 
   return (
     <section
@@ -57,6 +60,8 @@ export function ProcessSection() {
       ref={ref}
       id="process"
     >
+      <motion.div style={{ y: orb1Y }} className="pointer-events-none absolute top-0 left-1/4 w-96 h-96 bg-accent-blue/5 rounded-full blur-3xl will-change-transform" />
+      <motion.div style={{ y: orb2Y }} className="pointer-events-none absolute bottom-0 right-1/4 w-80 h-80 bg-accent-purple/5 rounded-full blur-3xl will-change-transform" />
       <div className="container-custom">
         {/* Header */}
         <motion.div
@@ -66,14 +71,13 @@ export function ProcessSection() {
           transition={{ duration: 0.6 }}
         >
           <span className="inline-block font-mono text-xs uppercase tracking-widest text-accent-cyan mb-4">
-            How We Work
+            How I Work
           </span>
           <h2 className="text-headline mb-6">
-            Our <GradientText variant="blue">Proven Process</GradientText>
+            My <GradientText variant="blue">Approach</GradientText>
           </h2>
           <p className="text-body">
-            From concept to launch and beyond, we guide you through every step 
-            with transparency and expertise.
+            From first conversation to production deployment — a deliberate, transparent process that delivers software worth using.
           </p>
         </motion.div>
 
@@ -185,13 +189,13 @@ export function ProcessSection() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.8 }}
         >
-          <Link href="#contact">
+          <Link href="/contact">
             <motion.button
               className="btn-primary"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              Start Your Project
+              Work With Me
               <ArrowRight className="w-4 h-4" />
             </motion.button>
           </Link>

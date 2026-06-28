@@ -376,7 +376,7 @@ const projectsData = {
     teamSize: "Solo Developer",
     status: "Live",
     image: "/portfolio/wearetell.png",
-    liveUrl: null,
+    liveUrl: 'https://app.wearetell.org/',
     overview:
       "We Are Tell is a climate action community platform built to give Kenyan climate advocates a proper digital home. The platform supports community organizing, campaign publishing, resource sharing, and member engagement around environmental advocacy.",
     problem: {

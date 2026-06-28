@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from "framer-motion"
 import { ArrowLeft, ArrowRight, Heart, TrendingUp, BookOpen, ExternalLink } from "lucide-react"
 import { GradientText } from "@/components/ui/gradient-text"
 import { SectionTransition } from "@/components/ui/section-transition"
@@ -38,59 +38,75 @@ function ProjectCardImage({ src, alt }: { src: string; alt: string }) {
 const projects: Project[] = [
   {
     id: "learnify",
-    title: "Learnify – EdTech SaaS for Schools",
-    category: "Educational Harmony",
-    theWhy: "To give teachers their weekends back and end the paperwork chase.",
-    theResult: "Built a multi-tenant SaaS for Kenyan schools with student profiles, grading, and automated report compilation.",
+    title: "Learnify",
+    category: "EdTech SaaS",
+    theWhy: "Modernize curriculum delivery in Kenyan schools with a unified digital platform.",
+    theResult: "Multi-tenant SaaS with AI-powered tools, student onboarding, parent dashboards, attendance tracking, and exam management.",
     image: "/portfolio/learnify.png",
-    technologies: ["Next.js", "Firebase", "AI APIs"],
+    technologies: ["Next.js", "Firebase", "React"],
+    link: "#",
+  },
+  {
+    id: "thoughtreflex",
+    title: "ThoughtReflex",
+    category: "AI Mental Wellness",
+    theWhy: "Make mental health support accessible, non-clinical, and deeply personal.",
+    theResult: "30+ active users. AI companion Mira with Therapist, Coach, and Friend modes — journaling, reflection, and healing pathways.",
+    image: "/portfolio/thoughtreflex.png",
+    technologies: ["Next.js", "TypeScript", "OpenAI API"],
+    link: "#",
+  },
+  {
+    id: "wearetell",
+    title: "We Are Tell",
+    category: "Climate & Storytelling",
+    theWhy: "Build a production-grade home for climate action and global storytelling.",
+    theResult: "Full-stack platform on Vercel with Clerk OAuth, CNAME config, and content management — live and in active use.",
+    image: "/portfolio/wearetell.png",
+    technologies: ["Next.js", "Clerk", "Vercel"],
+    link: "#",
+  },
+  {
+    id: "shambapal",
+    title: "ShambaPal",
+    category: "AgriTech Mobile",
+    theWhy: "Connect Kenyan farmers with agricultural resources and real-time market data.",
+    theResult: "Cross-platform React Native app with Firebase real-time sync, designed for low-bandwidth rural environments.",
+    image: "/portfolio/shambapal.png",
+    technologies: ["React Native", "Firebase", "TypeScript"],
     link: "#",
   },
   {
     id: "digital-moran",
-    title: "Digital Moran Agency Platform",
-    category: "Effortless Transactions",
-    theWhy: "To connect Kenyan youth to opportunities they deserve.",
-    theResult: "100+ youth reached, 20+ mentorships facilitated with automated payments.",
+    title: "Digital Moran",
+    category: "Youth & Mentorship",
+    theWhy: "Bridge the gap between emerging Kenyan developers and real tech opportunities.",
+    theResult: "Connects youth with tech jobs, gigs, and mentorship. Solves the problem I personally lived when breaking into tech.",
     image: "/portfolio/digitalmoran.png",
-    technologies: ["Next.js", "Firebase", "TailwindCSS"],
+    technologies: ["Next.js", "Firebase", "TypeScript"],
     link: "https://agency.digitalmoran.africa",
   },
   {
     id: "stti-hub",
-    title: "STTI Hub — Starehe Boys' Centre LMS",
-    category: "Educational Harmony",
-    theWhy: "To replace manual progress tracking for coding bootcamps.",
-    theResult: "Onboarded cohorts with zero downtime. Real-time grades, progress tracker, and attendance metrics.",
+    title: "STTI Hub",
+    category: "EdTech / LMS",
+    theWhy: "Replace manual progress tracking for high-intensity coding bootcamps at Starehe Boys' Centre.",
+    theResult: "Custom LMS serving both high school and adult learners — real-time dashboards, assessments, and educator tools.",
     image: "/portfolio/stti.png",
-    technologies: ["Next.js", "Supabase", "Tailwind CSS"],
+    technologies: ["Next.js", "Node.js", "TypeScript"],
     link: "#",
-  },
-  {
-    id: "intentional-studios",
-    title: "Intentional Studios — Agency Website",
-    category: "Authority Presence",
-    theWhy: "To build a digital home reflecting their elite branding positioning.",
-    theResult: "High-impact Next.js site that became their primary direct client acquisition channel.",
-    image: "/portfolio/intentional-studios.png",
-    technologies: ["Next.js", "TailwindCSS", "Vercel"],
-    link: "https://www.intentionalstudioske.com",
-  },
-  {
-    id: "traffic-buddy",
-    title: "Traffic Buddy – NTSA Driving Platform",
-    category: "Educational Harmony",
-    theWhy: "To give Kenyan learner drivers a structured alternative to paper guides.",
-    theResult: "Bilingual platform with interactive scenarios, NTSA modules, and QR-verified certificates.",
-    image: "/portfolio/traffic-buddy.png",
-    technologies: ["Next.js", "Supabase", "TailwindCSS"],
-    link: "https://trafficbuddy.app",
   },
 ]
 
 export function LatestWorkSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const containerRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+  const prefersReducedMotion = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] })
+  const orb1Y = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [50, -50])
+  const orb2Y = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [-30, 60])
+  const headerY = useTransform(scrollYProgress, [0, 0.5], prefersReducedMotion ? [0, 0] : [20, -10])
   const [windowWidth, setWindowWidth] = useState(1200)
   const [trackWidth, setTrackWidth] = useState(0)
 
@@ -129,19 +145,22 @@ export function LatestWorkSection() {
   }
 
   return (
-    <section className="section-padding bg-bg-primary relative overflow-hidden" id="work">
+    <section ref={sectionRef} className="section-padding bg-bg-primary relative overflow-hidden" id="work">
+      {/* Parallax background orbs */}
+      <motion.div style={{ y: orb1Y }} className="pointer-events-none absolute top-0 right-[10%] w-96 h-96 bg-accent-cyan/5 rounded-full blur-3xl will-change-transform" />
+      <motion.div style={{ y: orb2Y }} className="pointer-events-none absolute bottom-0 left-[10%] w-80 h-80 bg-accent-blue/5 rounded-full blur-3xl will-change-transform" />
       <div className="container-custom relative z-10">
         {/* Header with Navigation Arrows */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 lg:mb-16 gap-6">
+        <motion.div style={{ y: headerY }} className="flex flex-col md:flex-row md:items-end justify-between mb-12 lg:mb-16 gap-6 will-change-transform">
           <div className="max-w-2xl">
             <span className="inline-block font-mono text-xs uppercase tracking-widest text-accent-cyan mb-4">
-              Our Latest Work
+              Selected Work
             </span>
             <h2 className="text-headline">
-              Real Systems. <GradientText variant="blue">Real Impact.</GradientText>
+              Real Software. <GradientText variant="blue">Real Users.</GradientText>
             </h2>
             <p className="text-body mt-4">
-              We focus on solving core operations and building authority. Explore case studies of software platforms we've deployed.
+              A snapshot of products I've designed, built, and shipped — from AI-powered wellness tools to real-world client platforms.
             </p>
           </div>
 
@@ -166,7 +185,7 @@ export function LatestWorkSection() {
               </button>
             </div>
           )}
-        </div>
+        </motion.div>
 
         {/* Carousel Track Container */}
         <div ref={containerRef} className="overflow-hidden w-full relative pb-4">
@@ -228,11 +247,11 @@ export function LatestWorkSection() {
 
                   <div className="flex items-center justify-between pt-3 border-t border-border-subtle/60">
                     <Link
-                      href={`/portfolio/${project.id}`}
+                      href="/portfolio"
                       className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent-cyan hover:text-accent-blue transition-colors group/btn"
                     >
                       <BookOpen className="w-4 h-4" />
-                      Case Study
+                      View Details
                       <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-0.5 transition-transform" />
                     </Link>
 

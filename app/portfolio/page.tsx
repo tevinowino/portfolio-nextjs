@@ -3,26 +3,29 @@ import { Metadata } from "next"
 import PortfolioPageContent from "@/components/pages/portfolio-page"
 
 export const metadata: Metadata = {
-  title: "Portfolio | Custom Software Projects Kenya",
-  description: "Case studies: school management systems, NGO platforms, farm management apps, and premium websites built for Kenyan businesses. Real metrics, real clients.",
+  title: "Projects | Tevin Owino — Full-Stack Software Engineer, Nairobi Kenya",
+  description: "Explore Tevin Owino's portfolio of shipped software — EdTech SaaS, AI wellness tools, climate platforms, agritech apps, and fintech systems built for real users.",
+  alternates: {
+    canonical: "/portfolio",
+  },
   openGraph: {
-    title: "Portfolio | Custom Software Projects Kenya — Velion Consulting",
-    description: "See how Velion Consulting builds for Kenya. Case studies: Learnify, Digital Moran, STTI Hub, ShambaPal, Traffic Buddy, and more.",
-    url: "https://velionconsulting.com/portfolio",
+    title: "Projects | Tevin Owino — Full-Stack Software Engineer",
+    description: "Real software, shipped for real users. Learnify, ThoughtReflex, We Are Tell, ShambaPal, Digital Moran, STTI Hub — and more.",
+    url: "https://www.tevinowino.co.ke/portfolio",
     images: [
       {
-        url: "/og-image.png",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Velion Consulting Portfolio — Software Projects Kenya",
+        alt: "Tevin Owino — Projects Portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Portfolio | Custom Software Projects Kenya",
-    description: "Case studies from Kenyan software projects: schools, NGOs, farms, and more.",
-    images: ["/og-image.png"],
+    title: "Projects | Tevin Owino — Full-Stack Software Engineer",
+    description: "Explore shipped software from Tevin Owino: EdTech, AI wellness, AgriTech, climate platforms, and more.",
+    images: ["/opengraph-image"],
   },
 }
 
@@ -30,8 +33,8 @@ const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://velionconsulting.com" },
-    { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://velionconsulting.com/portfolio" },
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.tevinowino.co.ke" },
+    { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://www.tevinowino.co.ke/portfolio" },
   ],
 }
 

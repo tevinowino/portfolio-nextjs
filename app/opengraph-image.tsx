@@ -1,101 +1,185 @@
 import { ImageResponse } from 'next/og'
 
-// Route segment config
 export const runtime = 'edge'
 
-// Image metadata
-export const alt = 'Velion Consulting - Humanize Tech'
-export const size = {
-  width: 1200,
-  height: 630,
-}
-
+export const alt = 'Tevin Owino — Full-Stack Software Engineer'
+export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
-// Image generation
 export default async function Image() {
-
   return new ImageResponse(
     (
-      // ImageResponse JSX element
       <div
         style={{
-          backgroundColor: '#020617', // bg-slate-950
-          height: '100%',
+          background: '#09090B',
           width: '100%',
+          height: '100%',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundImage: 'radial-gradient(circle at 25px 25px, #1e293b 2%, transparent 0%), radial-gradient(circle at 75px 75px, #1e293b 2%, transparent 0%)',
-          backgroundSize: '100px 100px',
+          fontFamily: 'system-ui, sans-serif',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
+        {/* Dot grid background */}
         <div
           style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage:
+              'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
+            backgroundSize: '32px 32px',
+          }}
+        />
+
+        {/* Cyan glow top-right */}
+        <div
+          style={{
+            position: 'absolute',
+            top: -120,
+            right: -120,
+            width: 500,
+            height: 500,
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(0,191,166,0.18) 0%, transparent 70%)',
+          }}
+        />
+
+        {/* Blue glow bottom-left */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: -80,
+            left: -80,
+            width: 360,
+            height: 360,
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(16,178,206,0.12) 0%, transparent 70%)',
+          }}
+        />
+
+        {/* Main content */}
+        <div
+          style={{
+            position: 'relative',
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.03)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            padding: '60px 100px',
-            borderRadius: '40px',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+            justifyContent: 'space-between',
+            padding: '64px 80px',
+            width: '100%',
           }}
         >
-           {/* Logo Icon Representation */}
-           <div
-             style={{
-               width: 80,
-               height: 80,
-               borderRadius: 20,
-               background: 'linear-gradient(135deg, #38bdf8 0%, #818cf8 100%)',
-               marginBottom: 30,
-               display: 'flex',
-               alignItems: 'center',
-               justifyContent: 'center',
-               color: 'white',
-               fontSize: 40,
-               fontWeight: 900,
-             }}
-           >
-             V
-           </div>
+          {/* Top row: availability badge */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: '50%',
+                background: '#00BFA6',
+              }}
+            />
+            <span
+              style={{
+                fontSize: 16,
+                color: '#00BFA6',
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                fontWeight: 600,
+              }}
+            >
+              Open to hire · Nairobi, Kenya
+            </span>
+          </div>
 
-           {/* Brand Name */}
+          {/* Centre: name block */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+            <div
+              style={{
+                fontSize: 18,
+                color: 'rgba(255,255,255,0.45)',
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                marginBottom: 16,
+                fontWeight: 500,
+              }}
+            >
+              Full-Stack Software Engineer
+            </div>
+            <div
+              style={{
+                fontSize: 92,
+                fontWeight: 900,
+                color: 'white',
+                lineHeight: 1,
+                letterSpacing: '-0.03em',
+              }}
+            >
+              Tevin
+            </div>
+            <div
+              style={{
+                fontSize: 92,
+                fontWeight: 900,
+                lineHeight: 1,
+                letterSpacing: '-0.03em',
+                background: 'linear-gradient(135deg, #00BFA6 0%, #10b2ce 100%)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+              }}
+            >
+              Owino.
+            </div>
+          </div>
+
+          {/* Bottom row: domain + stack */}
           <div
             style={{
               display: 'flex',
-              fontSize: 70,
-              fontWeight: 900,
-              letterSpacing: '-0.03em',
-              color: 'white',
-              lineHeight: 1,
-              marginBottom: 20,
+              alignItems: 'center',
+              justifyContent: 'space-between',
             }}
           >
-            Velion
-            <span style={{ color: '#38bdf8', marginLeft: 10 }}>.</span>
+            <span style={{ fontSize: 18, color: 'rgba(255,255,255,0.35)', fontWeight: 400 }}>
+              tevinowino.co.ke
+            </span>
+            <div style={{ display: 'flex', gap: 10 }}>
+              {['TypeScript', 'React', 'Next.js', 'Node.js'].map((tech) => (
+                <div
+                  key={tech}
+                  style={{
+                    padding: '6px 14px',
+                    borderRadius: 999,
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    fontSize: 14,
+                    color: 'rgba(255,255,255,0.5)',
+                    fontFamily: 'monospace',
+                  }}
+                >
+                  {tech}
+                </div>
+              ))}
+            </div>
           </div>
+        </div>
 
-          {/* Tagline */}
-          <div
-            style={{
-              fontSize: 30,
-              color: '#94a3b8', // text-slate-400
-              letterSpacing: '-0.02em',
-              fontWeight: 500,
-            }}
-          >
-            Born to Humanize Tech
-          </div>
+        {/* Decorative </> code bracket, bottom-right */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 40,
+            right: 60,
+            fontSize: 220,
+            fontWeight: 900,
+            color: 'rgba(0,191,166,0.05)',
+            fontFamily: 'monospace',
+            lineHeight: 1,
+            userSelect: 'none',
+          }}
+        >
+          {'</>'}
         </div>
       </div>
     ),
-    // ImageResponse options
-    {
-      ...size,
-    }
+    { ...size }
   )
 }

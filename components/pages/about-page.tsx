@@ -4,56 +4,96 @@ import { motion } from "framer-motion"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { GradientText } from "@/components/ui/gradient-text"
-import { CheckCircle2, Heart, Sparkles, Shield, ArrowRight, Target, Code2, Globe, Smartphone, BookOpen } from "lucide-react"
+import { CheckCircle2, ArrowRight, Code2, Globe, Smartphone, BookOpen, Briefcase, GraduationCap } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
-// Stats for the Hero
 const heroStats = [
-  { value: "99%", label: "Client Satisfaction" },
-  { value: "100%", label: "Kenyan Talent" },
-  { value: "24/7", label: "Support System" },
+  { value: "3+", label: "Years Building" },
+  { value: "10+", label: "Projects Shipped" },
+  { value: "500+", label: "End Users Reached" },
 ]
 
-// Capabilities for the Feature Section
-const capabilities = [
-  "Measurable Business Growth",
-  "Human-Centric Design",
-  "Customized Cloud Systems",
-  "Reliable Expert Guidance",
-  "Multi-Industry Expertise",
-  "Long-Term Partnership",
-]
+const frontendSkills = ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "React Native", "Remix"]
+const backendSkills = ["Node.js", "Express.js", "NestJS", "Convex", "REST APIs", "Firebase"]
+const databaseSkills = ["MongoDB", "PostgreSQL", "Supabase", "Prisma", "Firebase Firestore"]
+const toolSkills = ["Git", "Docker", "Vercel", "Clerk", "Stripe", "Twilio", "Prisma"]
+const expertiseAreas = ["System Design", "API Architecture", "Performance Optimization", "AI Integration", "Agile/SCRUM", "Technical Mentorship"]
 
-// Values/Milestones for the Grid
 const values = [
   {
-    icon: Target,
-    year: "2025",
-    title: "The Vision",
-    description: "Founded with a clear mission: to bridge the gap between complex code and human peace of mind.",
-    variant: "blue", // Featured card style
+    icon: Code2,
+    year: "Engineer",
+    title: "Production-Grade Code",
+    description: "I write software built for the real world — performant, secure, and maintainable from day one.",
+    variant: "blue",
   },
   {
-    icon: Heart,
-    year: "Values",
-    title: "Empathy First",
-    description: "We solve human frustrations before we write a single line of code.",
+    icon: Globe,
+    year: "Focus",
+    title: "Africa-First Thinking",
+    description: "I build for real constraints: low bandwidth, mobile-first users, and multilingual audiences.",
     variant: "default",
   },
   {
-    icon: Sparkles,
-    year: "Method",
-    title: "Radical Simplicity",
-    description: "Complexity is lazy. We obsess over making your technology invisible.",
+    icon: BookOpen,
+    year: "Principle",
+    title: "Ship Early, Learn Fast",
+    description: "I build lean, I ship early, and I solve real problems. Working software in users' hands beats perfect code in a repo.",
     variant: "default",
   },
   {
-    icon: Shield,
-    year: "Promise",
-    title: "Unyielding Integrity",
-    description: "Your data is sacred. We treat your business ROI as if it were our own.",
+    icon: GraduationCap,
+    year: "Mission",
+    title: "Grow the Ecosystem",
+    description: "Teaching at Starehe Boys' Centre and mentoring the next generation of Kenyan engineers.",
     variant: "default",
+  },
+]
+
+const experience = [
+  {
+    role: "Founder & Software Engineer",
+    company: "Velion Consulting",
+    period: "January 2026 – Present",
+    bullets: [
+      "Delivered four client projects across EdTech, AgriTech, FinTech, and Climate verticals",
+      "Built We Are Tell — a full-stack climate platform with Clerk auth, CNAME config, and Vercel infrastructure",
+      "Built ShambaPal — a React Native agritech app connecting Kenyan farmers with real-time market data",
+      "Built STTI Hub — custom LMS for Starehe Boys' Centre serving high school and adult learners",
+      "Defined proprietary client engagement frameworks for consistent, high-quality project delivery",
+    ],
+  },
+  {
+    role: "Software Engineer & Tech Instructor",
+    company: "Starehe Boys' Centre",
+    period: "January 2026 – Present",
+    bullets: [
+      "Teaching full-stack web development (React, Node.js, Express) to students with no prior coding experience",
+      "Students have built and shipped real projects including a Pokemon API app and a full Task Manager application",
+      "Preparing adult learners for KASNEB ICT Paper 6 professional examinations",
+    ],
+  },
+  {
+    role: "Software Engineer",
+    company: "Finite Pay",
+    period: "February 2025 – March 2026",
+    bullets: [
+      "Contributed to building the Finite Pay application from the ground up as an early engineer",
+      "Implemented a real-time payment processing system handling 1,000+ daily transactions",
+      "Reduced API response time by 40% through performance optimization and caching strategies",
+      "Developed an automated testing suite achieving 85% code coverage",
+    ],
+  },
+  {
+    role: "Full-Stack Developer",
+    company: "Freelance",
+    period: "2023 – 2024",
+    bullets: [
+      "Completed multiple end-to-end client projects on time and within scope",
+      "Built reusable component libraries to accelerate project delivery",
+      "Worked directly with clients to translate business requirements into working software",
+    ],
   },
 ]
 
@@ -63,265 +103,343 @@ export default function AboutPageContent() {
       <div className="noise-overlay" />
       <Header />
 
-      {/* Hero Section - Matched to Reference Layout */}
+      {/* Hero Section */}
       <section className="pt-32 pb-16 lg:pt-40 lg:pb-24 section-padding">
         <div className="container-custom">
-          <div className="items-center">
-            
-            {/* Left: Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 mb-6">
+              <span className="font-mono text-xs uppercase tracking-widest text-text-primary">About Me</span>
+            </div>
+
+            <h1 className="text-display mb-6">
+              Full-Stack Engineer. <br />
+              <GradientText variant="blue">Founder. Instructor.</GradientText>
+            </h1>
+
+            <p className="text-body-lg mb-8 max-w-2xl">
+              Building impactful software for Africa — one product at a time.
+            </p>
+
+            <div className="flex flex-wrap gap-4 mb-12">
+              <Link href="/contact">
+                <button className="btn-primary">
+                  Work With Me
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </Link>
+              <Link href="/portfolio">
+                <button className="px-6 py-3 rounded-full border border-white/10 text-white font-medium hover:bg-white/5 transition-colors">
+                  View Projects
+                </button>
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-3 gap-8 py-8 border-t border-white/10">
+              {heroStats.map((stat) => (
+                <div key={stat.label}>
+                  <div className="text-3xl lg:text-4xl font-bold text-white mb-1">{stat.value}</div>
+                  <div className="text-xs text-text-muted uppercase tracking-wider">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Bio Section */}
+      <section className="section-padding section-light">
+        <div className="container-custom">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative h-[500px] w-full rounded-[2.5rem] overflow-hidden order-2 lg:order-1"
             >
-              <div className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 mb-6">
-                <span className="font-mono text-xs uppercase tracking-widest text-text-primary">About Us</span>
-              </div>
-              
-              <h1 className="text-display mb-6">
-                Born to <br />
-                <GradientText variant="blue">Humanize Tech</GradientText>
-              </h1>
-              
-              <p className="text-body-lg mb-8">
-                Velion Consulting wasn't founded to build "apps." It was founded to meaningfully improve the lives of Kenyan business owners. We bridge the gap between cutting-edge code and your peace of mind.
-              </p>
-
-              <div className="flex flex-wrap gap-4 mb-12">
-                <Link href="/contact">
-                  <button className="btn-primary">
-                    Get Started
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </Link>
-                <Link href="/portfolio">
-                   <button className="px-6 py-3 rounded-full border border-white/10 text-white font-medium hover:bg-white/5 transition-colors">
-                    View Our Work
-                  </button>
-                </Link>
-              </div>
-
-              {/* Stats Row */}
-              <div className="grid grid-cols-3 gap-8 py-8 border-t border-white/10">
-                {heroStats.map((stat) => (
-                  <div key={stat.label}>
-                    <div className="text-3xl lg:text-4xl font-bold text-white mb-1">{stat.value}</div>
-                    <div className="text-xs text-text-muted uppercase tracking-wider">{stat.label}</div>
-                  </div>
-                ))}
+              <Image
+                src="/founder.jpeg"
+                alt="Tevin Owino — Full-Stack Software Engineer and Founder, Nairobi Kenya"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-accent-blue/10 mix-blend-overlay" />
+              <div className="absolute bottom-6 left-6 right-6">
+                <div className="bg-bg-primary/90 backdrop-blur-sm rounded-xl p-4 border border-border-subtle">
+                  <div className="text-text-primary font-heading font-semibold">Tevin Owino</div>
+                  <div className="text-accent-cyan text-sm font-mono">Founder & Lead Engineer · Nairobi, Kenya</div>
+                </div>
               </div>
             </motion.div>
 
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="order-1 lg:order-2"
+            >
+              <div className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 mb-6">
+                <span className="font-mono text-xs uppercase tracking-widest text-text-primary">Who I Am</span>
+              </div>
+
+              <h2 className="text-4xl lg:text-5xl font-heading font-bold text-white mb-6">
+                Hi, I'm <GradientText variant="blue">Tevin Owino</GradientText>
+              </h2>
+
+              <div className="space-y-4 text-text-secondary leading-relaxed mb-8">
+                <p>
+                  I'm a full-stack software engineer based in Nairobi, Kenya. I founded Velion Consulting in January 2026 to provide custom software development for African startups and SMEs — helping businesses turn ideas into scalable digital products without the overhead of hiring full engineering teams.
+                </p>
+                <p>
+                  I broke into tech without a formal computer science background or industry connections. That experience shapes how I work: I build lean, I ship early, and I solve real problems. Today I work across the full stack — React and Next.js on the frontend, Node.js and Express on the backend — with a growing focus on AI-native product development.
+                </p>
+                <p>
+                  Alongside my consulting work, I teach full-stack web development at Starehe Boys' Centre and mentor the next generation of Kenyan developers. I'm also pursuing a BSc in Computer Science at the Open University of Kenya.
+                </p>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                {[
+                  { icon: Code2, label: "Full-Stack Engineer", detail: "Next.js, React, Firebase, Node.js" },
+                  { icon: Globe, label: "Based in Nairobi", detail: "Working with clients across Africa" },
+                  { icon: Smartphone, label: "Mobile Developer", detail: "React Native for Android & iOS" },
+                  { icon: Briefcase, label: "Founder", detail: "Velion Consulting · est. 2026" },
+                ].map((item) => {
+                  const Icon = item.icon
+                  return (
+                    <div key={item.label} className="flex items-start gap-3 p-4 rounded-xl bg-bg-secondary border border-border-subtle">
+                      <Icon className="w-4 h-4 text-accent-cyan mt-0.5 shrink-0" />
+                      <div>
+                        <div className="text-sm font-medium text-text-primary">{item.label}</div>
+                        <div className="text-xs text-text-muted">{item.detail}</div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Feature Section - Image Left, Text Right */}
-      <section className="section-padding section-light">
-        <div className="container-custom">
-           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-              
-              {/* Left: Image */}
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="relative h-[500px] w-full rounded-[2.5rem] overflow-hidden order-2 lg:order-1"
-              >
-                 <Image 
-                   src="https://images.unsplash.com/photo-1573164574230-db1d5e960238?q=80&w=2069&auto=format&fit=crop"
-                   alt="Team Collaboration"
-                   fill
-                   sizes="(max-width: 1024px) 100vw, 50vw"
-                   className="object-cover"
-                 />
-                 <div className="absolute inset-0 bg-accent-blue/10 mix-blend-overlay" />
-              </motion.div>
-
-              {/* Right: Content */}
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="order-1 lg:order-2"
-              >
-                 <div className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 mb-6">
-                    <span className="font-mono text-xs uppercase tracking-widest text-text-primary">Our Mission</span>
-                 </div>
-                 
-                 <h2 className="text-4xl lg:text-5xl font-heading font-bold text-white mb-6">
-                    Unlock our expertise to drive <GradientText variant="blue">success across industries.</GradientText>
-                 </h2>
-                 
-                 <p className="text-text-secondary leading-relaxed mb-8">
-                    "When software works, you don't notice it. You just go home on time. You see your kids. You sleep better. That's what we build."
-                 </p>
-
-                 {/* Checkmark Layout */}
-                 <div className="grid sm:grid-cols-2 gap-4">
-                    {capabilities.map((cap) => (
-                      <div key={cap} className="flex items-center gap-3">
-                         <CheckCircle2 className="w-5 h-5 text-accent-cyan shrink-0" />
-                         <span className="text-sm font-medium text-white/90">{cap}</span>
-                      </div>
-                    ))}
-                 </div>
-              </motion.div>
-           </div>
-        </div>
-      </section>
-
-      {/* Values/Milestones Grid */}
+      {/* Skills & Expertise */}
       <section className="section-padding bg-bg-primary">
         <div className="container-custom">
-          {/* Header */}
           <div className="grid lg:grid-cols-2 gap-8 items-end mb-16">
             <div>
-               <div className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 mb-6">
-                  <span className="font-mono text-xs uppercase tracking-widest text-text-primary">Our DNA</span>
-               </div>
-               <h2 className="text-4xl lg:text-5xl font-heading font-bold text-white">
-                  Our journey, values <br /> and principles.
-               </h2>
+              <div className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 mb-6">
+                <span className="font-mono text-xs uppercase tracking-widest text-text-primary">Skills & Expertise</span>
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-heading font-bold text-white">
+                Technologies I build <GradientText variant="blue">with.</GradientText>
+              </h2>
             </div>
             <p className="text-text-secondary leading-relaxed max-w-md">
-               Discover the driving forces that shape our firm. Each principle reflects our commitment to excellence and your peace of mind.
+              A full-stack toolkit spanning frontend, backend, databases, and deployment — honed across production projects for real users.
             </p>
           </div>
 
-          {/* Grid Cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-             {values.map((item, index) => {
-               const Icon = item.icon
-               const isBlue = item.variant === "blue"
-               
-               return (
-                 <motion.div
-                   key={item.title}
-                   initial={{ opacity: 0, y: 30 }}
-                   whileInView={{ opacity: 1, y: 0 }}
-                   transition={{ delay: index * 0.1 }}
-                   viewport={{ once: true }}
-                   className={`
-                      relative p-8 rounded-3xl flex flex-col justify-between min-h-[320px] group transition-all duration-300
-                      ${isBlue 
-                        ? "bg-accent-blue border-transparent text-white shadow-lg shadow-accent-blue/20" 
-                        : "bg-bg-primary border border-white/5 hover:border-white/10 hover:bg-white/5"
-                      }
-                   `}
-                 >
-                    {/* Icon & Year */}
-                    <div className="flex justify-between items-start mb-auto">
-                       <div className={`
-                          w-12 h-12 rounded-full flex items-center justify-center
-                          ${isBlue ? "bg-white/20 text-white" : "bg-white/5 text-accent-cyan"}
-                       `}>
-                          <Icon className="w-6 h-6" />
-                       </div>
-                    </div>
-
-                    {/* Content */}
-                    <div>
-                        <span className={`block text-xs font-mono uppercase tracking-widest mb-3 ${isBlue ? "text-white/80" : "text-text-muted"}`}>
-                           {item.year}
-                        </span>
-                        <h3 className={`font-heading text-xl font-bold mb-3 ${isBlue ? "text-white" : "text-white"}`}>
-                           {item.title}
-                        </h3>
-                        <p className={`text-sm leading-relaxed ${isBlue ? "text-white/90" : "text-text-secondary"}`}>
-                           {item.description}
-                        </p>
-                    </div>
-                 </motion.div>
-               )
-             })}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { label: "Frontend", skills: frontendSkills, color: "text-accent-cyan", bg: "bg-accent-cyan/10" },
+              { label: "Backend", skills: backendSkills, color: "text-accent-blue", bg: "bg-accent-blue/10" },
+              { label: "Databases", skills: databaseSkills, color: "text-accent-purple", bg: "bg-accent-purple/10" },
+              { label: "Tools & Platforms", skills: toolSkills, color: "text-accent-green", bg: "bg-accent-green/10" },
+              { label: "Areas of Expertise", skills: expertiseAreas, color: "text-amber-400", bg: "bg-amber-400/10" },
+            ].map((group, index) => (
+              <motion.div
+                key={group.label}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="relative p-6 rounded-2xl bg-bg-secondary border border-border-subtle hover:border-border-visible transition-colors"
+              >
+                <span className={`block text-xs font-mono uppercase tracking-widest mb-4 ${group.color}`}>
+                  {group.label}
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {group.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className={`px-2.5 py-1 rounded-full text-xs font-medium text-text-primary border border-border-subtle ${group.bg}`}
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
           </div>
-
         </div>
       </section>
 
-      {/* Founder Section — E-E-A-T signal for AI search engines */}
-      <section className="section-padding section-light" id="founder">
+      {/* Values/Approach Grid */}
+      <section className="section-padding section-light">
+        <div className="container-custom">
+          <div className="grid lg:grid-cols-2 gap-8 items-end mb-16">
+            <div>
+              <div className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 mb-6">
+                <span className="font-mono text-xs uppercase tracking-widest text-text-primary">How I Think</span>
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-heading font-bold text-white">
+                Principles that shape <br />my work.
+              </h2>
+            </div>
+            <p className="text-text-secondary leading-relaxed max-w-md">
+              The values and convictions I bring to every project, client, and collaboration.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {values.map((item, index) => {
+              const Icon = item.icon
+              const isBlue = item.variant === "blue"
+
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className={`
+                    relative p-8 rounded-3xl flex flex-col justify-between min-h-[280px] group transition-all duration-300
+                    ${isBlue
+                      ? "bg-accent-blue border-transparent text-white shadow-lg shadow-accent-blue/20"
+                      : "bg-bg-primary border border-white/5 hover:border-white/10 hover:bg-white/5"
+                    }
+                  `}
+                >
+                  <div className="flex justify-between items-start mb-auto">
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${isBlue ? "bg-white/20 text-white" : "bg-white/5 text-accent-cyan"}`}>
+                      <Icon className="w-6 h-6" />
+                    </div>
+                  </div>
+                  <div>
+                    <span className={`block text-xs font-mono uppercase tracking-widest mb-3 ${isBlue ? "text-white/80" : "text-text-muted"}`}>
+                      {item.year}
+                    </span>
+                    <h3 className="font-heading text-xl font-bold mb-3 text-white">{item.title}</h3>
+                    <p className={`text-sm leading-relaxed ${isBlue ? "text-white/90" : "text-text-secondary"}`}>
+                      {item.description}
+                    </p>
+                  </div>
+                </motion.div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Experience Timeline */}
+      <section className="section-padding bg-bg-primary">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <div className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 mb-8">
-              <span className="font-mono text-xs uppercase tracking-widest text-text-primary">The Person Behind the Code</span>
+              <span className="font-mono text-xs uppercase tracking-widest text-text-primary">Professional Experience</span>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Left: Bio */}
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-              >
-                <h2 className="text-4xl lg:text-5xl font-heading font-bold text-white mb-6">
-                  Hi, I'm <GradientText variant="blue">Tevin Owino</GradientText>
-                </h2>
-                <p className="text-text-secondary leading-relaxed mb-4">
-                  I'm a full-stack software engineer based in Nairobi, Kenya, and the founder of Velion Consulting. I started this agency because I kept watching talented Kenyan business owners lose time, money, and sleep to software that didn't fit their reality.
-                </p>
-                <p className="text-text-secondary leading-relaxed mb-4">
-                  I personally oversee every project from the first discovery call to the final deployment. No account managers, no hand-offs to junior developers. When you hire Velion Consulting, you get me — and my full attention on your business.
-                </p>
-                <p className="text-text-secondary leading-relaxed mb-8">
-                  I've built platforms for NGOs, schools, farmers, and agencies across Kenya. Every project has taught me that the best software is the kind you forget is there — because it just works.
-                </p>
+            <h2 className="text-4xl lg:text-5xl font-heading font-bold text-white mb-12">
+              Where I've <GradientText variant="blue">built things.</GradientText>
+            </h2>
 
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { icon: Code2, label: "Full-Stack Engineer", detail: "Next.js, React, Firebase, Supabase" },
-                    { icon: Globe, label: "Based in Nairobi", detail: "Working with clients across Kenya" },
-                    { icon: Smartphone, label: "Mobile Developer", detail: "React Native for iOS & Android" },
-                    { icon: BookOpen, label: "Founded 2025", detail: "Built for Kenyan businesses" },
-                  ].map((item) => {
-                    const Icon = item.icon
-                    return (
-                      <div key={item.label} className="flex items-start gap-3 p-4 rounded-xl bg-bg-secondary border border-border-subtle">
-                        <Icon className="w-4 h-4 text-accent-cyan mt-0.5 shrink-0" />
-                        <div>
-                          <div className="text-sm font-medium text-text-primary">{item.label}</div>
-                          <div className="text-xs text-text-muted">{item.detail}</div>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </motion.div>
-
-              {/* Right: Photo placeholder + CTA */}
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="flex flex-col items-center gap-8"
-              >
-                <div className="relative w-64 h-64 lg:w-80 lg:h-80 rounded-3xl overflow-hidden border-2 border-accent-cyan/20">
-                  <Image
-                    src="/founder.jpeg"
-                    alt="Tevin Owino — Founder, Velion Consulting"
-                    fill
-                    sizes="320px"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-bg-primary/60 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="text-text-primary font-heading font-semibold text-sm">Tevin Owino</div>
-                    <div className="text-accent-cyan text-xs font-mono">Founder & Lead Engineer</div>
+            <div className="space-y-8">
+              {experience.map((job, index) => (
+                <motion.div
+                  key={job.company}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="relative p-6 lg:p-8 rounded-2xl bg-bg-secondary border border-border-subtle hover:border-accent-cyan/30 transition-colors"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+                    <div>
+                      <h3 className="font-heading font-bold text-lg text-text-primary">{job.role}</h3>
+                      <span className="text-accent-cyan font-medium text-sm">{job.company}</span>
+                    </div>
+                    <span className="px-3 py-1 rounded-full bg-bg-tertiary border border-border-subtle text-text-muted text-xs font-mono whitespace-nowrap self-start">
+                      {job.period}
+                    </span>
                   </div>
-                </div>
-
-                <div className="text-center">
-                  <p className="text-text-muted text-sm mb-4">Ready to build something great together?</p>
-                  <Link href="/contact">
-                    <button className="btn-primary">
-                      Book a Free Call
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </Link>
-                </div>
-              </motion.div>
+                  <ul className="space-y-2">
+                    {job.bullets.map((bullet) => (
+                      <li key={bullet} className="flex items-start gap-3 text-sm text-text-secondary">
+                        <CheckCircle2 className="w-4 h-4 text-accent-cyan shrink-0 mt-0.5" />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Education */}
+      <section className="section-padding section-light">
+        <div className="container-custom max-w-4xl">
+          <div className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 mb-8">
+            <span className="font-mono text-xs uppercase tracking-widest text-text-primary">Education</span>
+          </div>
+
+          <h2 className="text-4xl lg:text-5xl font-heading font-bold text-white mb-12">
+            Where I'm <GradientText variant="blue">still learning.</GradientText>
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              {
+                institution: "Open University of Kenya",
+                degree: "BSc Computer Science",
+                period: "September 2025 – July 2028 (In Progress)",
+                icon: GraduationCap,
+              },
+              {
+                institution: "GOMYCODE Kenya",
+                degree: "Full-Stack Web Development Bootcamp",
+                period: "July 2024 – January 2025",
+                icon: Code2,
+              },
+            ].map((edu) => {
+              const Icon = edu.icon
+              return (
+                <motion.div
+                  key={edu.institution}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="p-6 rounded-2xl bg-bg-secondary border border-border-subtle"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-accent-cyan/10 flex items-center justify-center shrink-0">
+                      <Icon className="w-6 h-6 text-accent-cyan" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-semibold text-text-primary mb-1">{edu.institution}</h3>
+                      <p className="text-accent-cyan text-sm font-medium mb-1">{edu.degree}</p>
+                      <p className="text-text-muted text-xs font-mono">{edu.period}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              )
+            })}
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-text-muted text-sm mb-4">Ready to build something great together?</p>
+            <Link href="/contact">
+              <button className="btn-primary">
+                Get in Touch
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </Link>
           </div>
         </div>
       </section>

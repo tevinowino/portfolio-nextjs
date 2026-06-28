@@ -3,26 +3,29 @@ import { Metadata } from "next"
 import AboutPageContent from "@/components/pages/about-page"
 
 export const metadata: Metadata = {
-  title: "About | Human-Centric Software Agency Kenya",
-  description: "Velion Consulting was founded to humanize tech. We build software that gives Kenyan business owners peace of mind. Meet the team behind the code.",
+  title: "About Tevin Owino | Full-Stack Software Engineer & Founder, Nairobi",
+  description: "Learn about Tevin Owino — full-stack software engineer, founder of Velion Consulting, and tech instructor based in Nairobi, Kenya. 3+ years building for Africa.",
+  alternates: {
+    canonical: "/about",
+  },
   openGraph: {
-    title: "About Velion Consulting | Kenya Software Agency",
-    description: "Founded in 2025 to bridge the gap between complex code and human peace of mind. Nairobi-based software agency building for Kenyan businesses.",
-    url: "https://velionconsulting.com/about",
+    title: "About Tevin Owino | Full-Stack Software Engineer & Founder, Nairobi",
+    description: "Full-stack software engineer, founder of Velion Consulting, and tech instructor based in Nairobi, Kenya. 3+ years building scalable products across Africa.",
+    url: "https://www.tevinowino.co.ke/about",
     images: [
       {
-        url: "/og-image.png",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "About Velion Consulting - Born to Humanize Tech",
+        alt: "Tevin Owino — Full-Stack Software Engineer & Founder",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "About Velion Consulting | Kenya Software Agency",
-    description: "Founded in 2025 to humanize tech for Kenyan businesses. Meet the team behind the code.",
-    images: ["/og-image.png"],
+    title: "About Tevin Owino | Full-Stack Software Engineer & Founder",
+    description: "3+ years building for Africa. Founder of Velion Consulting, tech instructor at Starehe Boys' Centre.",
+    images: ["/opengraph-image"],
   },
 }
 
@@ -30,8 +33,8 @@ const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://velionconsulting.com" },
-    { "@type": "ListItem", "position": 2, "name": "About", "item": "https://velionconsulting.com/about" },
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.tevinowino.co.ke" },
+    { "@type": "ListItem", "position": 2, "name": "About", "item": "https://www.tevinowino.co.ke/about" },
   ],
 }
 

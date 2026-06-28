@@ -2,7 +2,7 @@
 
 import { useRef } from "react"
 import { motion, useInView, useScroll, useTransform } from "framer-motion"
-import { GraduationCap, Factory, ShoppingCart, Building2, ArrowUpRight, ArrowRight } from "lucide-react"
+import { GraduationCap, Sprout, HeartPulse, Leaf, ArrowUpRight, ArrowRight } from "lucide-react"
 import { GradientText } from "@/components/ui/gradient-text"
 import Link from "next/link"
 import Image from "next/image"
@@ -10,38 +10,38 @@ import { SectionTransition } from "@/components/ui/section-transition"
 
 const solutions = [
   {
-    id: "education",
+    id: "edtech",
     icon: GraduationCap,
-    title: "Educational Harmony",
-    shortTitle: "Schools",
-    description: "We build digital ecosystems that manage exams, students, and parents seamlessly. Stop the paperwork chase.",
+    title: "EdTech & LMS",
+    shortTitle: "Education",
+    description: "Multi-tenant SaaS platforms, school management systems, and AI-powered learning tools built for Kenyan schools and institutions.",
     image: "https://plus.unsplash.com/premium_photo-1680807869780-e0876a6f3cd5?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     colSpan: "md:col-span-2",
   },
   {
-    id: "manufacturing",
-    icon: Factory,
-    title: "Operational Flow",
-    shortTitle: "Manufacturing",
-    description: "Manage stock, production, and sales in one unified system.",
-    image: "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&auto=format&fit=crop&q=80",
+    id: "agritech",
+    icon: Sprout,
+    title: "AgriTech & Mobile",
+    shortTitle: "AgriTech",
+    description: "Mobile-first farm management apps connecting Kenyan farmers with real-time market data and resources.",
+    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&auto=format&fit=crop&q=80",
     colSpan: "md:col-span-1",
   },
   {
-    id: "retail",
-    icon: ShoppingCart,
-    title: "Effortless Transactions",
-    shortTitle: "Retail",
-    description: "Optimized checkout and secure payments for growth.",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&auto=format&fit=crop&q=80",
+    id: "mental-health",
+    icon: HeartPulse,
+    title: "AI & Mental Wellness",
+    shortTitle: "AI Wellness",
+    description: "AI-native apps with empathetic companions, journaling tools, and personalized healing pathways.",
+    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&auto=format&fit=crop&q=80",
     colSpan: "md:col-span-1",
   },
   {
-    id: "corporate",
-    icon: Building2,
-    title: "Authority Presence",
-    shortTitle: "Corporate",
-    description: "Sleek, professional websites that position you as an industry leader.",
+    id: "climate",
+    icon: Leaf,
+    title: "Climate & Social Impact",
+    shortTitle: "Impact",
+    description: "Full-stack platforms for climate advocacy, NGOs, and community-driven storytelling — built for global audiences.",
     image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80",
     colSpan: "md:col-span-2",
   },
@@ -66,7 +66,7 @@ function SolutionCard({ solution, index, isInView }: {
       transition={{ duration: 0.3, delay: index * 0.05 }}
       className={`${solution.colSpan}`}
     >
-      <Link href="/contact" className="group relative block h-full w-full overflow-hidden rounded-3xl border border-white/10 bg-bg-secondary">
+      <Link href="/portfolio" className="group relative block h-full w-full overflow-hidden rounded-3xl border border-white/10 bg-bg-secondary">
         {/* Background Image — parallax layer */}
         <div className="absolute inset-0 overflow-hidden rounded-3xl">
           <motion.div style={{ y: imageY }} className="absolute inset-[-10%] will-change-transform">
@@ -116,11 +116,14 @@ function SolutionCard({ solution, index, isInView }: {
 export function SolutionSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const { scrollYProgress: sectionScroll } = useScroll({ target: ref, offset: ["start end", "end start"] })
+  const headerY = useTransform(sectionScroll, [0, 1], [25, -25])
 
   return (
     <section className="section-padding bg-bg-primary relative" ref={ref}>
       <div className="container-custom">
         {/* Header */}
+        <motion.div style={{ y: headerY }} className="will-change-transform">
         <motion.div
           className="text-center max-w-3xl mx-auto mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -128,15 +131,16 @@ export function SolutionSection() {
           transition={{ duration: 0.4 }}
         >
           <span className="inline-block font-mono text-xs uppercase tracking-widest text-accent-cyan mb-4">
-            Our Core Solutions
+            Areas I Work In
           </span>
           <h2 className="text-headline mb-4">
-            Systems Aligned With{" "}
-            <GradientText variant="blue">Your Goals</GradientText>
+            Building for{" "}
+            <GradientText variant="blue">Real Impact</GradientText>
           </h2>
           <p className="text-body">
-            We manifest our care through precision-engineered solutions designed to solve your specific frustrations.
+            I focus on domains where well-built software can change lives in a measurable way — from classroom to farm to clinic.
           </p>
+        </motion.div>
         </motion.div>
 
         {/* Bento Grid layout */}
@@ -153,13 +157,13 @@ export function SolutionSection() {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="text-center mt-16"
         >
-          <Link href="/contact">
+          <Link href="/portfolio">
             <motion.button
               className="btn-primary"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              Discuss Your Project
+              See My Projects
               <ArrowRight className="w-4 h-4" />
             </motion.button>
           </Link>

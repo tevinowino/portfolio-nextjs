@@ -1,7 +1,8 @@
 "use client"
 
 import { ArrowRight, ShieldCheck } from "lucide-react"
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion"
+import { useState, useEffect, useRef } from "react"
 import { GradientText } from "@/components/ui/gradient-text"
 import Link from "next/link"
 import dynamic from "next/dynamic"
@@ -18,9 +19,63 @@ const ShaderGradient = dynamic(
   { ssr: false }
 )
 
-export function HeroSection() {
+const WORDS = ["Full-Stack", "Frontend", "Founding"] as const
+
+function TypewriterWord() {
+  const prefersReducedMotion = useReducedMotion()
+  const [wordIdx, setWordIdx] = useState(0)
+  const [charCount, setCharCount] = useState(WORDS[0].length)
+  const [deleting, setDeleting] = useState(false)
+
+  useEffect(() => {
+    if (prefersReducedMotion) return
+    const word = WORDS[wordIdx]
+    if (!deleting) {
+      if (charCount < word.length) {
+        const t = setTimeout(() => setCharCount((c) => c + 1), 80)
+        return () => clearTimeout(t)
+      } else {
+        const t = setTimeout(() => setDeleting(true), 1800)
+        return () => clearTimeout(t)
+      }
+    } else {
+      if (charCount > 0) {
+        const t = setTimeout(() => setCharCount((c) => c - 1), 48)
+        return () => clearTimeout(t)
+      } else {
+        setDeleting(false)
+        setWordIdx((i) => (i + 1) % WORDS.length)
+      }
+    }
+  }, [wordIdx, charCount, deleting, prefersReducedMotion])
+
+  const displayed = prefersReducedMotion ? WORDS[0] : WORDS[wordIdx].slice(0, charCount)
+
   return (
-    <section className="relative isolate min-h-screen flex items-center justify-center overflow-hidden pb-30">
+    <>
+      <GradientText variant="animated">{displayed}</GradientText>
+      {!prefersReducedMotion && (
+        <motion.span
+          aria-hidden
+          className="inline-block w-[2px] h-[0.8em] align-middle rounded-sm bg-accent-cyan ml-0.5"
+          animate={{ opacity: [1, 1, 0, 0] }}
+          transition={{ duration: 0.9, repeat: Infinity, times: [0, 0.45, 0.5, 1], ease: "linear" }}
+        />
+      )}
+    </>
+  )
+}
+
+export function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const prefersReducedMotion = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] })
+  const contentY = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [0, -70])
+  const orb1Y = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [0, -110])
+  const orb2Y = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [30, -80])
+
+  return (
+    <section ref={sectionRef} className="relative isolate min-h-screen flex items-center justify-center overflow-hidden pb-30">
       {/* Background backup color/gradient behind the canvas */}
       <div className="absolute inset-0 bg-linear-to-br from-bg-primary to-bg-bg-secondary -z-20" />
 
@@ -64,9 +119,20 @@ export function HeroSection() {
         </ShaderGradientCanvas>
       </div>
 
+      {/* Parallax ambient orbs — above ShaderGradient, below text */}
+      <motion.div
+        style={{ y: orb1Y }}
+        className="pointer-events-none absolute top-1/4 left-[8%] w-[480px] h-[480px] bg-accent-cyan/6 rounded-full blur-[100px] will-change-transform"
+      />
+      <motion.div
+        style={{ y: orb2Y }}
+        className="pointer-events-none absolute bottom-1/3 right-[8%] w-80 h-80 bg-accent-blue/8 rounded-full blur-[80px] will-change-transform"
+      />
+
       <div className="container-custom relative z-10 pt-24 pb-16 md:pt-32 md:pb-24">
         <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
-          {/* Content */}
+          {/* Content — parallax lift on scroll-out */}
+          <motion.div style={{ y: contentY }} className="w-full will-change-transform">
           <motion.div
             className="space-y-8 text-center flex flex-col items-center justify-center w-full"
             initial={{ opacity: 0, y: 40 }}
@@ -83,12 +149,10 @@ export function HeroSection() {
 
             {/* Headline */}
             <h1 className="text-display">
-              We Build{" "}
-              <GradientText variant="animated">
-                High-Performance
-              </GradientText>
+              Hi, I'm Tevin —{" "}
+              <TypewriterWord />
               <br className="hidden sm:block" />
-              Digital Systems
+              Software Engineer
             </h1>
 
             {/* Subheadline */}
@@ -98,10 +162,8 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
-              Stunning Websites. Custom Software. Guaranteed Growth.
-              From lead-generating sites to bespoke software platforms, we build tools that scale your business.
-              Fast. Reliable. Results-Driven.
-              Our Promise: If it doesn't work, we'll rebuild it from the ground up.
+              I ship production-grade software that real users depend on — from EdTech platforms to AI-powered apps.
+              3+ years building across the full stack. Open to engineering roles.
             </motion.p>
 
             {/* CTAs */}
@@ -111,29 +173,30 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.25 }}
             >
-              <Link href="/contact">
+              <Link href="/portfolio">
                 <motion.button
                   className="btn-primary text-base px-8 py-4"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Book a Free Call
+                  View My Work
                   <ArrowRight className="w-5 h-5" />
                 </motion.button>
               </Link>
 
-              <Link href="#why">
+              <Link href="/contact">
                 <motion.button
                   className="btn-secondary text-base px-8 py-4"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <ShieldCheck className="w-4 h-4" />
-                  Why Velion
+                  Work With Me
                 </motion.button>
               </Link>
             </motion.div>
 
+          </motion.div>
           </motion.div>
         </div>
       </div>

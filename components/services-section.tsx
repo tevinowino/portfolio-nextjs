@@ -14,6 +14,7 @@ import {
   type LucideIcon,
 } from "lucide-react"
 import { motion, useInView, useReducedMotion } from "framer-motion"
+import Image from "next/image"
 import { useRef, useState, type ReactNode } from "react"
 import Link from "next/link"
 import { SectionTransition } from "@/components/ui/section-transition"
@@ -368,16 +369,17 @@ function TechMap({ active }: { active: boolean }) {
             }}
           />
           {/* logo plate */}
-          <div className="tm-squircle relative flex h-full w-full items-center justify-center overflow-hidden rounded-[1.75rem] bg-[#1B2A41] p-4 shadow-2xl ring-1 ring-white/10 transition-transform duration-300 group-hover:scale-105">
+          <div className="tm-squircle relative flex h-full w-full items-center justify-center overflow-hidden rounded-[1.75rem] bg-[#1B2A41] p-3 shadow-2xl ring-1 ring-white/10 transition-transform duration-300 group-hover:scale-105">
             <div
               className="pointer-events-none absolute inset-0"
               style={{ background: "radial-gradient(circle at 50% 30%, rgba(34,211,238,0.22), transparent 70%)" }}
             />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="new-logos/logo-icon-no-bg.png"
-              alt="Velion"
-              className="relative z-10 h-20 w-20 object-contain drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]"
+            <Image
+              src="/icon.png"
+              alt="Tevin Owino"
+              width={68}
+              height={68}
+              className="relative z-10 object-contain drop-shadow-[0_0_12px_rgba(34,211,238,0.5)]"
             />
           </div>
         </motion.div>
@@ -498,19 +500,18 @@ export function ServicesSection() {
           >
             <span className="mb-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-accent-cyan">
               <span className="h-px w-6 bg-accent-cyan/60" />
-              The Velion Stack
+              Stack & Tools
             </span>
             <h2 className="text-headline mb-6">
-              One System, <br />
-              <span className="text-text-muted">Fully Orchestrated</span>
+              Technologies I <br />
+              <span className="text-text-muted">Build With</span>
             </h2>
             <p className="text-body mb-8">
-              Design, build, host, and grow — wired into a single platform. Every layer talks to the next, so your
-              digital engine runs without the seams.
+              A full-stack toolkit spanning frontend, backend, databases, and deployment — wired together to build reliable, scalable software.
             </p>
-            <Link href="/contact">
+            <Link href="/portfolio">
               <motion.button className="btn-primary" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                Get a Quote
+                See Projects
                 <ArrowRight className="h-4 w-4" />
               </motion.button>
             </Link>
@@ -526,9 +527,9 @@ export function ServicesSection() {
             </div>
           </motion.div>
 
-          {/* mobile: cards */}
-          <div className="lg:col-span-8 lg:hidden">
-            <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+          {/* mobile only: cards (hidden on sm+) */}
+          <div className="sm:hidden">
+            <div className="grid gap-4">
               {services.map((service, index) => {
                 const Icon = service.icon
                 return (
@@ -571,8 +572,8 @@ export function ServicesSection() {
             </div>
           </div>
 
-          {/* desktop: orchestration map */}
-          <div className="relative hidden h-[580px] overflow-hidden rounded-3xl lg:col-span-8 lg:block">
+          {/* orchestration map — visible sm+ */}
+          <div className="relative hidden sm:block h-[420px] md:h-[500px] overflow-hidden rounded-3xl lg:col-span-8 lg:h-[580px]">
             <TechMap active={isInView} />
           </div>
         </div>
